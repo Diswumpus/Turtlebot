@@ -1,6 +1,15 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
-const prefix = "!";
+// at the beginning of your code:
+const client = new Discord.Client({
+    presence: {
+     status: 'online',
+     activity: {
+      name: '-help',
+      type: 'playing',
+     },
+    },
+   });
+const prefix = "-";
 const roleName = '2 Month Supporter';
 
 
@@ -38,5 +47,18 @@ client.on('message', message => {
 
     //}
 });
+client.on('message', message => {
+    if(message.content.startsWith(`${prefix}help`)){
+        let whoisEmbed = new Discord.MessageEmbed()
+        .setTitle(`Commands`)
+        .setColor("AQUA")
+//        .setDescription(`Basic`)
+            .addField("Basic", "None")
+        .setFooter("Turtlebot")
+        message.channel.send(whoisEmbed)
+    
 
+    }
+});
 client.login('ODMxNzEyNjI2NjI2MTM0MDM3.YHZOvg.GeF2mztB7iDGvqpP14YTGEEGSmI');
+//client.user.setActivity('-help');
