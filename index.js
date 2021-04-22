@@ -4,12 +4,12 @@ const client = new Discord.Client({
     presence: {
      status: 'online',
      activity: {
-      name: '-help',
-      type: 'playing',
+      name: 'Your server!.help .setup',
+      type: 'WATCHING',
      },
     },
    });
-const prefix = "-";
+const prefix = ".";
 const roleName = '2 Month Supporter';
 
 
