@@ -10,7 +10,6 @@ const client = new Discord.Client({
      },
     },
    });
-const prefix = ",";
 const roleName = '2 Month Supporter';
 
 
@@ -31,7 +30,7 @@ client.on('message', message => {
         }
         var joinedSince = new Date() - Member.joinedAt
         let differentDays = Math.round(joinedSince / (1000 * 3600 * 24));
-        if (differentDays >= 0 && !Member.roles.cache.some(role => role.name === roleName))
+        if (differentDays >= 60 && !Member.roles.cache.some(role => role.name === roleName))
         {
             const role = message.guild.roles.cache.find(role => role.name === roleName);
             Member.roles.add(role);
@@ -50,7 +49,7 @@ client.on('message', message => {
     //}
 });
 client.on('message', message => {
-    if(message.content.startsWith(`${prefix}help`)){
+    if(message.content.startsWith(`${config.prefix}help`)){
         let whoisEmbed = new Discord.MessageEmbed()
         .setTitle(`Commands`)
         .setColor("AQUA")
@@ -63,7 +62,7 @@ client.on('message', message => {
     }
 });
 client.on('message', message => {
-    if(message.content.startsWith(`${prefix}test`)){
+    if(message.content.startsWith(`${config.prefix}test`)){
         let whoisEmbed = new Discord.MessageEmbed()
         .setTitle(`Testing`)
         .setColor("AQUA")
@@ -75,6 +74,13 @@ client.on('message', message => {
 
     }
 });
-
+client.on('guildMemberAdd', member => { //This is creating an event saying when a member joins the server...
+    
+    const channel = member.guild.channels.cache.find(ch => ch.name.includes("welcome")); //** This is telling the script which server to send teh message in**\\
+    
+    if (!channel) return;
+   
+    channel.send(`Welcome to Murder Mystery Remastered, please read the rules and have a great time! Say !verify to begin! ${member}`);
+  }); // That up ^here^ tells the bot what channel to send the message in!
 client.login(config.token);
 //client.user.setActivity('-help');
