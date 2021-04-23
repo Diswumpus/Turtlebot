@@ -1,15 +1,16 @@
 const Discord = require('discord.js');
+const config = require('./config.json');
 // at the beginning of your code:
 const client = new Discord.Client({
     presence: {
      status: 'online',
      activity: {
-      name: 'Your server!.help .setup',
+      name: 'Your server! .help  .setup',
       type: 'WATCHING',
      },
     },
    });
-const prefix = ".";
+const prefix = ",";
 const roleName = '2 Month Supporter';
 
 
@@ -30,15 +31,16 @@ client.on('message', message => {
         }
         var joinedSince = new Date() - Member.joinedAt
         let differentDays = Math.round(joinedSince / (1000 * 3600 * 24));
-        if (differentDays >= 60 && !Member.roles.cache.some(role => role.name === roleName))
+        if (differentDays >= 0 && !Member.roles.cache.some(role => role.name === roleName))
         {
             const role = message.guild.roles.cache.find(role => role.name === roleName);
             Member.roles.add(role);
+            const flyEmoji = client.emojis.cache.get('831584687498461274')
             let whoisEmbed = new Discord.MessageEmbed()
             .setTitle(`Hey ${Member.displayName}!`)
-            .setColor("PURPLE")
-            .setDescription(`you are getting upgraded`)
-            .addField("Joined since", differentDays)
+            .setColor("AQUA")
+            .setDescription(`You are getting the '**Supporter role**' ${flyEmoji}`)
+            .addField(`${Member.displayName} joined since`, differentDays)
 //            .addField("Joined at", Member.joinedAt)
 //            .addField("Status", status)
             .setFooter("Turtlebot")
@@ -60,5 +62,19 @@ client.on('message', message => {
 
     }
 });
-client.login('ODMxNzEyNjI2NjI2MTM0MDM3.YHZOvg.GeF2mztB7iDGvqpP14YTGEEGSmI');
+client.on('message', message => {
+    if(message.content.startsWith(`${prefix}test`)){
+        let whoisEmbed = new Discord.MessageEmbed()
+        .setTitle(`Testing`)
+        .setColor("AQUA")
+//        .setDescription(`<:Myemoji:829858304297271306>`)
+            .addField("Is it working?", "<:Myemoji:829858304297271306>")
+        .setFooter("Turtlebot :)")
+        message.channel.send(whoisEmbed)
+    
+
+    }
+});
+
+client.login(config.token);
 //client.user.setActivity('-help');
