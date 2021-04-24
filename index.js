@@ -5,7 +5,7 @@ const client = new Discord.Client({
     presence: {
         status: 'online',
         activity: {
-            name: `Your server! ${config.prefix}help Try saying 'Hi'`,
+            name: `Your server! ${config.prefix}help`,
             type: 'WATCHING',
         },
     },
