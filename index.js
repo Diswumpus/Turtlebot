@@ -136,6 +136,18 @@ client.on('message', message => {
     if (message.content === (`Well good night everyone`)) {
         message.react('580596349284777984');
     }
+    if (message.content === (`well good night everyone`)) {
+        message.react('580596349284777984');
+    }
+    if (message.content === (`well goodnight everyone`)) {
+        message.react('580596349284777984');
+    }
+    if (message.content === (`well Goodnight everyone`)) {
+        message.react('580596349284777984');
+    }
+    if (message.content === (`well Good night everyone`)) {
+        message.react('580596349284777984');
+    }
 
 
     if (message.content.startsWith(`${config.prefix}help`)) {
