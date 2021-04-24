@@ -88,6 +88,24 @@ client.on('message', message => {
     if (message.content === (`Yay`)) {
         message.react('831584687498461274');
     }
+    if (message.content === (`Hi`)) {
+        message.react('835250126087389194');
+    }
+    if (message.content === (`hi`)) {
+        message.react('835250126087389194');
+    }
+    if (message.content === (`Hello`)) {
+        message.react('835250126087389194');
+    }
+    if (message.content === (`hello`)) {
+        message.react('835250126087389194');
+    }
+    if (message.content === (`hey`)) {
+        message.react('835250126087389194');
+    }
+    if (message.content === (`Hey`)) {
+        message.react('835250126087389194');
+    }
     if (message.content === (`Good morning everyone`)) {
         message.react('835250126087389194');
     }
@@ -112,6 +130,14 @@ client.on('message', message => {
     if (message.content === (`good night everyone`)) {
         message.react('580596349284777984');
     }
+    if (message.content === (`Well goodnight everyone`)) {
+        message.react('580596349284777984');
+    }
+    if (message.content === (`Well good night everyone`)) {
+        message.react('580596349284777984');
+    }
+
+
     if (message.content.startsWith(`${config.prefix}help`)) {
         let whoisEmbed = new Discord.MessageEmbed()
             .setTitle(`Commands`)
@@ -128,10 +154,10 @@ client.on('message', message => {
 client.on('guildMemberAdd', member => { //This is creating an event saying when a member joins the server...
 
     const channel = member.guild.channels.cache.find(ch => ch.name.includes("welcome")); //** This is telling the script which server to send teh message in**\\
-
+    const serverName = member.guild.name
     if (!channel) return;
     var blob1 = client.emojis.cache.get('835250126087389194')
-    channel.send(`Welcome to Turtlepaw's Server ${blob1}, please read the <#824406474804953109>, hope you have a pleasant stay ${member}! Say ${config.prefix}verify to begin! ${member}`);
+    channel.send(`Welcome to ${serverName} ${blob1}, please read the <#824406474804953109>, hope you have a pleasant stay ${member}! Say ${config.prefix}verify to begin! ${member}`);
 }); // That up ^here^ tells the bot what channel to send the message in!
 client.login(config.token);
 //client.user.setActivity('-help');
