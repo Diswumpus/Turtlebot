@@ -52,10 +52,11 @@ client.on('message', message => {
         Member.roles.add(role);
         const partyblob = client.emojis.cache.find(em => em.name === "Party_blob");
         const turtlebot = client.emojis.cache.find(em => em.name === "Turtlebot");
+        const verify = client.emojis.cache.find(em => em.name === "verify");
         let whoisEmbed = new Discord.MessageEmbed()
             .setTitle(`Hey ${Member.displayName}!`)
             .setColor("AQUA")
-            .setDescription(`You are getting the '**Verified Member**' ${partyblob}`) 
+            .setDescription(`You are getting the **Verified Member** role!${verify}`) 
             .addField(`${Member.displayName} joined since`, differentDays)
             //            .addField("Joined at", Member.joinedAt)
             //            .addField("Status", status)
@@ -76,76 +77,67 @@ client.on('message', message => {
         // send back "Pong." to the channel the message was sent in
         message.channel.send('Pong.');
     }
-    if (message.content === (`OMG`)) {
+    if (message.content.toLowerCase().includes(`omg`)) {
         message.react('833491346018271253');
     }
-    if (message.content === (`Omg`)) {
+    if (message.content.toLowerCase().includes(`Omg`)) {
         message.react('833491346018271253');
     }
-    if (message.content === (`Yay!`)) {
+    if (message.content.toLowerCase().includes(`Yay!`)) {
         message.react('831584687498461274');
     }
-    if (message.content === (`Yay`)) {
-        message.react('831584687498461274');
-    }
-    if (message.content === (`Hi`)) {
+    if (message.content.toLowerCase().includes(`hi`)) {
         message.react('835250126087389194');
     }
-    if (message.content === (`hi`)) {
+    if (message.content.toLowerCase().includes(`hello`)) {
         message.react('835250126087389194');
     }
-    if (message.content === (`Hello`)) {
+    if (message.content.toLowerCase().includes(`hey`)) {
         message.react('835250126087389194');
     }
-    if (message.content === (`hello`)) {
+    if (message.content.toLowerCase().includes(`Hey`)) {
         message.react('835250126087389194');
     }
-    if (message.content === (`hey`)) {
+    if (message.content.toLowerCase().includes(`Good morning everyone`)) {
         message.react('835250126087389194');
     }
-    if (message.content === (`Hey`)) {
+    if (message.content.toLowerCase().includes(`good morning everyone`)) {
         message.react('835250126087389194');
     }
-    if (message.content === (`Good morning everyone`)) {
+    if (message.content.toLowerCase().includes(`Goodmorning everyone`)) {
         message.react('835250126087389194');
     }
-    if (message.content === (`good morning everyone`)) {
+    if (message.content.toLowerCase().includes(`goodmorning everyone`)) {
         message.react('835250126087389194');
     }
-    if (message.content === (`Goodmorning everyone`)) {
-        message.react('835250126087389194');
-    }
-    if (message.content === (`goodmorning everyone`)) {
-        message.react('835250126087389194');
-    }
-    if (message.content === (`Goodnight everyone`)) {
+    if (message.content.toLowerCase().includes(`Goodnight everyone`)) {
         message.react('580596349284777984');
     }
-    if (message.content === (`goodnight everyone`)) {
+    if (message.content.toLowerCase().includes(`goodnight everyone`)) {
         message.react('580596349284777984');
     }
-    if (message.content === (`Good night everyone`)) {
+    if (message.content.toLowerCase().includes(`Good night everyone`)) {
         message.react('580596349284777984');
     }
-    if (message.content === (`good night everyone`)) {
+    if (message.content.toLowerCase().includes(`good night everyone`)) {
         message.react('580596349284777984');
     }
-    if (message.content === (`Well goodnight everyone`)) {
+    if (message.content.toLowerCase().includes(`Well goodnight everyone`)) {
         message.react('580596349284777984');
     }
-    if (message.content === (`Well good night everyone`)) {
+    if (message.content.toLowerCase().includes(`Well good night everyone`)) {
         message.react('580596349284777984');
     }
-    if (message.content === (`well good night everyone`)) {
+    if (message.content.toLowerCase().includes(`well good night everyone`)) {
         message.react('580596349284777984');
     }
-    if (message.content === (`well goodnight everyone`)) {
+    if (message.content.toLowerCase().includes(`well goodnight everyone`)) {
         message.react('580596349284777984');
     }
-    if (message.content === (`well Goodnight everyone`)) {
+    if (message.content.toLowerCase().includes(`well Goodnight everyone`)) {
         message.react('580596349284777984');
     }
-    if (message.content === (`well Good night everyone`)) {
+    if (message.content.toLowerCase().includes(`well Good night everyone`)) {
         message.react('580596349284777984');
     }
 
