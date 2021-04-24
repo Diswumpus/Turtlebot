@@ -56,7 +56,7 @@ client.on('message', message => {
         let whoisEmbed = new Discord.MessageEmbed()
             .setTitle(`Hey ${Member.displayName}!`)
             .setColor("AQUA")
-            .setDescription(`You are getting the **Verified Member** role!${verify}`) 
+            .setDescription(`You are getting the **Verified Member** role! ${verify}`) 
             .addField(`${Member.displayName} joined since`, differentDays)
             //            .addField("Joined at", Member.joinedAt)
             //            .addField("Status", status)
