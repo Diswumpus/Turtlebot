@@ -1,9 +1,11 @@
 const verifyRole = 'Verified Member';
+const Discord = require('discord.js');
 
 module.exports = {
 	name: 'verify',
-	description: 'Verify',
+	description: 'Verifies the author of the message',
 	execute(message, Member, args) {
+        var client = message.client;
         if (!Member.roles.cache.some(role => role.name === verifyRole)) {
             const role = message.guild.roles.cache.find(role => role.name === verifyRole);
             Member.roles.add(role);
@@ -14,7 +16,7 @@ module.exports = {
                 .setTitle(`Hey ${Member.displayName}!`)
                 .setColor("AQUA")
                 .setDescription(`You are getting the **Verified Member** role! ${verify}`) 
-                .addField(`${Member.displayName} joined since`, differentDays)
+                .addField(`${Member.displayName} joined`, `${message.differentDays} days ago`)
                 //            .addField("Joined at", Member.joinedAt)
                 //            .addField("Status", status)
                 .setFooter(`Turtlebot`, turtlebot.url)

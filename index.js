@@ -48,6 +48,15 @@ client.on('message', message => {
         status = Member.presence.status
     }
 
+    if (status == "dnd") {
+        var status = "Do not Disturb"
+    }
+    if (Member) {
+        var joinedSince = new Date() - Member.joinedAt
+        differentDays = Math.round(joinedSince / (1000 * 3600 * 24));
+    }
+    message.differentDays = differentDays;    
+
     if (message.content.startsWith(config.prefix) && !message.author.bot) {
         const args = message.content.slice(config.prefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
@@ -62,13 +71,7 @@ client.on('message', message => {
         }
     }
 
-    if (status == "dnd") {
-        var status = "Do not Disturb"
-    }
-    if (Member) {
-        var joinedSince = new Date() - Member.joinedAt
-        differentDays = Math.round(joinedSince / (1000 * 3600 * 24));
-    }
+
     if (differentDays >= 60 && Member && !Member.roles.cache.some(role => role.name === roleName)) {
         const role = message.guild.roles.cache.find(role => role.name === roleName);
         Member.roles.add(role);
@@ -77,7 +80,7 @@ client.on('message', message => {
             .setTitle(`Hey ${Member.displayName}!`)
             .setColor("AQUA")
             .setDescription(`You are getting the '**Supporter role**' ${flyEmoji}`)
-            .addField(`${Member.displayName} joined since`, differentDays)
+            .addField(`${Member.displayName} joined`, `${message.differentDays} days ago`)
             //            .addField("Joined at", Member.joinedAt)
             //            .addField("Status", status)
             .setFooter("Turtlebot")
