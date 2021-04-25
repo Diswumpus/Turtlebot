@@ -1,5 +1,10 @@
 const Discord = require('discord.js');
 const config = require('./config.json');
+const fs = require('fs');
+
+
+//const keyv = new Keyv('sqlite:react.sqlite');
+//keyv.on('error', err => console.error('Keyv connection error:', err));
 // at the beginning of your code:
 const client = new Discord.Client({
     presence: {
@@ -17,21 +22,54 @@ client.once('ready', () => {
     console.log('Ready!');
 });
 
-const verifyRole = 'Verified Member';
+client.commands = new Discord.Collection();
+client.config = config;
+
+const commandFiles = fs.readdirSync('./cmds').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+    const command = require(`./cmds/${file}`);
+    console.log(`loading cmds/${file}`);
+    // set a new item in the Collection
+    // with the key as the command name and the value as the exported module
+    client.commands.set(command.name, command);
+}
 
 client.on('message', message => {
     //if(message.content.startsWith(`${prefix}tpwhois`)){
-    var Member = message.mentions.members.first()
-    if (!Member) {
-        var Member = message.member
+    var Member;
+    var status;
+    var differentDays = 0;
+    if (message.mentions.members) {
+        Member = message.mentions.members.first()
+        if (!Member) {
+            Member = message.member
+        }
+        status = Member.presence.status
     }
-    var status = Member.presence.status
+
+    if (message.content.startsWith(config.prefix) && !message.author.bot) {
+        const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+        const commandName = args.shift().toLowerCase();
+
+        const command = client.commands.get(commandName);
+
+        try {
+            command.execute(message, Member, args);
+        } catch (error) {
+            console.error(error);
+            message.reply("sorry I'm not feeling well - I think it is the pizza from last night");
+        }
+    }
+
     if (status == "dnd") {
         var status = "Do not Disturb"
     }
-    var joinedSince = new Date() - Member.joinedAt
-    let differentDays = Math.round(joinedSince / (1000 * 3600 * 24));
-    if (differentDays >= 60 && !Member.roles.cache.some(role => role.name === roleName)) {
+    if (Member) {
+        var joinedSince = new Date() - Member.joinedAt
+        differentDays = Math.round(joinedSince / (1000 * 3600 * 24));
+    }
+    if (differentDays >= 60 && Member && !Member.roles.cache.some(role => role.name === roleName)) {
         const role = message.guild.roles.cache.find(role => role.name === roleName);
         Member.roles.add(role);
         const flyEmoji = client.emojis.cache.get('831584687498461274')
@@ -46,33 +84,6 @@ client.on('message', message => {
         message.channel.send(whoisEmbed)
     }
 
-    
-    if (message.content.startsWith(`${config.prefix}verify`) && !Member.roles.cache.some(role => role.name === verifyRole)) {
-        const role = message.guild.roles.cache.find(role => role.name === verifyRole);
-        Member.roles.add(role);
-        const partyblob = client.emojis.cache.find(em => em.name === "Party_blob");
-        const turtlebot = client.emojis.cache.find(em => em.name === "Turtlebot");
-        const verify = client.emojis.cache.find(em => em.name === "verify");
-        let whoisEmbed = new Discord.MessageEmbed()
-            .setTitle(`Hey ${Member.displayName}!`)
-            .setColor("AQUA")
-            .setDescription(`You are getting the **Verified Member** role! ${verify}`) 
-            .addField(`${Member.displayName} joined since`, differentDays)
-            //            .addField("Joined at", Member.joinedAt)
-            //            .addField("Status", status)
-            .setFooter(`Turtlebot`, turtlebot.url)
-        message.channel.send(whoisEmbed)
-    }
-
-    if (message.content.startsWith(`${config.prefix}test`)) {
-        let whoisEmbed = new Discord.MessageEmbed()
-            .setTitle(`Testing`)
-            .setColor("AQUA")
-            //        .setDescription(`<:Myemoji:829858304297271306>`)
-            .addField("Is it working?", "<:Myemoji:829858304297271306>")
-            .setFooter("Turtlebot :)")
-        message.channel.send(whoisEmbed)
-    }
     if (message.content === (`${config.prefix}ping`)) {
         // send back "Pong." to the channel the message was sent in
         message.channel.send('Pong.');
@@ -142,17 +153,7 @@ client.on('message', message => {
     }
 
 
-    if (message.content.startsWith(`${config.prefix}help`)) {
-        let whoisEmbed = new Discord.MessageEmbed()
-            .setTitle(`Commands`)
-            .setColor("AQUA")
-            //        .setDescription(`Basic`)
-            .addField("Basic", "None")
-            .setFooter("Turtlebot")
-        message.channel.send(whoisEmbed)
 
-
-    }
 });
 
 client.on('guildMemberAdd', member => { //This is creating an event saying when a member joins the server...
