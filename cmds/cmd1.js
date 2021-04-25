@@ -1,18 +1,18 @@
 const Discord = require('discord.js');
 
 module.exports = {
-    name: 'tp',
-    description: 'A blanc cmd',
+    name: 'bp',
+    description: 'ccd',
     execute(message, Member, args) {
-        let whoisEmbed = new Discord.MessageEmbed()
-        const tp = client.emojis.cache.get('835906388776583248')
-            .setTitle(`Tp!!`)
+        const blobsc = message.client.emojis.cache.find(em => em.name === "blobscream");
+        const turtlebot = message.client.emojis.cache.find(em => em.name === "Turtlebot");
+        const botminus = message.client.emojis.cache.find(em => em.name === "aBot_minus");
+        let tpEmbed = new Discord.MessageEmbed()
+            .setTitle(`Tp!`)
             .setColor("AQUA")
             //        .setDescription(`${emojiname}`)
-            .addField(`Tppppppp!", "${tp}`)
-            .setFooter(`Turtlebot`, turtlebot.url)
-        message.channel.send(whoisEmbed);
+            .addField(`Tppppp", "${blobsc}`)
+            .setFooter(`Turtlebot. This command shall never be used! ${botminus}`, turtlebot.url)
+        message.channel.send(tpEmbed);
     },
-};
-
-    
+}; 
