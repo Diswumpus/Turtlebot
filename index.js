@@ -27,6 +27,7 @@ client.config = config;
 
 const commandFiles = fs.readdirSync('./cmds').filter(file => file.endsWith('.js'));
 
+// Here we load all the commands into client.commands
 for (const file of commandFiles) {
     const command = require(`./cmds/${file}`);
     console.log(`loading cmds/${file}`);
@@ -35,6 +36,7 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
+// Client events
 client.on('message', message => {
     //if(message.content.startsWith(`${prefix}tpwhois`)){
     var Member;
@@ -55,19 +57,23 @@ client.on('message', message => {
         var joinedSince = new Date() - Member.joinedAt
         differentDays = Math.round(joinedSince / (1000 * 3600 * 24));
     }
-    message.differentDays = differentDays;    
+    message.differentDays = differentDays;
 
     if (message.content.startsWith(config.prefix) && !message.author.bot) {
         const args = message.content.slice(config.prefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
 
         const command = client.commands.get(commandName);
-
-        try {
-            command.execute(message, Member, args);
-        } catch (error) {
-            console.error(error);
-            message.reply("sorry I'm not feeling well - I think it is the pizza from last night");
+        if (!command) {
+            message.reply(`sorry bud - not sure what you are asking for... what is '${commandName}'???`);
+        }
+        else {
+            try {
+                command.execute(message, Member, args);
+            } catch (error) {
+                console.error(error);
+                message.reply("sorry I'm not feeling well - I think it is the pizza from last night");
+            }
         }
     }
 
