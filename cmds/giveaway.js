@@ -29,6 +29,7 @@ module.exports = {
       .setDescription(
         `${message.author} is hosting a giveaway for **${prize}!**`
       )
+      .setFooter("React to join the giveaway")
       .setTimestamp(Date.now() + ms(args[0]))
       .setColor(`AQUA`);
     let m = await channel.send(Embed);
