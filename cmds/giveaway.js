@@ -25,12 +25,12 @@ module.exports = {
     if (!prize) return message.channel.send(`No prize specified!`);
     message.channel.send(`*Giveaway created in ${channel}*`);
     let Embed = new MessageEmbed()
-      .setTitle(`New giveaway!`)
+      .setTitle(`${prize}`)
       .setDescription(
-        `The user ${message.author} is hosting a giveaway for the prize of **${prize}**`
+        `${message.author} is hosting a giveaway for **${prize}!**`
       )
       .setTimestamp(Date.now() + ms(args[0]))
-      .setColor(`BLUE`);
+      .setColor(`AQUA`);
     let m = await channel.send(Embed);
     m.react("🎉");
     setTimeout(() => {
@@ -40,13 +40,13 @@ module.exports = {
           `Not enough people reacted for me to start draw a winner!`
         );
       }
-
+      const gift = message.client.emojis.cache.find(em => em.name === "ablobgift");
       let winner = m.reactions.cache
         .get("🎉")
         .users.cache.filter((u) => !u.bot)
         .random();
       channel.send(
-        `Congratulations ${winner}! You won ${prize}!`
+        `Congratulations ${winner}! You won ${prize}! ${gift}`
       );
     }, ms(args[0]));
   },
