@@ -1,5 +1,4 @@
 const { MessageEmbed } = require("discord.js");
-const ms = require("ms");
 module.exports = {
   name: "giveaway",
   description: "Create a simple giveaway",
