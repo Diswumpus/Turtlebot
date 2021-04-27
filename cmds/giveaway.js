@@ -30,19 +30,19 @@ module.exports = {
         `The user ${message.author} is hosting a giveaway for the prize of **${prize}**`
       )
       .setTimestamp(Date.now() + ms(args[0]))
-      .setColor(`AQUA`);
+      .setColor(`BLUE`);
     let m = await channel.send(Embed);
-    m.react("836423414419161138");
+    m.react("🎉");
     setTimeout(() => {
-      if (m.reactions.cache.get("836423414419161138").count <= 1) {
-        message.channel.send(`Reactions: ${m.reactions.cache.get("836423414419161138").count}`);
+      if (m.reactions.cache.get("🎉").count <= 1) {
+        message.channel.send(`Reactions: ${m.reactions.cache.get("🎉").count}`);
         return message.channel.send(
           `Not enough people reacted for me to start draw a winner!`
         );
       }
 
       let winner = m.reactions.cache
-        .get("836423414419161138")
+        .get("🎉")
         .users.cache.filter((u) => !u.bot)
         .random();
       channel.send(
