@@ -1,8 +1,9 @@
 const Discord = require('discord.js');
 
 module.exports = {
-    name: 'bp',
+    name: 't',
     description: 'ccd',
+    usage: '[command name]',
     execute(message, Member, args) {
         const blobsc = message.client.emojis.cache.find(em => em.name === "blobscream");
         const turtlebot = message.client.emojis.cache.find(em => em.name === "Turtlebot");
