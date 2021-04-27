@@ -1,16 +1,16 @@
 const Discord = require('discord.js');
 
 module.exports = {
-    name: 'cmd embed',
-    description: 'A blanc cmd',
+    name: 'Temp',
+    description: 'A embed template',
     execute(message, Member, args) {
-        let whoisEmbed = new Discord.MessageEmbed()
-        const emojiname = client.emojis.cache.get('emojiID')
-            .setTitle(`Testing`)
+        const emojiname = message.client.emojis.cache.find(em => em.name === "emojiname");
+        let tEmbed = new Discord.MessageEmbed()
+            .setTitle(`This is a template`)
             .setColor("AQUA")
             //        .setDescription(`${emojiname}`)
-            .addField(`Is it working?", "${emojiname}`)
+            .addField(`Template", "${emojiname}`)
             .setFooter(`Turtlebot`, turtlebot.url)
-        message.channel.send(whoisEmbed);
+        message.channel.send(tEmbed);
     },
 };
