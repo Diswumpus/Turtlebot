@@ -25,7 +25,7 @@ module.exports = {
     if (!prize) return message.channel.send(`No prize specified!`);
     message.channel.send(`*Giveaway created in ${channel}*`);
     let Embed = new MessageEmbed()
-      .setTitle(`${prize}`)
+      .setTitle(`New giveaway!`)
       .setDescription(
         `The user ${message.author} is hosting a giveaway for the prize of **${prize}**`
       )
