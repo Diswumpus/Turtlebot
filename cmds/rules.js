@@ -19,7 +19,8 @@ module.exports = {
         - No NSFW or NSFL
         - No overruling the admins or owner
         - Please respect the admins and the owners
-        - no arguing
+        - No arguing
+        - No spam if you want to spam do it in <#836292487936606258>
          Have fun! ${blobpar}
           
             Use ,verify to begin! ${ver}`);
