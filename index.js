@@ -17,6 +17,7 @@ const client = new Discord.Client({
 });
 const roleName = '2 Month Supporter';
 
+//client.snipes = new Discord.Collection();
 
 client.once('ready', () => {
     console.log('Ready!');
@@ -92,77 +93,6 @@ client.on('message', message => {
             .setFooter("Turtlebot")
         message.channel.send(whoisEmbed)
     }
-
-    if (message.content === (`${config.prefix}ping`)) {
-        // send back "Pong." to the channel the message was sent in
-        message.channel.send('Pong.');
-    }
-    if (message.content.toLowerCase().includes(`omg`)) {
-        message.react('833491346018271253');
-    }
-    if (message.content.toLowerCase().includes(`Omg`)) {
-        message.react('833491346018271253');
-    }
-    if (message.content.toLowerCase().includes(`Yay!`)) {
-        message.react('831584687498461274');
-    }
-    if (message.content.toLowerCase().includes(`hi`)) {
-        message.react('835250126087389194');
-    }
-    if (message.content.toLowerCase().includes(`hello`)) {
-        message.react('835250126087389194');
-    }
-    if (message.content.toLowerCase().includes(`hey`)) {
-        message.react('835250126087389194');
-    }
-    if (message.content.toLowerCase().includes(`Hey`)) {
-        message.react('835250126087389194');
-    }
-    if (message.content.toLowerCase().includes(`Good morning everyone`)) {
-        message.react('835250126087389194');
-    }
-    if (message.content.toLowerCase().includes(`good morning everyone`)) {
-        message.react('835250126087389194');
-    }
-    if (message.content.toLowerCase().includes(`Goodmorning everyone`)) {
-        message.react('835250126087389194');
-    }
-    if (message.content.toLowerCase().includes(`goodmorning everyone`)) {
-        message.react('835250126087389194');
-    }
-    if (message.content.toLowerCase().includes(`Goodnight everyone`)) {
-        message.react('580596349284777984');
-    }
-    if (message.content.toLowerCase().includes(`goodnight everyone`)) {
-        message.react('580596349284777984');
-    }
-    if (message.content.toLowerCase().includes(`Good night everyone`)) {
-        message.react('580596349284777984');
-    }
-    if (message.content.toLowerCase().includes(`good night everyone`)) {
-        message.react('580596349284777984');
-    }
-    if (message.content.toLowerCase().includes(`Well goodnight everyone`)) {
-        message.react('580596349284777984');
-    }
-    if (message.content.toLowerCase().includes(`Well good night everyone`)) {
-        message.react('580596349284777984');
-    }
-    if (message.content.toLowerCase().includes(`well good night everyone`)) {
-        message.react('580596349284777984');
-    }
-    if (message.content.toLowerCase().includes(`well goodnight everyone`)) {
-        message.react('580596349284777984');
-    }
-    if (message.content.toLowerCase().includes(`well Goodnight everyone`)) {
-        message.react('580596349284777984');
-    }
-    if (message.content.toLowerCase().includes(`well Good night everyone`)) {
-        message.react('580596349284777984');
-    }
-
-
-
 });
 
 client.on('guildMemberAdd', member => { //This is creating an event saying when a member joins the server...
