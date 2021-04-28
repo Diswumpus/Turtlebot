@@ -5,6 +5,6 @@ module.exports = {
     description: 'Bans a user',
     execute(message, Member, args) {
         const user = message.mentions.users.first();
-        guild.members.ban(user);
+        message.guild.members.ban(user);
         },
 };
