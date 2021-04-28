@@ -22,6 +22,7 @@ module.exports = {
         `I could not find that channel in the guild!`
       );
     let prize = args.slice(2).join(" ");
+    let time = args[0]
     if (!prize) return message.channel.send(`No prize specified!`);
     message.channel.send(`Giveaway created in ${channel}`);
     let Embed = new MessageEmbed()
@@ -30,6 +31,7 @@ module.exports = {
         `${message.author} is hosting a giveaway for **${prize}!**`
       )
       .setFooter("React to join the giveaway")
+      .addField("Time left:", `${time}`)
       .setTimestamp(Date.now() + ms(args[0]))
       .setColor(`AQUA`);
     let m = await channel.send(Embed);
