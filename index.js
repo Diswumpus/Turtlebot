@@ -101,7 +101,13 @@ client.on('guildMemberAdd', member => { //This is creating an event saying when 
     const serverName = member.guild.name
     if (!channel) return;
     var blob1 = client.emojis.cache.get('835250126087389194')
-    channel.send(`Welcome to ${serverName} ${blob1}, please read the <#824406474804953109>, hope you have a pleasant stay ${member}! Say ${config.prefix}verify to begin! ${member}`);
+    const welcomeEmbed = new Discord.MessageEmbed()
+	.setColor('AQUA')
+	.setTitle(`Welcome to ${serverName} ${blob1}`)
+	.setDescription(`please read the <#824406474804953109>, hope you have a pleasant stay ${member}! Say ${config.prefix}verify to begin! ${member}`)
+	.setThumbnail(`<${user.displayAvatarURL({ dynamic: true })}>`)
+	.setFooter('Turtlebot', 'turtlebot.url');
+    channel.send(welcomeEmbed);
 }); // That up ^here^ tells the bot what channel to send the message in!
 client.login(config.token);
 //client.user.setActivity('-help');
