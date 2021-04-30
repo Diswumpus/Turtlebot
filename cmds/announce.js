@@ -25,7 +25,7 @@ module.exports = {
       );
     let prize = args.slice(2).join(" ");
     let time = args[0]
-    const gift = message.client.emojis.cache.find(em => em.name === "Tada");
+    const gift = message.client.emojis.cache.find(em => em.name === "atada");
     const party = message.client.emojis.cache.find(em => em.name === "ablobcolorshift");
     if (!prize) return message.channel.send(`No prize specified!`);
     message.channel.send(`Giveaway successfully created in ${channel} for ${prize} made by ${message.author} ${gift}`);
