@@ -27,15 +27,16 @@ module.exports = {
     let time = args[0]
     const gift = message.client.emojis.cache.find(em => em.name === "atada");
     const party = message.client.emojis.cache.find(em => em.name === "ablobcolorshift");
+    const gifts = message.client.emojis.cache.find(em => em.name === "blobgift");
     if (!prize) return message.channel.send(`No prize specified!`);
-    message.channel.send(`Giveaway successfully created in ${channel} for ${prize} made by ${message.author} ${gift}`);
+    message.channel.send(`Giveaway successfully created in ${channel} for ${prize} made by ${message.author} ${gifts}`);
     let Embed = new MessageEmbed()
       .setTitle(`${prize}`)
       .setDescription(
         `${message.author} is hosting a giveaway for **${prize}!**`
       )
       .setFooter("React to join the giveaway")
-      .setFooter(`Good luck`, gift.url)
+      .setFooter(`Good luck`, gifts.url)
       .addField("Time left:", `${time}`)
       .setTimestamp(Date.now() + ms(args[0]))
       .setColor(`AQUA`);
@@ -54,7 +55,7 @@ module.exports = {
         .users.cache.filter((u) => !u.bot)
         .random();
       channel.send(
-        `${party} Congratulations ${winner}! You won **${prize}**! ${gift}`
+        `${party} Congratulations ${winner}! You won **${prize}**! ${gifts}`
       );
     }, ms(args[0]));
   },
