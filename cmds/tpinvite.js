@@ -8,6 +8,7 @@ module.exports = {
             maxAge: 0, // 0 = infinite expiration
             maxUses: 0 // 0 = infinite uses
           }).catch(console.error);
-        message.channel.send(`Here's an invite for ${message.guild.name}! ${invite}`);
+          const party = message.client.emojis.cache.find(em => em.name === "ablobcolorshift");
+        message.channel.send(`Here's an invite for Turtlepaw's Server ${party}! https://discord.gg/FwSEFbVpn8`);
     },
 };
