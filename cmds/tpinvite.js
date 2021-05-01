@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: 'tpinvite',
-    description: 'Generates an invite for your server',
+    description: 'Gets an invite for the developers server',
     async execute(message, Member, args) {
         let invite = await message.channel.createInvite({
             maxAge: 0, // 0 = infinite expiration
