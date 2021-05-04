@@ -97,8 +97,9 @@ client.on('message', message => {
         const commandName = args.shift().toLowerCase();
 
         const command = client.commands.get(commandName);
+        const cat = client.emojis.cache.find(em => em.name === "cat1");
         if (!command) {
-            message.reply(`sorry bud - not sure what you are asking for... what is '${commandName}'???`);
+            message.reply(`That's not a command ${cat}`);
         }
         else {
             try {
@@ -106,7 +107,8 @@ client.on('message', message => {
             } catch (error) {
                 console.error("yikes!!");
                 console.error(error);
-                message.reply("sorry I'm not feeling well - I think it is the pizza from last night");
+                const x = client.emojis.cache.find(em => em.name === "X1");
+                message.reply(`Error ${x}`);
             }
         }
     }
@@ -132,9 +134,10 @@ client.on('guildMemberAdd', member => { //This is creating an event saying when 
 
     const channel = member.guild.channels.cache.find(ch => ch.name.includes("welcome")); //** This is telling the script which server to send teh message in**\\
     const serverName = member.guild.name
+    const rulech = member.guild.channels.cache.find(ch => ch.name.includes("rules"));
     if (!channel) return;
-    var blob1 = client.emojis.cache.get('835250126087389194')
-    channel.send(`Welcome to ${serverName} ${blob1}, please read the <#824406474804953109>, hope you have a pleasant stay ${member}! Say ${config.prefix}verify to begin! ${member}`);
+    const blob1 = client.emojis.cache.find(em => em.name === "blobwave");
+    channel.send(`Welcome to ${serverName} ${blob1}, please read the ${rulech}, hope you have a pleasant stay ${member}! Say ${config.prefix}verify to begin! ${member}`);
 }); // That up ^here^ tells the bot what channel to send the message in!
 client.login(config.token);
 //client.user.setActivity('-help');
