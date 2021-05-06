@@ -110,7 +110,7 @@ client.on('message', message => {
             try {
                 command.execute(message, Member, args);
             } catch (error) {
-                console.error("yikes!!");
+                console.error("Yikes!!");
                 console.error(error);
                 const x = client.emojis.cache.find(em => em.name === "X1");
                 message.reply(`Error ${x}`);
@@ -135,14 +135,35 @@ client.on('message', message => {
     }
 });
 
-client.on('guildMemberAdd', member => { //This is creating an event saying when a member joins the server...
 
+client.on('guildMemberAdd', async (message, member, args) => { // this event gets triggered when a new member joins the server!
+    // Firstly we need to define a channel
+    // either using .get or .find, in this case im going to use .get()
+    const Channel = member.guild.channels.cache.get('channelid') //insert channel id that you want to send to
     const channel = member.guild.channels.cache.find(ch => ch.name.includes("welcome")); //** This is telling the script which server to send teh message in**\\
     const serverName = member.guild.name
     const rulech = member.guild.channels.cache.find(ch => ch.name.includes("rules"));
     if (!channel) return;
     const blob1 = client.emojis.cache.find(em => em.name === "blobwave");
-    channel.send(`Welcome to ${serverName} ${blob1}, please read the ${rulech}, hope you have a pleasant stay ${member}! Say ${config.prefix}verify to begin! ${member}`);
-}); // That up ^here^ tells the bot what channel to send the message in!
+    //making embed
+    let embed = new Discord.MessageEmbed()
+        .setColor('GREEN')
+        .setTitle(`**${member.displayName} Joined**`)
+        .setDescription(`Welcome to ${serverName} ${blob1}, please read the ${rulech}, hope you have a pleasant stay ${member}! Say ${config.prefix}verify to begin! ${member}`)
+    // sends a message to the channel
+    message.channel.send(embed)
+})
+client.on('guildMemberRemove', async (message, member, args) => { // this event gets triggered when a new member leaves the server!
+    // Firstly we need to define a channel
+    // either using .get or .find, in this case im going to use .get()
+    const Channel = member.guild.channels.cache.get('channelid') //insert channel id that you want to send to
+    //making embed
+    let embede = new Discord.MessageEmbed()
+        .setColor('RED')
+        .setTitle('A member left the server')
+        .setDescription(`**${member.displayName}** has left ${member.guild.name}, we now have ${member.guild.memberCount} members!`)
+    // sends a message to the channel
+    message.channel.send(embede)
+})
 client.login(config.token);
 //client.user.setActivity('-help');
