@@ -26,37 +26,41 @@ client.once('ready', () => {
 client.commands = new Discord.Collection();
 client.snipes = new Discord.Collection();
 client.config = config;
+
 client.on("messageDelete", async (message) => {
     try {
         if (message.author.bot) return;
         const snipes = message.client.snipes.get(message.channel.id) || [];
         snipes.unshift({
-          content: message.content,
-          author: message.author,
-          image: message.attachments.first()
-            ? message.attachments.first().proxyURL
-            : null,
-          date: new Date().toLocaleString("en-GB", {
-            dataStyle: "full",
-            timeStyle: "short",
-          }),
+            content: message.content,
+            author: message.author,
+            image: message.attachments.first()
+                ? message.attachments.first().proxyURL
+                : null,
+            date: new Date().toLocaleString("en-GB", {
+                dataStyle: "full",
+                timeStyle: "short",
+            }),
         });
         snipes.splice(10);
         message.client.snipes.set(message.channel.id, snipes);
         let embed = new MessageEmbed()
-          .setTitle(`New message deleted!`)
-          .setDescription(
-            `**The user ${message.author.tag} has deleted a message in <#${message.channel.id}>**`
-          )
-          .addField(`Content`, message.content, true)
-          .setColor(`RED`);
+            .setTitle(`New message deleted!`)
+            .setDescription(
+                `**The user ${message.author.tag} has deleted a message in <#${message.channel.id}>**`
+            )
+            .addField(`Content`, message.content, true)
+            .setColor(`RED`);
         let channel = message.guild.channels.cache.find(
-          (ch) => ch.name === "bot-log"
+            (ch) => ch.name === "bot-log"
         );
         if (!channel) return;
         channel.send(embed);
-      } catch (e) {}
-  });
+    } catch (e) { }
+});
+
+
+
 const commandFiles = fs.readdirSync('./cmds').filter(file => file.endsWith('.js'));
 
 // Here we load all the commands into client.commands
@@ -70,6 +74,7 @@ for (const file of commandFiles) {
 
 // Client events
 client.on('message', message => {
+
     //if(message.content.startsWith(`${prefix}tpwhois`)){
     var Member;
     var status;
