@@ -7,7 +7,7 @@ module.exports = {
     execute(message, Member, args) {
 
         var guild = Member.guild;
-        const blob8 = guild.emojis.cache.find(em => em.name === "meow_cheer");
+        const blob8 = message.client.emojis.cache.find(em => em.name === "meow_cheer");
         var r2ms = guild.roles.cache.find(r => r.name === r2msName);
         if (!r2ms)
         {
