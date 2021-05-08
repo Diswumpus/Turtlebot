@@ -7,7 +7,7 @@ module.exports = {
         let invite = await message.channel.createInvite({
             maxAge: 0, // 0 = infinite expiration
             maxUses: 0 // 0 = infinite uses
-          }).catch(console.error);
+          }).catch(console.error);a
         const createe = message.client.emojis.cache.find(em => em.name === "Plus");
         message.channel.send(`Creating.... ${createe}`).then((msg) => {
         (`Here's an invite for ${message.guild.name}! ${invite}`);

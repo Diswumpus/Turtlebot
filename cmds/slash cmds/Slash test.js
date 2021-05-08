@@ -1,0 +1,1 @@
+const { DiscordInteractions } = require("slash-commands");

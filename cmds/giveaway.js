@@ -5,6 +5,7 @@ module.exports = {
   description: "Create a simple giveaway",
   usage: "<time> <channel> <prize>",
   category: "fun",
+  aliases: ['g'],
   execute: async (message, Member, args) => {
     if (!args[0]) return message.channel.send(`You did not specify your time! ${opps}`);
     const opps = message.client.emojis.cache.find(em => em.name === "ablobglitch");
