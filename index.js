@@ -7,6 +7,7 @@ const fs = require('fs');
 //keyv.on('error', err => console.error('Keyv connection error:', err));
 // at the beginning of your code:
 const client = new Discord.Client({
+    intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_INTEGRATIONS", "GUILD_VOICE_STATES", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS"],
     presence: {
         status: 'online',
         activity: {
@@ -26,6 +27,8 @@ client.once('ready', () => {
 client.commands = new Discord.Collection();
 client.snipes = new Discord.Collection();
 client.config = config;
+
+
 
 client.on("messageDelete", async (message) => {
     try {
