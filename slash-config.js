@@ -2,7 +2,7 @@ const interactions = require("discord-slash-commands-client");
 
 const interaction = new DiscordInteractions({
     applicationId: "834198928260988968",
-    authToken: "ODM0MTk4OTI4MjYwOTg4OTY4.YH9aSw.au-3l6GvDPhBxwBZ1wMOr4PNZ7o",
+    authToken: "ODM0MTk4OTI4MjYwOTg4OTY4.YH9aSw.N7JPGysWxZ5R7WQ_u7V2j1pc3iE",
     publicKey: "402361d77305f34790b4c7297ae0d3ee0a5d5c98f0544820b85dfe792168cec6",
   });
   // Get Global Commands
