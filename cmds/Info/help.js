@@ -11,7 +11,8 @@ module.exports = {
         const { config } = message.client;
         if (!args.length) {
         data.push('Here\'s a list of all my commands:');
-        data.push(commands.map(command => command.name).join(', '));
+        //data.push(commands.groupBy(c => c.category).map(command => `${command.category} - ${command.name}`).join(', '));
+        data.push(commands.map(command => `${command.category} - ${command.name}`).join(', '));
         data.push(`\nYou can send \`${config.prefix}help [command name]\` to get info on a specific command!`);
         
         // if (message.content.startsWith(`${config.prefix}help`)) {

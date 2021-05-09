@@ -6,19 +6,45 @@ module.exports = {
   description: 'Server info',
   execute(message, Member, args) {
     const turtlebot = message.client.emojis.cache.find(em => em.name === "Turtlebot");
+    const nodejs = message.client.emojis.cache.find(em => em.name === "Nodejs");
     const genEmber = (text) => {
       return new Discord.MessageEmbed()
         .setColor('AQUA')
-        .setTitle(text)
+        .setTitle(`Here's a list of all my commands!`)
         .setDescription('**This command is currently in beta**')
         .setThumbnail(turtlebot.url)
-        .addField('1️⃣ Fun')
-        .addField('2️⃣ Moderation')
-        .addField('3️⃣ MsgHere')
-        .addField('If you see a problem notify my developers **Turtlepaw#5377**', true)
+        .addField('1️⃣ Config')
+        .addField('2️⃣ Dev')
+        .addField('3️⃣ Fun')
+        .addField('4️⃣ Info')
+        .addField('5️⃣ Misc')
+        .addField('6️⃣ Moderation')
+        .addField('7️⃣ Reaction Roles')
+        .addField('If you see a problem notify my developers **Turtlepaw#5377**', 'You can use the ,problem command to submit an issue')
         .setTimestamp()
-        .setFooter('Turtlebot Discord.Javascript', turtlebot.url);
+        .setFooter('Turtlebot Discord.Javascript', nodejs.url);
     };
+    const genCategoryHelp = (categoryName) =>
+    {
+      var helpEmbed = new Discord.MessageEmbed()
+      .setColor('AQUA')
+      .setTitle("heyo bud")
+      .setDescription('Here\'s a list of all my commands:')
+      .setThumbnail(turtlebot.url);
+      const { commands } = message.client;
+      const { config } = message.client;
+      commands.forEach(cmd => {
+        if (cmd.category === categoryName) helpEmbed.addField(cmd.name, cmd.description);
+      });
+      //data.push(commands.map(command => command.name).join(', '));
+      //data.push(`\nYou can send \`${config.prefix}help [command name]\` to get info on a specific command!`);
+
+      helpEmbed
+      .addField('If you see a problem notify my developers **Turtlepaw#5377**')
+      .setTimestamp()
+      .setFooter('Turtlebot Discord.Javascript', nodejs.url);
+      return helpEmbed;
+    }
     message.channel.send(genEmber(`Here's a list of my commands`)).then((editthis) => {
       editthis.react('1️⃣')
       editthis.react('2️⃣')
@@ -27,39 +53,31 @@ module.exports = {
         if (user.bot) {
           return
         }
-        console.log('Someone reacted! Good job 🎈')
         if (reaction.emoji.name === '1️⃣') {
-          var helpEmbed = new Discord.MessageEmbed()
-          .setColor('AQUA')
-          .setTitle("heyo bud")
-          .setDescription('Here\'s a list of all my commands:')
-          .setThumbnail(turtlebot.url);
-          const { commands } = message.client;
-          const { config } = message.client;
-          commands.forEach(cmd => {
-            helpEmbed.addField(cmd.name, cmd.description);
-          });
-          //data.push(commands.map(command => command.name).join(', '));
-          //data.push(`\nYou can send \`${config.prefix}help [command name]\` to get info on a specific command!`);
-  
-          helpEmbed
-          .addField('If you see a problem notify my developers **Turtlepaw#5377**', true)
-          .setTimestamp()
-          .setFooter('Turtlebot Discord.Javascript', turtlebot.url);
-          editthis.edit(helpEmbed);
+          editthis.edit(genCategoryHelp('Config'));   
         }
         if (reaction.emoji.name === '2️⃣') {
-          editthis.edit(genEmber(`ya works bud`));
+          editthis.edit(genCategoryHelp(`Dev`));
         }
         if (reaction.emoji.name === '3️⃣') {
-          editthis.edit(genEmber(`msg2u`));
+          editthis.edit(genCategoryHelp(`Fun`));
+        }
+        if (reaction.emoji.name === '4️⃣') {
+          editthis.edit(genCategoryHelp(`Info`));
+        }
+        if (reaction.emoji.name === '5️⃣') {
+          editthis.edit(genCategoryHelp(`Misc`));
+        }
+        if (reaction.emoji.name === '6️⃣') {
+          editthis.edit(genCategoryHelp(`Moderation`));
+        }
+        if (reaction.emoji.name === '7️⃣') {
+          editthis.edit(genCategoryHelp(`Reaction Roles`));
         }
         message.client.on('messageReactionRemove', async (reaction, user) => {
           if (user.bot) {
             return
           }
-
-          console.log('Someone reacted! Good job | Editing....')
           if (reaction.emoji.name === '1️⃣') {
             editthis.edit(genEmber(`heoy111`));
           }

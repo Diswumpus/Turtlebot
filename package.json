@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/TurtlePaw/Turtlebot#readme",
   "dependencies": {
-    "discord.js": "github:discordjs/discord.js"
+    "discord.js": "github:discordjs/discord.js",
+    "klaw-sync": "^6.0.0"
   }
 }

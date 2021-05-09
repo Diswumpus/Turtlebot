@@ -1,14 +1,17 @@
 const Discord = require('discord.js');
 const config = require('./config.json');
 const fs = require('fs');
+const klawSync = require('klaw-sync')
+
+
 
 
 //const keyv = new Keyv('sqlite:react.sqlite');
 //keyv.on('error', err => console.error('Keyv connection error:', err));
 // at the beginning of your code:
 const client = new Discord.Client({
-    intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_INTEGRATIONS", "GUILD_VOICE_STATES", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS"],
-    presence: {
+    intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_INTEGRATIONS", "GUILD_VOICE_STATES", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS"]
+    ,presence: {
         status: 'online',
         activity: {
             name: `Your server! ${config.prefix}help`,
@@ -62,14 +65,12 @@ client.on("messageDelete", async (message) => {
     } catch (e) { }
 });
 
-
-
-const commandFiles = fs.readdirSync('./cmds').filter(file => file.endsWith('.js'));
-
-// Here we load all the commands into client.commands
+// 2) Streams example, non for-await.
+// Print out all JS files along with their size within the current folder & subfolders.
+var commandFiles = klawSync('./cmds', {nodir: true, traverseAll: true, filter: f => f.path.endsWith('.js')})
 for (const file of commandFiles) {
-    const command = require(`./cmds/${file}`);
-    console.log(`loading cmds/${file}`);
+    const command = require(`${file.path}`);
+    console.log(`loading ${command.category}/${command.name}: ${file.path}`);
     // set a new item in the Collection
     // with the key as the command name and the value as the exported module
     client.commands.set(command.name, command);
