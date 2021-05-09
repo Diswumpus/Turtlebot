@@ -1,6 +1,6 @@
 # Turtlebot
 
-[Add Bot!](http://www.google.com){: .btn}
+<a href="#" class="btn btn-ghost btn-large" id="btn-demo-2.1">Add Bot</a>
 
 ## Features
 
