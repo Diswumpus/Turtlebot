@@ -1,16 +1,19 @@
 # Turtlebot
+Turtlebot is a bot that can do multiple things!
 
-<a href="#" class="btn btn-ghost btn-large" id="btn-demo-2.1">Add Bot</a>
+Turtlebot is currently private if you would like to join you can DM me on discord (Turtlepaw#5377)
+or use the request access page! <= Upcoming
+
+[Add Bot!](http://www.google.com){: .btn}
 
 ## Features
+Coming Soon!
 
-- |
-- |
-- |
-- |
+Made with Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
+# Self-host Setup
+1. First start by doing all the basics
+2. Coming Soon!
 ```markdown
 Syntax highlighted code block
 
