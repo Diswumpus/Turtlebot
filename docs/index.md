@@ -2,7 +2,7 @@
 Turtlebot is a bot that can do multiple things!
 
 Turtlebot is currently private if you would like to join you can DM me on discord (Turtlepaw#5377)
-or use the request access page! <= Upcoming
+or use the [request access page](https://turtlepaw.github.io/Turtlebot/request-access)!
 
 [Add Bot!](http://www.google.com){: .btn}
 

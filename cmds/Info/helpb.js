@@ -28,7 +28,7 @@ module.exports = {
     {
       var helpEmbed = new Discord.MessageEmbed()
       .setColor('AQUA')
-      .setTitle("heyo bud")
+      .setTitle("I'm Turtlebot")
       .setDescription('Here\'s a list of all my commands:')
       .setThumbnail(turtlebot.url);
       const { commands } = message.client;
@@ -79,13 +79,13 @@ module.exports = {
             return
           }
           if (reaction.emoji.name === '1️⃣') {
-            editthis.edit(genEmber(`heoy111`));
+            editthis.edit(genEmber(`-`));
           }
           if (reaction.emoji.name === '2️⃣') {
-            editthis.edit(genEmber(`u luck today 22222`));
+            editthis.edit(genEmber(`-`));
           }
           if (reaction.emoji.name === '3️⃣') {
-            editthis.edit(genEmber(`u luck today 33333`));
+            editthis.edit(genEmber(`-`));
           }
 
         }

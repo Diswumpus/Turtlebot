@@ -1,22 +1,24 @@
 const Discord = require('discord.js');
+const { v4: uuidv4 } = require("uuid");
 
 module.exports = {
-    name: 'sg',
+    name: 'solve',
     category: 'Info',
-    description: 'Sends a suggestion to my developer',
+    description: 'Solves the problem sent to my developers',
     execute(message, Member, args) {
-        let msgg = args[1]
-        let sometitle = args[0]
+        let uuidIDMSG = args[0]
         if (message.author.bot) return;
-        message.reply("Thank you for your suggestion, I have sent it over to my Developers!")
         const suggestion = new Discord.MessageEmbed()
-        .setTitle(`${sometitle}`)
-        .setAuthor(`Suggestion from ${message.author.tag} | ${message.author.id}`, message.author.displayAvatarURL)
-        .addField(`${msgg}`)
+        .setTitle(`Solved Problem! ✅`)
+        .setAuthor(`${message.author.tag}`, message.author.displayAvatarURL())
+        .addField(`Case ${uuidIDMSG} has been solved`)
+        .setFooter(`,problem`, `,solve`)
         .setColor("AQUA")
         .setTimestamp()
         // this.client.channels.get('840789206976167966').send(suggestion)
         const channel = message.client.channels.cache.get("840789206976167966");
         channel.send(suggestion)
+        message.channel.send(suggestion)
+        uuidValidate(`${uuidIDMSG}`);
     },
 };

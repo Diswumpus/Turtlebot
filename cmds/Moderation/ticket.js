@@ -9,14 +9,14 @@ const registerEvent = (client) => {
   const ticketChannel = client.channels.cache.find(ch => ch.name.includes("ticket"));
   registered = true
 
-  console.log('REGISTERING EVENTS')
+  // console.log('REGISTERING EVENTS')
 
   client.on('messageReactionAdd', (reaction, user) => {
     if (user.bot) {
       return
     }
 
-    console.log('HANDLING REACTION')
+    // console.log('HANDLING REACTION')
     const { message } = reaction
     if (message.channel === ticketChannel) {
       message.edit(`Fixed! ✅`);
@@ -26,7 +26,7 @@ const registerEvent = (client) => {
 
 module.exports = {
   name: 'ticket',
-  category: 'Config',
+  category: 'Moderation',
   description: 'Creates a ticket',
   minArgs: 1,
   expectedArgs: '<message>',
