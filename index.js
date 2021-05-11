@@ -10,15 +10,14 @@ const klawSync = require('klaw-sync')
 //keyv.on('error', err => console.error('Keyv connection error:', err));
 // at the beginning of your code:
 const client = new Discord.Client({
-    intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_INTEGRATIONS", "GUILD_VOICE_STATES", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS"]
-    ,presence: {
+    intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_PRESENCES", "GUILD_INTEGRATIONS", "GUILD_VOICE_STATES", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS"],
+    
+
+    presence: {
         status: 'online',
-        activity: {
-            name: `Your server! ${config.prefix}help`,
-            type: 'WATCHING',
-        },
-    },
-});
+        activities: [ { name: `Your server! ${config.prefix}help`, type: 'WATCHING'}],       }
+    });
+
 const roleName = '2 Month Supporter';
 
 //client.snipes = new Discord.Collection();

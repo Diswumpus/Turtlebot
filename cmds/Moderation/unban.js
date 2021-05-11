@@ -1,13 +1,13 @@
 const Discord = require('discord.js');
 
 module.exports = {
-    name: 'kick',
+    name: 'unban',
     category: 'Moderation',
-    description: 'Kicks a user',
+    description: 'Unbans a user',
     execute(message, Member, args) {
         message.delete();
-        const member = message.mentions.members.first();
-        message.channel.send(`Kick ${member}?`).then((edittthis) => {
+        const id = args[0];
+        message.channel.send(`Unban ${id}?`).then((edittthis) => {
             edittthis.react('✅')
             edittthis.react('❎')
             message.client.on('messageReactionAdd', async (reaction, user) => {
@@ -15,10 +15,10 @@ module.exports = {
                     return
                 }
                 if (reaction.emoji.name === '✅') {
-                    member.kick();
+                    message.guild.members.unban(id);
                 }
                 if (reaction.emoji.name === '✅') {
-                    edittthis.edit(`Successfully kicked ${member}`);
+                    edittthis.edit(`Successfully unbanned ${id}`);
                 }
                 if (reaction.emoji.name === '❎') {
                     edittthis.delete();

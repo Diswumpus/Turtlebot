@@ -5,7 +5,25 @@ module.exports = {
     category: 'Moderation',
     description: 'Bans a user',
     execute(message, Member, args) {
-        const user = message.mentions.users.first();
-        message.guild.members.ban(user);
-        },
+        message.delete();
+        const member = message.mentions.members.first();
+        message.channel.send(`Ban ${member}? They cannot come back`).then((edittthis) => {
+            edittthis.react('✅')
+            edittthis.react('❎')
+            message.client.on('messageReactionAdd', async (reaction, user) => {
+                if (user.bot) {
+                    return
+                }
+                if (reaction.emoji.name === '✅') {
+                    message.guild.members.ban(member);
+                }
+                if (reaction.emoji.name === '✅') {
+                    edittthis.edit(`Successfully banned ${member}`);
+                }
+                if (reaction.emoji.name === '❎') {
+                    edittthis.delete();
+                }
+            })
+        })
+    },
 };
