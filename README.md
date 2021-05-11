@@ -3,6 +3,7 @@
 - Giveaways
 - Its 100% Free
 - Invite generator
+- Embed maker
 ## Support Server
 - [Discord Server](https://discord.gg/yEAsrR2NhR)
 - [Help only](https://discord.gg/5Wutrs8s4s)
