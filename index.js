@@ -31,7 +31,6 @@ client.snipes = new Discord.Collection();
 client.config = config;
 
 
-
 client.on("messageDelete", async (message) => {
     try {
         if (message.author.bot) return;
@@ -162,7 +161,18 @@ client.on('messageReactionAdd', async (reaction, user) => {
       }
     } else return;
   });
-  
+  client.on('message', message => {
+	if (message.content === ';join') {
+        message.delete();
+		client.emit('guildMemberAdd', message.member);
+	}
+});
+client.on('message', message => {
+	if (message.content === ';leave') {
+        message.delete();
+		client.emit('guildMemberRemove', message.member);
+	}
+});
   // Removing reaction roles
   client.on('messageReactionRemove', async (reaction, user) => {
     if (reaction.message.partial) await reaction.message.fetch();
@@ -187,35 +197,41 @@ client.on('messageReactionAdd', async (reaction, user) => {
       }
     } else return;
   });
-
 client.on('guildMemberAdd', async (message) => { // this event gets triggered when a new member joins the server!
     // Firstly we need to define a channel
     // either using .get or .find, in this case im going to use .get()
     //const Channel = member.guild.channels.cache.get('channelid') //insert channel id that you want to send to
-    const channel = client.channels.cache.find(ch => ch.name.includes("welcome")); //** This is telling the script which server to send teh message in**\\
+    const channel = message.guild.channels.cache.find(ch => ch.name.includes("welcome")); //** This is telling the script which server to send teh message in**\\
     const serverName = message.guild.name
-    const rulech = client.channels.cache.find(ch => ch.name.includes("rules"));
+    const rulech = message.guild.channels.cache.find(ch => ch.name.includes("rules"));
     if (!channel) return;
     const blob1 = client.emojis.cache.find(em => em.name === "blobwave");
+    const blannk = client.emojis.cache.find(em => em.name === "Blank");
     //making embed
     let embed = new Discord.MessageEmbed()
         .setColor('GREEN')
+        .setThumbnail(message.user.displayAvatarURL())
         .setTitle(`**${message.displayName} Joined**`)
-        .setDescription(`Welcome to ${serverName} ${blob1}, please read the ${rulech}, hope you have a pleasant stay ${message.displayName}! Say ${config.prefix}verify to begin! ${message.displayName}`)
+        .addField(`Welcome to ${serverName} ${blob1}, please read the Rules, hope you have a pleasant stay ${message.displayName}! Say ${config.prefix}verify to begin! ${message.displayName}`, `${blannk}`)
+        .setFooter(`${serverName}`, blob1.url)
     // sends a message to the channel
-    message.send(embed)
+    channel.send(embed)
 })
 client.on('guildMemberRemove', async (message) => { // this event gets triggered when a new member leaves the server!
     // Firstly we need to define a channel
     // either using .get or .find, in this case im going to use .get()
     //making embed
+    const channel = message.guild.channels.cache.find(ch => ch.name.includes("welcome")); //** This is telling the script which server to send teh message in**\\
     const serverName = message.guild.name
+    const blob2 = client.emojis.cache.find(em => em.name === "ablobsigh");
+    const rulech = message.guild.channels.cache.find(ch => ch.name.includes("rules"));
     let embede = new Discord.MessageEmbed()
         .setColor('RED')
+        .setThumbnail(message.user.displayAvatarURL())
         .setTitle('A member left the server')
         .setDescription(`**${message.displayName}** has left ${serverName}, we now have ${message.guild.memberCount} members!`)
     // sends a message to the channel
-    message.send(embede)
+    channel.send(embede)
 })
 client.login(config.token);
 //client.user.setActivity(',help');

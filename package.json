@@ -23,6 +23,7 @@
   "homepage": "https://github.com/TurtlePaw/Turtlebot#readme",
   "dependencies": {
     "discord.js": "github:discordjs/discord.js",
+    "discordjs-reaction-role": "^1.0.0",
     "key-file-storage": "^2.2.9",
     "klaw-sync": "^6.0.0",
     "uuid": "^8.3.2"
