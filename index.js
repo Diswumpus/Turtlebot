@@ -15,9 +15,9 @@ const client = new Discord.Client({
 
     presence: {
         status: 'online',
-        activities: [ { name: `Your server! ${config.prefix}help`, type: 'WATCHING'}],       }
+        activities: [ { name: `Slash commands are out!!`, type: 'PLAYING'}],       }
     });
-
+//Your server! ${config.prefix}help | WATCHING
 const roleName = '2 Month Supporter';
 
 //client.snipes = new Discord.Collection();
