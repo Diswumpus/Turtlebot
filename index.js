@@ -27,8 +27,40 @@ client.once('ready', () => {
 });
 
 client.commands = new Discord.Collection();
+client.slashcmds = new Discord.Collection();
 client.snipes = new Discord.Collection();
 client.config = config;
+
+const slashFiles = fs.readdirSync('./slash').filter(file => file.endsWith('.js'));
+
+// Here we load all the commands into client.commands
+for (const file of slashFiles) {
+    const command = require(`./slash/${file}`);
+    console.log(`loading slash/${file}`);
+    // set a new item in the Collection
+    // with the key as the command name and the value as the exported module
+    client.slashcmds.set(command.name, command);
+}
+
+client.on('interaction', async interaction => {
+	if (!interaction.isCommand()) return;
+    console.log(`received interaction ${interaction.commandName}`);
+    const commandName = interaction.commandName;
+
+    const command = client.slashcmds.get(commandName);
+    if (!command) {
+        interaction.reply(`Sorry i don't think /${commandName} is possible ${opps}`);
+    }
+    else {
+        try {
+            await command.execute(client, interaction);
+        } catch (error) {
+            console.error(error);
+            interaction.reply(`Something went very wrong ${opps}`);
+        }
+    }
+});
+
 
 
 client.on("messageDelete", async (message) => {
@@ -212,7 +244,7 @@ client.on('guildMemberAdd', async (message) => { // this event gets triggered wh
         .setColor('GREEN')
         .setThumbnail(message.user.displayAvatarURL())
         .setTitle(`**${message.displayName} Joined**`)
-        .addField(`Welcome to ${serverName} ${blob1}, please read the Rules, hope you have a pleasant stay ${message.displayName}! Say ${config.prefix}verify to begin! ${message.displayName}`, `${blannk}`)
+        .addField(`Welcome to ${serverName} ${blob1}, please read the Rules, hope you have a pleasant stay ${message.displayName}! Say ${config.prefix}verify to begin! ${message.displayName}`, `Invited by ${inviter}`)
         .setFooter(`${serverName}`, blob1.url)
     // sends a message to the channel
     channel.send(embed)
