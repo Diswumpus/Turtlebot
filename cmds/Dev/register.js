@@ -8,11 +8,17 @@ module.exports = {
         if (!client.application?.owner) await client.application?.fetch();
 //https://discord.com/oauth2/authorize?client_id=841782635386109972&scope=bot+applications.commands
         const data = {
-            name: 'DO NOT USE',
-            description: 'Sends an embed',
+            name: 'avatar',
+            description: 'Gives the mentioned users avatar',
+            options: [{
+				name: 'user',
+				type: 'USER',
+				description: 'What user?',
+				required: true,
+			}],
         };
 
-        const command = await client.guilds.cache.get('842575277249921074')?.commands.create(data);
+        const command = await client.application?.commands.create(data);
         console.log(command);
     }
 }
