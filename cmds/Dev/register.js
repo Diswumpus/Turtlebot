@@ -18,7 +18,7 @@ module.exports = {
 			}],
         };
 
-        const command = await client.application?.commands.create(data);
+        const command = await client.guilds.cache.get('834199640702320650')?.commands.create(data);
         console.log(command);
     }
 }
