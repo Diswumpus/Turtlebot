@@ -15,7 +15,7 @@ const client = new Discord.Client({
 
     presence: {
         status: 'online',
-        activities: [ { name: `Happy Birthday Discord 🎉`, type: 'PLAYING'}],       }
+        activities: [ { name: `Down for Maintenance 🔨`, type: 'PLAYING'}],       }
     });
     //Slash commands are out!!
 //Your server! ${config.prefix}help | WATCHING

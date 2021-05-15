@@ -49,6 +49,10 @@ module.exports = {
       editthis.react('1️⃣')
       editthis.react('2️⃣')
       editthis.react('3️⃣')
+      editthis.react('4️⃣')
+      editthis.react('5️⃣')
+      editthis.react('6️⃣')
+      editthis.react('7️⃣')
       message.client.on('messageReactionAdd', async (reaction, user) => {
         if (user.bot) {
           return
@@ -85,6 +89,18 @@ module.exports = {
             editthis.edit(genEmber(`-`));
           }
           if (reaction.emoji.name === '3️⃣') {
+            editthis.edit(genEmber(`-`));
+          }
+          if (reaction.emoji.name === '4️⃣') {
+            editthis.edit(genEmber(`-`));
+          }
+          if (reaction.emoji.name === '5️⃣') {
+            editthis.edit(genEmber(`-`));
+          }
+          if (reaction.emoji.name === '6️⃣') {
+            editthis.edit(genEmber(`-`));
+          }
+          if (reaction.emoji.name === '7️⃣') {
             editthis.edit(genEmber(`-`));
           }
 
