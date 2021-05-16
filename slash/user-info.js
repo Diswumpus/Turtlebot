@@ -7,7 +7,7 @@ module.exports = {
         let userr = interaction.options[0].member;
         const embeedd = new Discord.MessageEmbed()
         .setColor('AQUA')
-        .setTitle(`Here's a list of all my commands!`)
+        .setTitle(`${userr}`)
         .setThumbnail(userr.user.displayAvatarURL())
         .setDescription(`User: ${userr}`)
         .addField(`User ID:`, `${userr.id}`)
