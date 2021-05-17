@@ -246,7 +246,7 @@ client.on('guildMemberAdd', async (message) => { // this event gets triggered wh
         .setColor('GREEN')
         .setThumbnail(message.user.displayAvatarURL())
         .setTitle(`**${message.displayName} Joined**`)
-        .addField(`Welcome to ${serverName} ${blob1}, please read the Rules, hope you have a pleasant stay ${message.displayName}! Say ${config.prefix}verify to begin! ${message.displayName}`, `Invited by ${inviter}`)
+        .addField(`Welcome to ${serverName} ${blob1}, please read the Rules, hope you have a pleasant stay ${message.displayName}!,` `Say ${config.prefix}verify to begin! ${message.displayName}`)
         .setFooter(`${serverName}`, blob1.url)
     // sends a message to the channel
     channel.send(embed)
