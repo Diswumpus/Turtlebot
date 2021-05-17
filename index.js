@@ -239,14 +239,14 @@ client.on('guildMemberAdd', async (message) => { // this event gets triggered wh
     const serverName = message.guild.name
     const rulech = message.guild.channels.cache.find(ch => ch.name.includes("rules"));
     if (!channel) return;
-    const blob1 = client.emojis.cache.find(em => em.name === "blobwave");
+    const blob1 = client.emojis.cache.find(em => em.name === "ablobwave");
     const blannk = client.emojis.cache.find(em => em.name === "Blank");
     //making embed
-    let embed = new Discord.MessageEmbed()
+    const embed = new Discord.MessageEmbed()
         .setColor('GREEN')
         .setThumbnail(message.user.displayAvatarURL())
         .setTitle(`**${message.displayName} Joined**`)
-        .addField(`Welcome to ${serverName} ${blob1}, please read the Rules, hope you have a pleasant stay ${message.displayName}!,` `Say ${config.prefix}verify to begin! ${message.displayName}`)
+        .addField(`Welcome to ${serverName} ${blob1}`, `Please read the Rules, hope you have a pleasant stay ${message.displayName}! Say ${config.prefix}verify to begin! ${message.displayName}`)
         .setFooter(`${serverName}`, blob1.url)
     // sends a message to the channel
     channel.send(embed)
