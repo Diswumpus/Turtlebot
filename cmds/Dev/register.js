@@ -8,15 +8,17 @@ module.exports = {
         if (!client.application?.owner) await client.application?.fetch();
 //https://discord.com/oauth2/authorize?client_id=841782635386109972&scope=bot+applications.commands
         const data = {
-            name: 'server-info',
-            description: 'Gets info about the server',
+            name: 'VVersion',
+            description: 'Shows the version of the bot DO NOT USE',
         };
 
-        //const command = await client.application?.commands.create(data);
+        const command = await client.application?.commands.create(data);
         //await command.setPermissions(permissions);
         console.log(command);
     }
 }
+//Slash server =>
+//const command = await client.guilds.cache.get('842575277249921074')?.commands.create(data);
 //const command = await client.application?.commands.create(data);
 //const command = await client.guilds.cache.get('834199640702320650')?.commands.create(data);
 // const permissions = [

@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const config = require('./config.json');
 const fs = require('fs');
 const klawSync = require('klaw-sync')
-
+const version = require('./version.json');
 
 
 
@@ -31,6 +31,7 @@ client.commands = new Discord.Collection();
 client.slashcmds = new Discord.Collection();
 client.snipes = new Discord.Collection();
 client.config = config;
+client.version = version;
 
 const slashFiles = fs.readdirSync('./slash').filter(file => file.endsWith('.js'));
 
