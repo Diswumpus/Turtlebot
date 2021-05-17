@@ -8,7 +8,7 @@ module.exports = {
         const embeedd = new Discord.MessageEmbed()
         .setColor('AQUA')
         .setThumbnail(userr.user.displayAvatarURL())
-        .setTitle(`User: 00000${userr.id}`)
+        .setTitle(`User: ${userr.displayName}`)
         .addField(`User ID:`, `${userr.id}`)
         .addField(`Joined at:`, `${userr.joinedAt}`)
         .addField(`Joined Discord at`, `${userr.user.createdAt}`)
