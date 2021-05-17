@@ -7,10 +7,11 @@ module.exports = {
         let userr = interaction.options[0].member;
         const embeedd = new Discord.MessageEmbed()
         .setColor('AQUA')
-        .setTitle(`${userr}`)
         .setThumbnail(userr.user.displayAvatarURL())
-        .setDescription(`User: ${userr}`)
+        .setTitle(`User: 00000${userr.id}`)
         .addField(`User ID:`, `${userr.id}`)
+        .addField(`Joined at:`, `${userr.joinedAt}`)
+        .addField(`Joined Discord at`, `${userr.user.createdAt}`)
         //.addField(`[Avatar link](${userr.user.displayAvatarURL()})`)
         .setTimestamp()
         await interaction.reply(embeedd); 
