@@ -13,10 +13,12 @@ module.exports = {
         .addField(`Owner:`, `<@${interaction.guild.ownerID}>`)
         .addField(`Members:`, `${interaction.guild.memberCount}`)
         .addField(`Region:`, `${interaction.guild.region}`)
-        .addField(`Rules:`, `${interaction.guild.rulesChannel}`)
+        .addField(`Rules:`, `${interaction.guild.rulesChannel?? "None"}`)
         .addField(`You joined:`, `${interaction.guild.joinedAt}`)
         .addField(`Server created at:`, `${interaction.guild.createdAt}`)
-        //.addField(`[Avatar link](${userr.user.displayAvatarURL()})`)
+        .addField(`Boosts:`, `${interaction.guild.premiumSubscriptionCount ?? "None"}`)
+        .addField(`Boost Tier:`, `${interaction.guild.premiumTier ?? "0"}`)
+        .addField(`Vanity URL:`, `${interaction.guild.vanityURLCode ?? "None"}`)
         .setTimestamp()
         await interaction.reply(embeedd); 
     }
