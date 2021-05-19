@@ -1,10 +1,11 @@
 # Turtlebot
 Turtlebot is a bot that can do multiple things!
 
-Turtlebot is currently private if you would like to join you can DM me on discord (Turtlepaw#5377)
-or use the [request access page](https://turtlepaw.github.io/Turtlebot/request-access)!
+Turtlebot is now public! 🥳
 
-[Add Bot!](http://www.google.com){: .btn}
+[Add the bot to your server now! 🎉](https://discord.com/oauth2/authorize?client_id=831712626626134037&permissions=4228381815&scope=bot%20applications.commands)
+
+## [Commands](https://turtlepaw.github.io/Turtlebot/commands)
 
 ## Features
 Coming Soon!
@@ -14,30 +15,3 @@ Made with Markdown
 # Self-host Setup
 1. First start by doing all the basics
 2. Coming Soon!
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/TurtlePaw/Turtlebot/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
