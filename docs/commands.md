@@ -60,6 +60,7 @@
 ## Slash Commands
 * ``/avatar``
 * ``/cat``
+* ``/dog``
 * ``/embed``
 * ``/github``
 * ``/guilds``
