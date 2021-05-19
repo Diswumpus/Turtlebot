@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
-    name: 'cat',
+    name: 'dog',
     async execute(client, interaction) {
         const { file } = await fetch('https://aws.random.cat/meow').then(response => response.json());
         const embeedd = new Discord.MessageEmbed()
