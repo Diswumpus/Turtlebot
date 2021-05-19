@@ -8,11 +8,22 @@ module.exports = {
         if (!client.application?.owner) await client.application?.fetch();
 //https://discord.com/oauth2/authorize?client_id=841782635386109972&scope=bot+applications.commands
         const data = {
-            name: 'dog',
-            description: 'Find some cute dog pictures',
+            name: 'announce',
+            description: 'Get the bot to say what ever you want in a specific channel.',
+            options: [{
+				name: 'channel',
+				type: 'CHANNEL',
+				description: 'What channel should i announce this in?',
+				required: true,
+                
+                name: 'title',
+				type: 'STRING',
+				description: 'What should i announce?',
+				required: true,
+			}],
         };
 
-        //const command = await client.application?.commands.create(data);
+        //const command = await client.guilds.cache.get('842575277249921074')?.commands.create(data);
         //await command.setPermissions(permissions);
         console.log(command);
     }

@@ -15,3 +15,5 @@ Made with Markdown
 # Self-host Setup
 1. First start by doing all the basics
 2. Coming Soon!
+3. 
+4. 
