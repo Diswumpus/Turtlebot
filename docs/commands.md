@@ -59,6 +59,7 @@
 
 ## Slash Commands
 * ``/avatar``
+* ``/cat``
 * ``/embed``
 * ``/github``
 * ``/guilds``
