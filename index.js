@@ -264,6 +264,7 @@ client.on('guildMemberRemove', async (message) => { // this event gets triggered
         .setThumbnail(message.user.displayAvatarURL())
         .setTitle('A member left the server')
         .setDescription(`**${message.displayName}** has left ${serverName}, we now have ${message.guild.memberCount} members!`)
+        .setFooter(`${serverName}`, blob2.url)
     // sends a message to the channel
     channel.send(embede)
 })
