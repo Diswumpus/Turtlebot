@@ -9,6 +9,7 @@ module.exports = {
         .setColor('AQUA')
         .setTitle(`The version is: ${vernum}`)
         .setTimestamp()
+        .setFooter(`Turtlebot • ${vernum}`)
         await interaction.reply(versionembed); 
     }
 }
