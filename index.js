@@ -86,7 +86,7 @@ client.on("messageDelete", async (message) => {
         });
         snipes.splice(10);
         message.client.snipes.set(message.channel.id, snipes);
-        let embed = new MessageEmbed()
+        let embed = new Discord.MessageEmbed()
             .setTitle(`New message deleted!`)
             .setDescription(
                 `**The user ${message.author.tag} has deleted a message in <#${message.channel.id}>**`
