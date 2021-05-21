@@ -14,7 +14,7 @@ module.exports = {
          })
          const lockembed = new Discord.MessageEmbed()
          .setTitle(`:white_check_mark: Unlocked ${message.channel.name}`)
-         .setImage(`https://cdn.tixte.com/uploads/turtlepaw.is-from.space/koxkjxcr49a.png`)
+         //.setImage(`https://cdn.tixte.com/uploads/turtlepaw.is-from.space/koxkjxcr49a.png`)
       message.channel.send(lockembed)
     }
   },

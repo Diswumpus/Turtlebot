@@ -14,8 +14,8 @@ module.exports = {
          })
          const lockembed = new Discord.MessageEmbed()
          .setTitle(`:white_check_mark: Locked down ${message.channel.name}`)
-         .setImage(`https://cdn.tixte.com/uploads/turtlepaw.is-from.space/koxjqi6o99a.png`)
-         .setDescription(`[Icon](https://www.iconfinder.com/icons/4698593/lock_padlock_protection_safety_security_icon)`)
+         //.setImage(`https://cdn.tixte.com/uploads/turtlepaw.is-from.space/koxjqi6o99a.png`)
+         //.setDescription(`[Icon](https://www.iconfinder.com/icons/4698593/lock_padlock_protection_safety_security_icon)`)
         //message.channel.updateOverwrite(message.channel.guild.roles.everyone, { SEND_MESSAGES: false });
       message.channel.send(lockembed)
     }
