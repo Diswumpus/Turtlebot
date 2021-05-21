@@ -6,7 +6,7 @@ module.exports = {
     description: 'Bans a user',
     execute(message, Member, args) {
         message.delete();
-        if (member.hasPermission('BAN_MEMBERS')) {
+        if (message.member.permissions.has('BAN_MEMBERS')) {
             const member = message.mentions.members.first();
             message.channel.send(`Ban ${member}? They cannot come back`).then((edittthis) => {
                 edittthis.react('✅')

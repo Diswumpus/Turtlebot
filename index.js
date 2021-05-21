@@ -124,12 +124,8 @@ client.on('message', message => {
         if (!Member) {
             Member = message.member
         }
-        status = Member.presence.status
     }
 
-    if (status == "dnd") {
-        var status = "Do not Disturb"
-    }
     if (Member) {
         var joinedSince = new Date() - Member.joinedAt
         differentDays = Math.round(joinedSince / (1000 * 3600 * 24));

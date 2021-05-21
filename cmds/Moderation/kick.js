@@ -6,7 +6,7 @@ module.exports = {
     description: 'Kicks a user',
     execute(message, Member, args) {
         message.delete();
-        if (member.hasPermission('KICK_MEMBERS')) {
+        if (message.member.permissions.has('KICK_MEMBERS')) {
             const member = message.mentions.members.first();
             message.channel.send(`Kick ${member}?`).then((edittthis) => {
                 edittthis.react('✅')

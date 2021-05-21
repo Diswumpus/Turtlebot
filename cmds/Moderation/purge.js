@@ -6,7 +6,7 @@ module.exports = {
   category: 'Moderation',
   description: 'Clears the chat',
   execute(message, Member, args) {
-    if (member.hasPermission('MANAGE_MESSAGES')) {
+    if (message.member.permissions.has('MANAGE_MESSAGES')) {
       let deletenum = args[0]
       message.channel.bulkDelete(deletenum)
       message.channel.send(`Deleted ${deletenum} messages! :wastebasket:`)
