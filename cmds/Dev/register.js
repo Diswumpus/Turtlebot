@@ -8,17 +8,17 @@ module.exports = {
         if (!client.application?.owner) await client.application?.fetch();
 //https://discord.com/oauth2/authorize?client_id=841782635386109972&scope=bot+applications.commands
         const data = {
-            name: 'clear',
-            description: 'Cleans the chat',
+            name: 'rank',
+            description: 'Get your rank or another users rank',
             options: [{
-                name: 'number',
-				type: 'STRING',
-				description: 'How many messages should i delete?',
-				required: true,
+                name: 'user',
+				type: 'USER',
+				description: 'What user?',
+				required: false,
 			}],
         };
 
-        const command = await client.guilds.cache.get('842575277249921074')?.commands.create(data);
+        const command = await client.application?.commands.create(data);
         //await command.setPermissions(permissions);
         console.log(command);
     }
