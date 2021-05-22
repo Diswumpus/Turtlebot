@@ -11,6 +11,7 @@ module.exports = {
         .setTitle(`User: ${userr.displayName}`)
         .addField(`User ID:`, `${userr.id}`)
         .addField(`Joined at:`, `${userr.joinedAt}`)
+        //.addField(`Discord Version`, `${userr.presence.clientStatus}`)
         .addField(`Joined Discord at`, `${userr.user.createdAt}`)
         //.addField(`[Avatar link](${userr.user.displayAvatarURL()})`)
         .setTimestamp()

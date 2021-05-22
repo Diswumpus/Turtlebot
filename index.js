@@ -3,21 +3,24 @@ const config = require('./config.json');
 const fs = require('fs');
 const klawSync = require('klaw-sync')
 const version = require('./version.json');
+const mongoose = require('mongoose');
+const Levels = require("discord-xp");
 
-
-
+mongoose.connect('mongodb+srv://Turtlepaw:turttp@turtlebots-cluster.4radi.mongodb.net/Data', { useNewUrlParser: true, useUnifiedTopology: true })
+let vernum = version.versionnum;
 //const keyv = new Keyv('sqlite:react.sqlite');
 //keyv.on('error', err => console.error('Keyv connection error:', err));
 // at the beginning of your code:
 const client = new Discord.Client({
     intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_PRESENCES", "GUILD_INTEGRATIONS", "GUILD_VOICE_STATES", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS"],
-    
+
 
     presence: {
         status: 'online',
-        activities: [ { name: `Partying about the public release! 🥳`, type: 'PLAYING'}],       }
-    });
-    //Slash commands are out!!
+        activities: [{ name: `Your server! | v${vernum}`, type: 'WATCHING' }],
+    }
+});
+//Slash commands are out!!
 //Your server! ${config.prefix}help | WATCHING
 const roleName = '2 Month Supporter';
 
@@ -25,6 +28,7 @@ const roleName = '2 Month Supporter';
 
 client.once('ready', () => {
     console.log('Ready!');
+    Levels.setURL("mongodb+srv://Turtlepaw:turttp@turtlebots-cluster.4radi.mongodb.net/Data");
 });
 
 client.commands = new Discord.Collection();
@@ -44,12 +48,12 @@ for (const file of slashFiles) {
     client.slashcmds.set(command.name, command);
 }
 const errorr = new Discord.MessageEmbed()
-.setTitle(`That's a 404`)
-.setColor(`YELLOW`)
-.setDescription(`This is a problem at our end we are clearing it up, please try again in a bit if it still does not work use ,problem`)
-.setImage(`https://cdn.tixte.com/uploads/turtlepaw.is-from.space/kow11oq1p9a.png`)
+    .setTitle(`That's a 404`)
+    .setColor(`YELLOW`)
+    .setDescription(`This is a problem at our end we are clearing it up, please try again in a bit if it still does not work use ,problem`)
+    .setImage(`https://cdn.tixte.com/uploads/turtlepaw.is-from.space/kow11oq1p9a.png`)
 client.on('interaction', async interaction => {
-	if (!interaction.isCommand()) return;
+    if (!interaction.isCommand()) return;
     console.log(`received interaction ${interaction.commandName}`);
     const commandName = interaction.commandName;
 
@@ -67,7 +71,22 @@ client.on('interaction', async interaction => {
     }
 });
 
+// L E V E L S = >
 
+
+client.on("message", async (message) => {
+    if (!message.guild) return;
+    if (message.author.bot) return;
+    
+    const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30
+    const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
+    if (hasLeveledUp) {
+      const user = await Levels.fetch(message.author.id, message.guild.id);
+      message.channel.send(`${message.author}, congratulations! You have leveled up to **${user.level}**. :tada:`);
+    }
+  });
+
+  // L E V E L S -
 
 client.on("messageDelete", async (message) => {
     try {
@@ -103,7 +122,7 @@ client.on("messageDelete", async (message) => {
 
 // 2) Streams example, non for-await.
 // Print out all JS files along with their size within the current folder & subfolders.
-var commandFiles = klawSync('./cmds', {nodir: true, traverseAll: true, filter: f => f.path.endsWith('.js')})
+var commandFiles = klawSync('./cmds', { nodir: true, traverseAll: true, filter: f => f.path.endsWith('.js') })
 for (const file of commandFiles) {
     const command = require(`${file.path}`);
     console.log(`loading ${command.category}/${command.name}: ${file.path}`);
@@ -178,59 +197,59 @@ client.on('messageReactionAdd', async (reaction, user) => {
     if (user.bot) return;
     if (!reaction.message.guild) return;
     if (reaction.message.channel.id == '839989770045620255') {
-      if (reaction.emoji.name === '🦊') {
-        await reaction.message.guild.members.cache
-          .get(user.id)
-          .roles.add('802208163776167977');
-      }
-      if (reaction.emoji.name === '🐯') {
-        await reaction.message.guild.members.cache
-          .get(user.id)
-          .roles.add('802208242696192040');
-      }
-      if (reaction.emoji.name === '🎈') {
-        await reaction.message.guild.members.cache
-          .get(user.id)
-          .roles.add('839988669954916354');
-      }
+        if (reaction.emoji.name === '🦊') {
+            await reaction.message.guild.members.cache
+                .get(user.id)
+                .roles.add('802208163776167977');
+        }
+        if (reaction.emoji.name === '🐯') {
+            await reaction.message.guild.members.cache
+                .get(user.id)
+                .roles.add('802208242696192040');
+        }
+        if (reaction.emoji.name === '🎈') {
+            await reaction.message.guild.members.cache
+                .get(user.id)
+                .roles.add('839988669954916354');
+        }
     } else return;
-  });
-  client.on('message', message => {
-	if (message.content === ';join') {
-        message.delete();
-		client.emit('guildMemberAdd', message.member);
-	}
 });
 client.on('message', message => {
-	if (message.content === ';leave') {
+    if (message.content === ';join') {
         message.delete();
-		client.emit('guildMemberRemove', message.member);
-	}
+        client.emit('guildMemberAdd', message.member);
+    }
 });
-  // Removing reaction roles
-  client.on('messageReactionRemove', async (reaction, user) => {
+client.on('message', message => {
+    if (message.content === ';leave') {
+        message.delete();
+        client.emit('guildMemberRemove', message.member);
+    }
+});
+// Removing reaction roles
+client.on('messageReactionRemove', async (reaction, user) => {
     if (reaction.message.partial) await reaction.message.fetch();
     if (reaction.partial) await reaction.fetch();
     if (user.bot) return;
     if (!reaction.message.guild) return;
     if (reaction.message.channel.id == '802209416685944862') {
-      if (reaction.emoji.name === '🦊') {
-        await reaction.message.guild.members.cache
-          .get(user.id)
-          .roles.remove('802208163776167977');
-      }
-      if (reaction.emoji.name === '🐯') {
-        await reaction.message.guild.members.cache
-          .get(user.id)
-          .roles.remove('802208242696192040');
-      }
-      if (reaction.emoji.name === '🐍') {
-        await reaction.message.guild.members.cache
-          .get(user.id)
-          .roles.remove('802208314766524526');
-      }
+        if (reaction.emoji.name === '🦊') {
+            await reaction.message.guild.members.cache
+                .get(user.id)
+                .roles.remove('802208163776167977');
+        }
+        if (reaction.emoji.name === '🐯') {
+            await reaction.message.guild.members.cache
+                .get(user.id)
+                .roles.remove('802208242696192040');
+        }
+        if (reaction.emoji.name === '🐍') {
+            await reaction.message.guild.members.cache
+                .get(user.id)
+                .roles.remove('802208314766524526');
+        }
     } else return;
-  });
+});
 client.on('guildMemberAdd', async (message) => { // this event gets triggered when a new member joins the server!
     // Firstly we need to define a channel
     // either using .get or .find, in this case im going to use .get()
