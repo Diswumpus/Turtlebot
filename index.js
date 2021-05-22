@@ -5,6 +5,7 @@ const klawSync = require('klaw-sync')
 const version = require('./version.json');
 const mongoose = require('mongoose');
 const Levels = require("discord-xp");
+const Schema = mongoose.Schema;
 
 mongoose.connect('mongodb+srv://Turtlepaw:turttp@turtlebots-cluster.4radi.mongodb.net/Data', { useNewUrlParser: true, useUnifiedTopology: true })
 let vernum = version.versionnum;
@@ -71,22 +72,57 @@ client.on('interaction', async interaction => {
     }
 });
 
+const messagess = mongoose.model('messagess', Schema({
+    id: String,
+    guild: String,
+    messagecount: Number
+}));
+client.messagess = messagess
 // L E V E L S = >
+client.on("message", async (message) => {
 
+    let messageUser = await messagess.findOne({
+        id: message.author.id
+    });
+
+    if (!messageUser) {
+        messageUser = new messagess({
+            id: message.author.id,
+            messagecount: 0
+        });
+        await messageUser.save().catch(e => console.log(e));
+    };
+
+    await messagess.findOne({
+        id: message.author.id
+    }, async (err, dUser) => {
+        if (err) console.log(err);
+        dUser.messagecount += 1;
+        await dUser.save().catch(e => console.log(e));
+    });
+    //   const doc = new messagess({
+    //     id: message.author.id,
+    //     guild: message.guild.id,
+    //     messagecount: +1
+    //   });
+    //   // Inserts a new document with `name = 'Will Riker'` and
+    //   // `rank = 'Commander'`
+    //   await doc.save();
+})
 
 client.on("message", async (message) => {
     if (!message.guild) return;
     if (message.author.bot) return;
-    
+
     const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30
     const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
     if (hasLeveledUp) {
-      const user = await Levels.fetch(message.author.id, message.guild.id);
-      message.channel.send(`${message.author}, congratulations! You have leveled up to **${user.level}**. :tada:`);
+        const user = await Levels.fetch(message.author.id, message.guild.id);
+        message.channel.send(`${message.author}, congratulations! You have leveled up to **${user.level}**. :tada:`);
     }
-  });
+});
 
-  // L E V E L S -
+// L E V E L S -
 
 client.on("messageDelete", async (message) => {
     try {
@@ -275,17 +311,22 @@ client.on('guildMemberRemove', async (message) => { // this event gets triggered
     // either using .get or .find, in this case im going to use .get()
     //making embed
     const channel = message.guild.channels.cache.find(ch => ch.name.includes("welcome")); //** This is telling the script which server to send teh message in**\\
-    const serverName = message.guild.name
-    const blob2 = client.emojis.cache.find(em => em.name === "ablobsigh");
-    const rulech = message.guild.channels.cache.find(ch => ch.name.includes("rules"));
-    let embede = new Discord.MessageEmbed()
-        .setColor('RED')
-        .setThumbnail(message.user.displayAvatarURL())
-        .setTitle('A member left the server')
-        .setDescription(`**${message.displayName}** has left ${serverName}, we now have ${message.guild.memberCount} members!`)
-        .setFooter(`${serverName}`, blob2.url)
-    // sends a message to the channel
-    channel.send(embede)
+    if (channel) {
+        const serverName = message.guild.name
+        const blob2 = client.emojis.cache.find(em => em.name === "ablobsigh");
+        const rulech = message.guild.channels.cache.find(ch => ch.name.includes("rules"));
+        let embede = new Discord.MessageEmbed()
+            .setColor('RED')
+            .setThumbnail(message.user.displayAvatarURL())
+            .setTitle('A member left the server')
+            .setDescription(`**${message.displayName}** has left ${serverName}, we now have ${message.guild.memberCount} members!`)
+            .setFooter(`${serverName}`, blob2.url)
+        // sends a message to the channel
+        channel.send(embede)
+    } else
+    {
+        console.error(`ok this is awkward but discord can't find a channel called welcome...`);
+    }
 })
 client.login(config.token);
 //client.user.setActivity(',help');
