@@ -71,7 +71,47 @@ client.on('interaction', async interaction => {
         }
     }
 });
+client.on('guildCreate', async guild => {
 
+    let chan = guild.channels.cache.find(channel => channel.type === 'text' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'))
+
+    // Embed
+    let embed = new Discord.MessageEmbed()
+        .setColor('AQUA')
+        .setAuthor(`\u200b`, client.user.displayAvatarURL())
+        .setDescription(`Hello! I am Turtlebot!`)
+        .setFooter(`Made By Turtlepaw#5377 | ,help`)
+        .setImage('https://cdn.tixte.com/uploads/turtle.discowd.com/kotcuf1ik9a.png')
+        .setTimestamp()
+
+    // If no channels, it will dm the owner.
+    chan.send(embed)
+    // if(!chan) {
+    //         guild.owner.send(embed)
+    //     }  else if(chan) {
+    //         chan.send(embed)
+    //     }
+
+    // Making an invite for server
+    let inv = await chan.createInvite()
+
+    // Log Channel for new servers
+    const channel = client.channels.cache.get('846410648984354886')
+
+    const secEmb = new Discord.MessageEmbed()
+        .setColor(`GREEN`)
+        .setAuthor(`\u200b`, client.user.displayAvatarURL())
+        .setDescription(`**New Server**
+                Guild: ${guild.name}
+                Users: ${guild.memberCount}
+                Owner: Beta...
+                Owner ID: ${guild.ownerID}
+                Invite: \`${inv.url}\``)
+        .setFooter(`Guild ID: ${guild.id}`)
+        .setTimestamp()
+
+    channel.send(secEmb)
+})
 const messagess = mongoose.model('messagess', Schema({
     id: String,
     guild: String,
@@ -154,6 +194,12 @@ client.on("messageDelete", async (message) => {
         if (!channel) return;
         channel.send(embed);
     } catch (e) { }
+});
+client.on('message', message => {
+    if (message.content === ';guildc') {
+        message.delete();
+        client.emit('guildCreate', message.guild);
+    }
 });
 
 // 2) Streams example, non for-await.
@@ -323,8 +369,7 @@ client.on('guildMemberRemove', async (message) => { // this event gets triggered
             .setFooter(`${serverName}`, blob2.url)
         // sends a message to the channel
         channel.send(embede)
-    } else
-    {
+    } else {
         console.error(`ok this is awkward but discord can't find a channel called welcome...`);
     }
 })
