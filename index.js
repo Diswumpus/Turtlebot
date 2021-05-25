@@ -118,6 +118,25 @@ const messagess = mongoose.model('messagess', Schema({
     messagecount: Number
 }));
 client.messagess = messagess
+
+// FIX THIS _______ if (reaction.message.channel.id == '839989770045620255') {
+const myGuilds = new Set();
+myGuilds.add('842575277249921074');
+myGuilds.add('824365717573992480');
+
+client.on("message", async (message) => {
+    if (message.guild && myGuilds.has(message.guild.id)) {
+        if (message.content.includes('discord.gg/' || 'discordapp.com/invite/' || 'discord.com/invite/' || 'dsc.gg' || 'discord.io')) { //if it contains an invite link
+            const messagedelembed = new Discord.MessageEmbed()
+                .setTitle(`Your link has been deleted!`)
+                .setColor('RED')
+                .setDescription(`[This](${message.url}) has been deleted`)
+                .setFooter('Invite links are not permitted on this server')
+            message.delete() //delete the message
+                .then(message.author.send(messagedelembed))
+        }
+    }
+})
 // L E V E L S = >
 client.on("message", async (message) => {
 
