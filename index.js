@@ -124,9 +124,18 @@ const myGuilds = new Set();
 myGuilds.add('842575277249921074');
 myGuilds.add('824365717573992480');
 
+const discordinvites = new Set();
+discordinvites.add('discord.gg');
+discordinvites.add('discordapp.com/invite');
+discordinvites.add('discord.com/invite');
+discordinvites.add('dsc.gg');
+discordinvites.add('discord.io');
+discordinvites.add('discord.me');
+discordinvites.add('discord');
+
 client.on("message", async (message) => {
     if (message.guild && myGuilds.has(message.guild.id)) {
-        if (message.content.includes('discord.gg/' || 'discordapp.com/invite/' || 'discord.com/invite/' || 'dsc.gg' || 'discord.io')) { //if it contains an invite link
+        if (message.content.toLowerCase().includes('discord.gg/' || 'discordapp.com/invite/' || 'discord.com/invite/' || 'dsc.gg' || 'discord.io' || 'discord.me')) { //if it contains an invite link
             const messagedelembed = new Discord.MessageEmbed()
                 .setTitle(`Your link has been deleted!`)
                 .setColor('RED')
