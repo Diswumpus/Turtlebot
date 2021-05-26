@@ -135,7 +135,7 @@ discordinvites.add('discord');
 
 client.on("message", async (message) => {
     if (message.guild && myGuilds.has(message.guild.id)) {
-        if (message.content.toLowerCase().includes('discord.gg/' || 'discordapp.com/invite/' || 'discord.com/invite/' || 'dsc.gg' || 'discord.io' || 'discord.me')) { //if it contains an invite link
+        if (message.content.toLowerCase().includes('discord.gg' || 'discordapp.com/invite' || 'discord.com/invite' || 'dsc.gg' || 'discord.io' || 'discord.me')) { //if it contains an invite link
             const messagedelembed = new Discord.MessageEmbed()
                 .setTitle(`Your link has been deleted!`)
                 .setColor('RED')
