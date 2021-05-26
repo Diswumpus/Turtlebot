@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const Levels = require("discord-xp");
 const Schema = mongoose.Schema;
 
-mongoose.connect('mongodb+srv://Turtlepaw:turttp@turtlebots-cluster.4radi.mongodb.net/Data', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(config.mongoose, { useNewUrlParser: true, useUnifiedTopology: true })
 let vernum = version.versionnum;
 //const keyv = new Keyv('sqlite:react.sqlite');
 //keyv.on('error', err => console.error('Keyv connection error:', err));
@@ -29,7 +29,7 @@ const roleName = '2 Month Supporter';
 
 client.once('ready', () => {
     console.log('Ready!');
-    Levels.setURL("mongodb+srv://Turtlepaw:turttp@turtlebots-cluster.4radi.mongodb.net/Data");
+    Levels.setURL(config.mongoose);
 });
 
 client.commands = new Discord.Collection();
