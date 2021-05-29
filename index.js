@@ -291,7 +291,7 @@ client.on('message', message => {
         const command = client.commands.get(commandName);
         const cat = client.emojis.cache.find(em => em.name === "cat1");
         if (!command) {
-            message.reply(`That's not a command ${cat}`);
+            //message.reply(`That's not a command ${cat}`);
         }
         else {
             try {
