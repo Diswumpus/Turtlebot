@@ -362,7 +362,6 @@ client.on('messageReactionRemove', async (reaction, user) => {
     } else return;
 });
 client.on('guildMemberAdd', async (message) => { // this event gets triggered when a new member joins the server!
-    if (message.guild && myGuilds.has(message.guild.id)) {
         // Firstly we need to define a channel
         // either using .get or .find, in this case im going to use .get()
         //const Channel = member.guild.channels.cache.get('channelid') //insert channel id that you want to send to
@@ -387,10 +386,8 @@ client.on('guildMemberAdd', async (message) => { // this event gets triggered wh
             .setFooter(`${serverName}`, blob1.url)
         // sends a message to the channel
         channel.send(embed)
-    }
 })
 client.on('guildMemberRemove', async (message) => { // this event gets triggered when a new member leaves the server!
-    if (message.guild && myGuilds.has(message.guild.id)) {
         // Firstly we need to define a channel
         // either using .get or .find, in this case im going to use .get()
         //making embed
@@ -407,7 +404,6 @@ client.on('guildMemberRemove', async (message) => { // this event gets triggered
             .setFooter(`${serverName}`, blob2.url)
         // sends a message to the channel
         channel.send(embede)
-    }
 })
 client.login(config.token);
 //client.user.setActivity(',help');
