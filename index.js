@@ -286,6 +286,7 @@ client.on('message', message => {
 
     if (differentDays >= 60 && Member && !Member.roles.cache.some(role => role.name === roleName)) {
         const role = message.guild.roles.cache.find(role => role.name === roleName);
+        if(!role) return;
         Member.roles.add(role);
         const flyEmoji = client.emojis.cache.get('831584687498461274')
         let whoisEmbed = new Discord.MessageEmbed()
