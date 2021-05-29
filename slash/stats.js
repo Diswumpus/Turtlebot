@@ -12,6 +12,8 @@ module.exports = {
         .addField(`Uptime:`, `${client.uptime/1000 /60 /60 /24}`)
         .addField(`Guilds:`, `${client.guilds.cache.size}`)
         .addField(`Code:`, `[Here](https://github.com/TurtlePaw/Turtlebot)`)
+        .addField(`Developer`, `[Turtlepaw#5377](https://discord.com/channels/@me/847987367557333002)`)
+        .addField(`Support Server`, `[Click here](https://discord.com/invite/5Wutrs8s4s)`)
         .addField(`Version:`, `${vernum}`)
         .setTimestamp()
         await interaction.reply(embeedd); 
