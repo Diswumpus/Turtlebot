@@ -9,7 +9,7 @@ module.exports = {
         try {
             const webhooks = await channel.fetchWebhooks();
             const webhook = webhooks.first();
-            const blobwave = message.client.emojis.cache.find(em => em.name === "blobwave");
+            const blobwave = message.client.emojis.cache.find(em => em.name === "ablobwave");
             const serverName = Member.guild.name
             message.channel.send(`Sent!`)
             const rules = new Discord.MessageEmbed()
