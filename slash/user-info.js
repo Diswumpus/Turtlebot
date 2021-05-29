@@ -16,14 +16,14 @@ module.exports = {
         });
         const embeedd = new Discord.MessageEmbed()
         .setColor('AQUA')
-        .setThumbnail(userr.user.displayAvatarURL())
+        .setThumbnail(userr.user.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 }))
         .setTitle(`User: ${userr.displayName}`)
         .addField(`User ID:`, `${userr.id}`)
         .addField(`Joined at:`, `${userr.joinedAt}`)
         .addField(`Messages Sent:`, `${msgCount}`)
         //.addField(`Discord Version`, `${userr.presence.clientStatus}`)
         .addField(`Joined Discord at`, `${userr.user.createdAt}`)
-        //.addField(`[Avatar link](${userr.user.displayAvatarURL()})`)
+        .setDescription(`[Avatar link](${userr.user.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 })})`)
         .setTimestamp()
         await interaction.reply(embeedd); 
     }
