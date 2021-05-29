@@ -8,18 +8,48 @@ module.exports = {
         if (!client.application?.owner) await client.application?.fetch();
 //https://discord.com/oauth2/authorize?client_id=841782635386109972&scope=bot+applications.commands
         const data = {
-            name: 'clear',
-            description: 'Cleans the chat',
+            name: 'embed',
+            description: 'Creates an embed',
             options: [{
-                name: 'amount',
-				type: 'INTEGER',
-				description: 'How many messages should i delete?',
+                name: 'channel',
+				type: 'CHANNEL',
+				description: 'What is the channel it should be sent in?',
 				required: true,
+            },
+            {
+                name: 'title',
+				type: 'STRING',
+				description: 'What is the title',
+				required: true,
+            },
+            {
+                name: 'description',
+				type: 'STRING',
+				description: 'What is the description',
+				required: true,
+            },
+            {
+                name: 'color',
+				type: 'STRING',
+				description: 'What is the color',
+				required: false,
+            },
+            {
+                name: 'thumbnail',
+				type: 'STRING',
+				description: 'What is the thumbnail - Must be a url',
+				required: false,
+            },
+            {
+                name: 'author',
+				type: 'STRING',
+				description: 'What is the author',
+				required: false,
 			}],
         };
 
         //const command = await client.application?.commands.create(data);
-        //const command = await client.guilds.cache.get('842575277249921074')?.commands.create(data);
+        const command = await client.guilds.cache.get('842575277249921074')?.commands.create(data);
         //await command.setPermissions(permissions);
         console.log(command);
     }
