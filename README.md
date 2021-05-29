@@ -13,8 +13,9 @@
 Features:
 - Currently Private
 - Custom Emojis
+- Slash commands /
 - And more 🎁
 ## How to add **Turtlebot**
-Go to [Click me](https://discord.com/oauth2/authorize?client_id=831712626626134037&scope=bot)
+Go to [Click me](https://discord.com/oauth2/authorize?client_id=831712626626134037&permissions=4228381815&scope=bot%20applications.commands)
 
-The bot is currently private, you can request beta access by DMing Turtlepaw#5377 or entering [this form]()
+The bot is now public! 🥳 [This is the invite link](https://discord.com/oauth2/authorize?client_id=831712626626134037&permissions=4228381815&scope=bot%20applications.commands)
