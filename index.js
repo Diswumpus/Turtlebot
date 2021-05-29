@@ -268,7 +268,6 @@ client.on('message', message => {
 
     //if(message.content.startsWith(`${prefix}tpwhois`)){
     var Member;
-    var status;
     var differentDays = 0;
     if (message.mentions.members) {
         Member = message.mentions.members.first()
