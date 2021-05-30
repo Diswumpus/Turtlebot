@@ -55,7 +55,7 @@ const errorr = new Discord.MessageEmbed()
     .setImage(`https://cdn.tixte.com/uploads/turtlepaw.is-from.space/kow11oq1p9a.png`)
 client.on('interaction', async interaction => {
     if (!interaction.isCommand()) return;
-    console.log(`received interaction ${interaction.commandName}`);
+    console.log(`received interaction ${interaction.commandName} by ${interaction.user.tag}`);
     const commandName = interaction.commandName;
 
     const command = client.slashcmds.get(commandName);
