@@ -11,6 +11,7 @@ module.exports = {
         const reason = interaction.options[1].value;
         const avatarembed = new Discord.MessageEmbed()
         .setTitle(`Banned ${member.user.tag}`)
+        .setColor(`RED`)
         .setDescription(`${member.user.tag} Can't come back!`)
         //interaction.guild.members.ban(member);
         member.ban({reason: `${reason}`});
