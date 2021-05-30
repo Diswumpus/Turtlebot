@@ -103,6 +103,7 @@ dist
 # TernJS port file
 .tern-port
 config.json
+package-lock.json
 reaction_roles.json
 slash-config.js
 slash-config.js
