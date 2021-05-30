@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const configg = require('../config2.json')
 
 module.exports = {
     name: 'stats',
@@ -7,15 +8,16 @@ module.exports = {
         let vernum = client.version.versionnum;
         const turtlebot = client.emojis.cache.find(em => em.name === "Turtlebot")
         const embeedd = new Discord.MessageEmbed()
-        .setColor('AQUA')
+        .setColor(configg.color)
         .setThumbnail(turtlebot.url)
         .addField(`Uptime:`, `${client.uptime/1000 /60 /60 /24} days`)
         .addField(`Guilds:`, `${client.guilds.cache.size}`)
-        .addField(`Invite:`, `[Here](https://discord.com/oauth2/authorize?client_id=831712626626134037&permissions=4228381815&scope=bot%20applications.commands)`)
+        .addField(`Invite:`, `[Here](${configg.boti})`)
         .addField(`Code:`, `[Here](https://github.com/TurtlePaw/Turtlebot)`)
         .addField(`Developer`, `Turtlepaw#5377`)
-        .addField(`Support Server`, `[Click here](https://discord.com/invite/5Wutrs8s4s)`)
+        .addField(`Support Server`, `[Click here](${configg.invite})`)
         .addField(`Version:`, `${vernum}`)
+        .addField(`You can see all my commands here!`, `[Click Me](${configg.cmd})`)
         .setTimestamp()
         await interaction.reply(embeedd); 
     }

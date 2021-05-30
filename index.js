@@ -3,6 +3,7 @@ const config = require('./config.json');
 const fs = require('fs');
 const klawSync = require('klaw-sync')
 const version = require('./version.json');
+const configg = require('./config2.json')
 const mongoose = require('mongoose');
 const Levels = require("discord-xp");
 const Schema = mongoose.Schema;
@@ -36,6 +37,7 @@ client.commands = new Discord.Collection();
 client.slashcmds = new Discord.Collection();
 client.snipes = new Discord.Collection();
 client.config = config;
+client.confiig = configg;
 client.version = version;
 
 const slashFiles = fs.readdirSync('./slash').filter(file => file.endsWith('.js'));

@@ -14,7 +14,12 @@
 * ``,send`` -
 
 ### Fun 
+* ``,announce`` Get the bot to say what ever you want in a specific channel.
 * ``,avatar`` Get the avatar URL of the tagged user(s), or your own avatar.
+* ``,lb`` Shows your rank
+* ``,leaderboard`` Shows your rank
+* ``,magik`` Make a magik avatar!
+* ``,rank`` Shows your rank
 
 ### fun 
 * ``,giveaway`` Create a simple giveaway
@@ -26,7 +31,8 @@
 * ``,hel`` Server info
 * ``,info`` Gives info about server,avatar
 * ``,problem`` Gives info about server,avatar
-* ``,rules`` This command is for help for the submit commmand
+* ``,ruless`` TURTLEPAWS SERVER ONLY
+* ``,rules`` TURTLEPAWS SERVER ONLY
 * ``,server`` Server info
 * ``,solve`` Solves the problem sent to my developers
 * ``,sg`` Sends a suggestion to my developer
@@ -43,8 +49,10 @@
 * ``,report`` Reports a member
 * ``,ban`` Bans a user
 * ``,kick`` Kicks a user
+* ``,lockdown`` Locks the chat
 * ``,clear`` Clears the chat
 * ``,unban`` Unbans a user
+* ``,unlock`` Unlocks the chat
 * ``,verify`` Verifies the author of the message
 
 ### Misc 
@@ -58,14 +66,23 @@
 * ``,rradd`` Add a reaction role
 
 ## Slash Commands
+* ``/announce``
 * ``/avatar``
+* ``/ban``
 * ``/cat``
+* ``/clear``
 * ``/dog``
+* ``/undefined``
 * ``/embed``
 * ``/github``
 * ``/guilds``
 * ``/help``
+* ``/invite``
+* ``/kick``
+* ``/magik``
 * ``/ping-user``
+* ``/rank``
+* ``/reminder``
 * ``/restart``
 * ``/server-info``
 * ``/stats``

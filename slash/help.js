@@ -8,10 +8,12 @@ module.exports = {
         const message = interaction
         const turtlebot = message.client.emojis.cache.find(em => em.name === "Turtlebot");
         const nodejs = message.client.emojis.cache.find(em => em.name === "Nodejs");
+        const commandsss = client.confiig.cmd;
         const genEmber = (text) => {
             return new Discord.MessageEmbed()
                 .setColor('AQUA')
                 .setTitle(`Here's a list of all my commands!`)
+                .setURL(commandsss)
                 .setDescription('**This command is currently in beta**')
                 .setThumbnail(turtlebot.url)
                 .addField('1️⃣ Config')

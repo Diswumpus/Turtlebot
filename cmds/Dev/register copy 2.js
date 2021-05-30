@@ -8,20 +8,8 @@ module.exports = {
         if (!client.application?.owner) await client.application?.fetch();
 //https://discord.com/oauth2/authorize?client_id=841782635386109972&scope=bot+applications.commands
         const data = {
-            name: 'kick',
-            description: 'Kicks a user',
-            options: [{
-                name: 'user',
-				type: 'USER',
-				description: 'What user should i ban?',
-				required: true,
-            },
-            {
-                name: 'reason',
-				type: 'STRING',
-				description: 'What is your reason?',
-				required: true,
-			}],
+            name: 'invite',
+            description: 'Invite me to your server!',
         };
 
         //const command = await client.application?.commands.create(data);
