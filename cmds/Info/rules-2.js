@@ -6,6 +6,10 @@ module.exports = {
     description: 'TURTLEPAWS SERVER ONLY',
     async execute(message, Member, args) {
         const channel = message.client.channels.cache.get('847972176132440135');
+        if(message.author.id !== '820465204411236362') { 
+            message.author.send(`You don't have permissions!`)
+            return message.delete();
+        }
         try {
             const webhooks = await channel.fetchWebhooks();
             const webhook = webhooks.first();

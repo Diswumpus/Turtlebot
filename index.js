@@ -220,6 +220,7 @@ client.on("message", async (message) => {
 
 client.on("messageDelete", async (message) => {
     try {
+        if (message.member.permissions.has('MANAGE_MESSAGES')) { return;}
         if (message.author.bot) return;
         const snipes = message.client.snipes.get(message.channel.id) || [];
         snipes.unshift({
