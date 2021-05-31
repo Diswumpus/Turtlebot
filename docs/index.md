@@ -13,7 +13,6 @@ Coming Soon!
 Made with Markdown
 
 # Self-host Setup
-1. First start by doing all the basics
-2. Coming Soon!
-3. 
-4. 
+This will be added when the bot is in **100** Servers/Guilds [![Discord Bots](https://top.gg/api/widget/servers/831712626626134037.svg)](https://top.gg/bot/831712626626134037)
+# Vote for us on [Top.gg](https://top.gg/bot/831712626626134037)
+[![Discord Bots](https://top.gg/api/widget/831712626626134037.svg)](https://top.gg/bot/831712626626134037)

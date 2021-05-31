@@ -54,6 +54,7 @@
 * ``,unban`` Unbans a user
 * ``,unlock`` Unlocks the chat
 * ``,verify`` Verifies the author of the message
+* ``,warn`` Warn a user
 
 ### Misc 
 * ``,github`` Shows a link to the bots Git hub
@@ -90,3 +91,4 @@
 * ``/tp-chairs``
 * ``/user-info``
 * ``/version``
+* ``/warn``

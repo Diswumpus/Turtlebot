@@ -6,15 +6,21 @@ module.exports = {
     async execute(message, Member, args) {
         const client = message.client
         if (!client.application?.owner) await client.application?.fetch();
-//https://discord.com/oauth2/authorize?client_id=841782635386109972&scope=bot+applications.commands
+        //https://discord.com/oauth2/authorize?client_id=841782635386109972&scope=bot+applications.commands
         const data = {
-            name: 'magik',
-            description: 'Make a magik avatar!',
+            name: 'warn',
+            description: 'Warn a user',
             options: [{
                 name: 'user',
-				type: 'USER',
-				description: 'The user you want to use this command with',
-				required: false,
+                type: 'USER',
+                description: 'The user you want to warn',
+                required: true,
+            },
+            {
+                name: 'reason',
+                type: 'STRING',
+                description: 'Why do you want to warn this user?',
+                required: false,
             }],
         };
 
@@ -33,7 +39,7 @@ module.exports = {
 //     type: 'CHANNEL',
 //     description: 'What channel should i announce this in?',
 //     required: true,
-    
+
 //     name: 'title',
 //     type: 'STRING',
 //     description: 'What should i announce?',
