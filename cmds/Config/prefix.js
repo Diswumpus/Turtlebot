@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const mongoose = require('mongoose')
-const prefixModel = require("/home/turtlepaw/Turtlebot/models/prefix.js")
+const prefixModel = require("../../models/prefix")
 
 module.exports = {
     name: 'prefix',
