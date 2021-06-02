@@ -7,6 +7,8 @@ const configg = require('./config2.json')
 const mongoose = require('mongoose');
 const Levels = require("discord-xp");
 const Schema = mongoose.Schema;
+const prefix = require('./models/prefix');
+
 
 mongoose.connect(config.mongoose, { useNewUrlParser: true, useUnifiedTopology: true })
 let vernum = version.versionnum;
@@ -39,6 +41,7 @@ client.snipes = new Discord.Collection();
 client.config = config;
 client.confiig = configg;
 client.version = version;
+client.disbut = require('discord-buttons')(client);
 
 const slashFiles = fs.readdirSync('./slash').filter(file => file.endsWith('.js'));
 
@@ -220,7 +223,7 @@ client.on("message", async (message) => {
 
 client.on("messageDelete", async (message) => {
     try {
-        if (message.member.permissions.has('MANAGE_MESSAGES')) { return;}
+        if (message.member.permissions.has('MANAGE_MESSAGES')) { return; }
         if (message.author.bot) return;
         const snipes = message.client.snipes.get(message.channel.id) || [];
         snipes.unshift({
@@ -267,9 +270,37 @@ for (const file of commandFiles) {
     // with the key as the command name and the value as the exported module
     client.commands.set(command.name, command);
 }
+const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+client.on('message', async message => {
+    const mentionRegex = RegExp(`^<@!?${client.user.id}>$`);
+    const mentionRegexPrefix = RegExp(`^<@!?${client.user.id}>`);
+    // if (!prefixRegex.test(message.content)) return;
+    if (message.content.match(mentionRegex)) {
+        const data = await prefix.findOne({
+            GuildID: message.guild.id
+        });
+        let currentPrefix = data?.Prefix ?? config?.prefix;
+
+        if (data) {
+            message.reply(
+                new Discord.MessageEmbed()
+                    .setTitle(`Hey there!`)
+                    .setDescription(`My prefix is \`${config?.prefix}\` or you can use \`${data?.Prefix}\``)
+                    .setColor(configg.color)
+            )
+        } else if (!data) {
+            message.reply(
+                new Discord.MessageEmbed()
+                    .setTitle(`Hey there!`)
+                    .setDescription(`My prefix is \`${config.prefix}\``)
+                    .setColor(configg.color)
+            )
+        }
+    }
+});
 
 // Client events
-client.on('message', message => {
+client.on('message', async message => {
 
     //if(message.content.startsWith(`${prefix}tpwhois`)){
     var Member;
@@ -287,44 +318,79 @@ client.on('message', message => {
     }
     message.differentDays = differentDays;
     message.client = client;
+    if (message.author.bot) {
+        return
+    }
+    const data = await prefix.findOne({
+        GuildID: message.guild.id
+    });
 
-    if (message.content.startsWith(config.prefix) && !message.author.bot) {
-        const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+    // if(data) {
+    //     const prefix = data.Prefix;
+
+    //     if (!message.content.startsWith(prefix)) return;
+    //     const commandfile = client.commands.get(cmd.slice(prefix.length)) || client.commands.get(client.aliases.get(cmd.slice(prefix.length)));
+    //     commandfile.run(message, Member, args);
+    // } else if (!data) {
+    //     //set the default prefix here
+    //     const prefix = config.prefix;
+
+    //     if (!message.content.startsWith(prefix)) return;
+    //     const commandfile = client.commands.get(cmd.slice(prefix.length)) || client.commands.get(client.aliases.get(cmd.slice(prefix.length)));
+    //     commandfile.run(message, Member, args);
+    // }
+    let configStart = message.content.startsWith(config?.prefix);
+    let dataStart = message.content.startsWith(data?.Prefix);
+    if (configStart || dataStart) {
+        let currentPrefix = configStart ? config?.prefix : data?.Prefix;
+
+        const args = message.content.slice(currentPrefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
-
+        console.log(`${commandName} was executed by ${message.author.tag}`);
         const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-        const cat = client.emojis.cache.find(em => em.name === "cat1");
-        if (!command) {
-            //message.reply(`That's not a command ${cat}`);
+        if (command) {
+            await command.execute(message, Member, args);
+        } else {
+            console.log(`Couldn't find ${commandName}`);
         }
-        else {
-            try {
-                command.execute(message, Member, args);
-            } catch (error) {
-                console.error("Yikes!!");
-                console.error(error);
-                const x = client.emojis.cache.find(em => em.name === "X1");
-                message.reply(errorr);
-            }
-        }
+        // } else {
+        //     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+        //     const commandName = args.shift().toLowerCase();
+
+        //     const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+        //     const cat = client.emojis.cache.find(em => em.name === "cat1");
+        //     if (!command) {
+        //         //message.reply(`That's not a command ${cat}`);
+        //     }
+        //     else {
+        //         try {
+        //             await command.execute(message, Member, args);
+        //         } catch (error) {
+        //             console.error("Yikes!!");
+        //             console.error(error);
+        //             const x = client.emojis.cache.find(em => em.name === "X1");
+        //             message.reply(errorr);
+        //         }
+        //     }
+        // }
     }
 
 
-    if (differentDays >= 60 && Member && !Member.roles.cache.some(role => role.name === roleName)) {
-        const role = message.guild.roles.cache.find(role => role.name === roleName);
-        if(!role) return;
-        Member.roles.add(role);
-        const flyEmoji = client.emojis.cache.get('831584687498461274')
-        let whoisEmbed = new Discord.MessageEmbed()
-            .setTitle(`Hey ${Member.displayName}!`)
-            .setColor("AQUA")
-            .setDescription(`You are getting the '**Supporter role**' ${flyEmoji}`)
-            .addField(`${Member.displayName} joined`, `${message.differentDays} days ago`)
-            //            .addField("Joined at", Member.joinedAt)
-            //            .addField("Status", status)
-            .setFooter("Turtlebot")
-        message.channel.send(whoisEmbed)
-    }
+    // if (differentDays >= 60 && Member && !Member.roles.cache.some(role => role.name === roleName)) {
+    //     const role = message.guild.roles.cache.find(role => role.name === roleName);
+    //     if(!role) return;
+    //     Member.roles.add(role);
+    //     const flyEmoji = client.emojis.cache.get('831584687498461274')
+    //     let whoisEmbed = new Discord.MessageEmbed()
+    //         .setTitle(`Hey ${Member.displayName}!`)
+    //         .setColor("AQUA")
+    //         .setDescription(`You are getting the '**Supporter role**' ${flyEmoji}`)
+    //         .addField(`${Member.displayName} joined`, `${message.differentDays} days ago`)
+    //         //            .addField("Joined at", Member.joinedAt)
+    //         //            .addField("Status", status)
+    //         .setFooter("Turtlebot")
+    //     message.channel.send(whoisEmbed)
+    //}
 });
 
 // Adding reaction-role function
@@ -389,50 +455,50 @@ client.on('messageReactionRemove', async (reaction, user) => {
 });
 client.on('guildMemberAdd', async (message) => { // this event gets triggered when a new member joins the server!
     //if (message.guild && myGuilds.has(message.guild.id)) {
-        // Firstly we need to define a channel
-        // either using .get or .find, in this case im going to use .get()
-        //const Channel = member.guild.channels.cache.get('channelid') //insert channel id that you want to send to
-        const channel = message.guild.channels.cache.find(ch => ch.name.includes("welcome")); //** This is telling the script which server to send teh message in**\\
-        const serverName = message.guild.name
-        const rulech = message.guild.channels.cache.find(ch => ch.name.includes("rules"));
-        if (!channel) return;
-        const blob1 = client.emojis.cache.find(em => em.name === "ablobwave");
-        const blannk = client.emojis.cache.find(em => em.name === "Blank");
-        //making embed
-        const embed = new Discord.MessageEmbed()
-            .setColor('GREEN')
-            .setThumbnail(message.user.displayAvatarURL())
-            .setTitle(`**${message.displayName} Joined**`)
-            .addField(`Welcome to ${serverName} ${blob1}`, `Please read the Rules, hope you have a pleasant stay ${message.displayName}! Say ${config.prefix}verify to begin! ${message.displayName}`)
-            .setFooter(`${serverName}`, blob1.url)
-        const dmembed = new Discord.MessageEmbed()
-            .setColor('GREEN')
-            .setThumbnail(message.user.displayAvatarURL())
-            .setTitle(`**Welcome ${message.displayName} to ${serverName}**`)
-            .addField(`${blob1}`, `Please read the <#${rulech.id}>, hope you have a pleasant stay ${message.displayName}! Say ${config.prefix}verify to begin! ${message.displayName}`)
-            .setFooter(`${serverName}`, blob1.url)
-        // sends a message to the channel
-        channel.send(embed)
+    // Firstly we need to define a channel
+    // either using .get or .find, in this case im going to use .get()
+    //const Channel = member.guild.channels.cache.get('channelid') //insert channel id that you want to send to
+    const channel = message.guild.channels.cache.find(ch => ch.name.includes("welcome")); //** This is telling the script which server to send teh message in**\\
+    const serverName = message.guild.name
+    const rulech = message.guild.channels.cache.find(ch => ch.name.includes("rules"));
+    if (!channel) return;
+    const blob1 = client.emojis.cache.find(em => em.name === "ablobwave");
+    const blannk = client.emojis.cache.find(em => em.name === "Blank");
+    //making embed
+    const embed = new Discord.MessageEmbed()
+        .setColor('GREEN')
+        .setThumbnail(message.user.displayAvatarURL())
+        .setTitle(`**${message.displayName} Joined**`)
+        .addField(`Welcome to ${serverName} ${blob1}`, `Please read the Rules, hope you have a pleasant stay ${message.displayName}! Say ${config.prefix}verify to begin! ${message.displayName}`)
+        .setFooter(`${serverName}`, blob1.url)
+    const dmembed = new Discord.MessageEmbed()
+        .setColor('GREEN')
+        .setThumbnail(message.user.displayAvatarURL())
+        .setTitle(`**Welcome ${message.displayName} to ${serverName}**`)
+        .addField(`${blob1}`, `Please read the <#${rulech.id}>, hope you have a pleasant stay ${message.displayName}! Say ${config.prefix}verify to begin! ${message.displayName}`)
+        .setFooter(`${serverName}`, blob1.url)
+    // sends a message to the channel
+    channel.send(embed)
     //}
 })
 client.on('guildMemberRemove', async (message) => { // this event gets triggered when a new member leaves the server!
     //if (message.guild && myGuilds.has(message.guild.id)) {
-        // Firstly we need to define a channel
-        // either using .get or .find, in this case im going to use .get()
-        //making embed
-        const channel = message.guild.channels.cache.find(ch => ch.name.includes("welcome")); //** This is telling the script which server to send teh message in**\\
-        if (!channel) return;
-        const serverName = message.guild.name
-        const blob2 = client.emojis.cache.find(em => em.name === "ablobsigh");
-        const rulech = message.guild.channels.cache.find(ch => ch.name.includes("rules"));
-        let embede = new Discord.MessageEmbed()
-            .setColor('RED')
-            .setThumbnail(message.user.displayAvatarURL())
-            .setTitle('A member left the server')
-            .setDescription(`**${message.displayName}** has left ${serverName}, we now have ${message.guild.memberCount} members!`)
-            .setFooter(`${serverName}`, blob2.url)
-        // sends a message to the channel
-        channel.send(embede)
+    // Firstly we need to define a channel
+    // either using .get or .find, in this case im going to use .get()
+    //making embed
+    const channel = message.guild.channels.cache.find(ch => ch.name.includes("welcome")); //** This is telling the script which server to send teh message in**\\
+    if (!channel) return;
+    const serverName = message.guild.name
+    const blob2 = client.emojis.cache.find(em => em.name === "ablobsigh");
+    const rulech = message.guild.channels.cache.find(ch => ch.name.includes("rules"));
+    let embede = new Discord.MessageEmbed()
+        .setColor('RED')
+        .setThumbnail(message.user.displayAvatarURL())
+        .setTitle('A member left the server')
+        .setDescription(`**${message.displayName}** has left ${serverName}, we now have ${message.guild.memberCount} members!`)
+        .setFooter(`${serverName}`, blob2.url)
+    // sends a message to the channel
+    channel.send(embede)
     //}
 })
 client.login(config.token);

@@ -21,7 +21,10 @@ module.exports = {
                 })
                     .then(console.log)
                     .catch(console.error);
-                message.reply(`Successfully created! ${blob8}`);
+                message.reply(
+                    new Discord.MessageEmbed()
+                    .setTitle(`Successfully created! ${blob8}`)
+                );
             }
         }
     }

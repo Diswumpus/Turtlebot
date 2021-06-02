@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const kfsRoot = require("key-file-storage");
-const kfs = kfsRoot.default('data/problemjs');
+const kfs = kfsRoot.default('data/noidea');
 
 module.exports = {
     name: 'send',
