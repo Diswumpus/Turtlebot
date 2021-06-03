@@ -8,18 +8,12 @@ module.exports = {
         if (!client.application?.owner) await client.application?.fetch();
         //https://discord.com/oauth2/authorize?client_id=841782635386109972&scope=bot+applications.commands
         const data = {
-            name: 'warn',
-            description: 'Warn a user',
+            name: 'avatar',
+            description: 'Get a users avatar',
             options: [{
                 name: 'user',
                 type: 'USER',
-                description: 'The user you want to warn',
-                required: true,
-            },
-            {
-                name: 'reason',
-                type: 'STRING',
-                description: 'Why do you want to warn this user?',
+                description: 'What user?',
                 required: false,
             }],
         };
