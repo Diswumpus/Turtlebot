@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const { ChaosWords } = require("weky")
 var randomWords = require('random-words');
-
+/*
 module.exports = {
     name: 'cw',
     description: 'A embed template',
@@ -19,3 +19,4 @@ module.exports = {
         }).start()
     },
 };
+*/

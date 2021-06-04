@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const { TicTacToe } = require('weky')
-
+/*
 module.exports = {
     name: 'tw',
     description: 'A embed template',
@@ -19,3 +19,4 @@ module.exports = {
         game.start()//start da game
     },
 };
+*/

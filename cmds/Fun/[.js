@@ -1,7 +1,7 @@
 var randomWords = require('random-words');
 const Discord = require('discord.js');
 const { ShuffleGuess } = require('weky');
-
+/*
 module.exports = {
     name: 'oo',
     description: 'A embed template',
@@ -21,3 +21,4 @@ module.exports = {
     game.start();
     },
 };
+*/

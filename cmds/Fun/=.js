@@ -1,6 +1,6 @@
 const { Calculator } = require('weky')
 const Discord = require('discord.js');
-
+/*
 module.exports = {
     name: 'calc',
     description: 'A embed template',
@@ -9,3 +9,4 @@ module.exports = {
         await Calculator(message)
     },
 };
+*/
