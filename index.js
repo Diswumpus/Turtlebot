@@ -19,10 +19,10 @@ const client = new Discord.Client({
     intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_PRESENCES", "GUILD_INTEGRATIONS", "GUILD_VOICE_STATES", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS"],
 
 
-    presence: {
-        status: 'online',
-        activities: [{ name: `Your server! | v${vernum}`, type: 'WATCHING' }],
-    }
+    // presence: {
+    //     status: 'online',
+    //     activities: [{ name: `Your server! | v${vernum}`, type: 'WATCHING' }],
+    // }
 });
 //Slash commands are out!!
 //Your server! ${config.prefix}help | WATCHING
@@ -30,9 +30,27 @@ const roleName = '2 Month Supporter';
 
 //client.snipes = new Discord.Collection();
 
-client.once('ready', () => {
+client.once('ready', async () => {
     console.log('Ready!');
     Levels.setURL(config.mongoose);
+    const activities = [
+        { name: `Your Server | v${vernum}`, type: 'WATCHING' }, 
+      ];
+    
+  
+      client.user.setPresence({ status: 'online', activity: activities[0] });
+    
+      let activity = 1;
+    
+  
+      setInterval(() => {
+        activities[2] = { name: `${config.prefix}help | ${client.guilds.cache.size} guilds`, type: 'WATCHING' };
+        activities[3] = { name: `${config.prefix}help | ${client.users.cache.size} users`, type: 'WATCHING' }; 
+        if (activity > 3) activity = 0;
+        client.user.setActivity(activities[activity]);
+
+        activity++;
+      }, 35000);
 });
 
 client.commands = new Discord.Collection();
