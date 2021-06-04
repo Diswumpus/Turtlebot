@@ -35,6 +35,7 @@ client.once('ready', async () => {
     Levels.setURL(config.mongoose);
     const activities = [
         { name: `Your Server | v${vernum}`, type: 'WATCHING' }, 
+        { name: `Your Server | v${vernum}`, type: 'WATCHING' }
       ];
     
   
