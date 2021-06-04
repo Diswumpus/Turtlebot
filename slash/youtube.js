@@ -6,7 +6,6 @@ module.exports = {
   name: 'youtube',
   async execute(client, interaction) {
     if (interaction.member.permissions.has('MANAGE_MESSAGES')) {
-      console.log(interaction.options)
       let ytuser = interaction.options.length > 1 ? interaction.options[1].user : interaction.user;
       let comment = interaction.options[0].value;
       await interaction.defer();
