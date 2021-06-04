@@ -23,7 +23,7 @@ module.exports = {
                 .addField(`Current XP:`, `${user.xp}`)
                 .addField(`Required XP:`, `${neededXp}`)
                 .addField(`Rank:`, `${user.position}`)
-                .setColor(`AQUA`)
+                .setColor(client.confiig.color)
                 .addField(`Level:`, `${user.level}`)
                 .setFooter(`${target.username}#${target.discriminator}`)
                 await interaction.reply(embedd);

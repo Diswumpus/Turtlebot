@@ -6,7 +6,7 @@ module.exports = {
     async execute(client, interaction) {
         const userr = interaction.guild
         const embeedd = new Discord.MessageEmbed()
-        .setColor('AQUA')
+        .setColor(client.confiig.color)
         .setThumbnail(interaction.guild.iconURL())
         .setTitle(`${interaction.guild.name}`)
         .addField(`Verification Level:`, `${interaction.guild.verificationLevel}`)

@@ -12,7 +12,7 @@ module.exports = {
         .setTitle(`Reminder > ${reminder}`)
         .setAuthor(`Author > ${interaction.user.tag}`, interaction.user.displayAvatarURL({ dynamic: true, size: 1024 }))
         .setFooter(`${time}`, timer.url)
-        .setColor("AQUA")
+        .setColor(client.confiig.color)
         .setTimestamp()  
         await interaction.reply(embedd);
         setTimeout(() => {
@@ -20,7 +20,7 @@ module.exports = {
             .setTitle(`Reminder > ${reminder}`)
             .setAuthor(`Author > ${interaction.user.tag}`, interaction.user.displayAvatarURL({ dynamic: true, size: 1024 }))
             .setDescription(`Time's Up! ${timer}`)
-            .setColor("AQUA")
+            .setColor(client.confiig.color)
             .setTimestamp()
             interaction.channel.send(embeddd)
             interaction.user.send(embeddd)

@@ -15,7 +15,7 @@ module.exports = {
        msg.author.tag,
        msg.author.displayAvatarURL({ dynamic: true, size: 256 })
      )
-     .setColor(`AQUA`)
+     .setColor(client.confiig.color)
      .setDescription(msg.content)
      .setFooter(`Date: ${msg.date} | ${args[0] || 1}/${snipes.length}`);
    if (msg.attachment) Embed.setImage(msg.attachment);

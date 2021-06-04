@@ -15,7 +15,7 @@
 //             const verify = client.emojis.cache.find(em => em.name === "verify");
 //             let whoisEmbed = new Discord.MessageEmbed()
 //                 .setTitle(`Hey ${Member.displayName}!`)
-//                 .setColor("AQUA")
+//                 .setColor(client.confiig.color)
 //                 .setDescription(`You are getting the **Verified Member** role! ${verify}`) 
 //                 .addField(`${Member.displayName} joined`, `${message.differentDays} days ago`)
 //                 //            .addField("Joined at", Member.joinedAt)

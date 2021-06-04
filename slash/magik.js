@@ -15,7 +15,7 @@ module.exports = {
             `https://nekobot.xyz/api/imagegen?type=magik&image=${user}&intensity=${numb}`
           ).then((res) => res.json());
         let whoisEmbed = new Discord.MessageEmbed()
-            .setColor("AQUA")
+            .setColor(client.confiig.color)
             .setImage(data.message)
             await wait(100);
             await interaction.editReply(whoisEmbed);

@@ -18,7 +18,7 @@ module.exports = {
         // if (message.content.startsWith(`${config.prefix}help`)) {
         //     let whoisEmbed = new Discord.MessageEmbed()
         //         .setTitle(`Commands`)
-        //         .setColor("AQUA")
+        //         .setColor(client.confiig.color)
         //         //        .setDescription(`Basic`)
         //         .addField("Basic", "None")
         //         .setFooter("Turtlebot")

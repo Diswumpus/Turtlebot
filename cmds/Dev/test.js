@@ -7,7 +7,7 @@ module.exports = {
     execute(message, Member, args) {
         let whoisEmbed = new Discord.MessageEmbed()
             .setTitle(`Testing`)
-            .setColor("AQUA")
+            .setColor(client.confiig.color)
             //        .setDescription(`<:Myemoji:829858304297271306>`)
             .addField("Is it working?", "<:Myemoji:829858304297271306>")
             .setFooter("Turtlebot :)")

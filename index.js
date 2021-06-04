@@ -82,7 +82,7 @@ client.on('guildCreate', async guild => {
 
     // Embed
     let embed = new Discord.MessageEmbed()
-        .setColor('AQUA')
+        .setColor(client.confiig.color)
         .setAuthor(`\u200b`, client.user.displayAvatarURL())
         .setTitle(`Hello! I am Turtlebot!`)
         .addField("Make sure to use `,` with every command", '-')
@@ -383,7 +383,7 @@ client.on('message', async message => {
     //     const flyEmoji = client.emojis.cache.get('831584687498461274')
     //     let whoisEmbed = new Discord.MessageEmbed()
     //         .setTitle(`Hey ${Member.displayName}!`)
-    //         .setColor("AQUA")
+    //         .setColor(client.confiig.color)
     //         .setDescription(`You are getting the '**Supporter role**' ${flyEmoji}`)
     //         .addField(`${Member.displayName} joined`, `${message.differentDays} days ago`)
     //         //            .addField("Joined at", Member.joinedAt)

@@ -18,7 +18,7 @@ module.exports = {
           message.delete({timeout: 500})
           //message.channel.send(new discord.MessageEmbed().setColor(client.color.blue).setImage(data.message))
         let whoisEmbed = new Discord.MessageEmbed()
-            .setColor("AQUA")
+            .setColor(client.confiig.color)
             .setImage(data.message)
             setTimeout(() => {
             m.edit(whoisEmbed)

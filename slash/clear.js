@@ -6,9 +6,11 @@ module.exports = {
         if (interaction.member.permissions.has('MANAGE_MESSAGES')) {
         }
         if (interaction.member.permissions.has('MANAGE_MESSAGES')) {
-            let deletenum = interaction.options[0].number;
+            let deletenum = interaction.options[0].value;
+            console.log(deletenum)
             const embeedd = new Discord.MessageEmbed()
                 .setTitle(`:wastebasket: Deleted ${deletenum} messages!`)
+                .setColor(client.confiig.color)
             interaction.channel.bulkDelete(deletenum)
             await interaction.reply(embeedd);
         }

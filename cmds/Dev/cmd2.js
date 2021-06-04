@@ -8,7 +8,7 @@ module.exports = {
         const emojiname = message.client.emojis.cache.find(em => em.name === "emojiname");
         let tEmbed = new Discord.MessageEmbed()
             .setTitle(`This is a template`)
-            .setColor("AQUA")
+            .setColor(client.confiig.color)
             //        .setDescription(`${emojiname}`)
             .addField(`Template", "${emojiname}`)
             .setFooter(`Turtlebot`, turtlebot.url)

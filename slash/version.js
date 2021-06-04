@@ -6,7 +6,7 @@ module.exports = {
     async execute(client, interaction) {
         let vernum = client.version.versionnum;
         const versionembed = new Discord.MessageEmbed()
-        .setColor('AQUA')
+        .setColor(client.confiig.color)
         .setTitle(`The version is: ${vernum}`)
         .setTimestamp()
         .setFooter(`Turtlebot • ${vernum}`)

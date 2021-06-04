@@ -17,7 +17,7 @@ module.exports = {
     const lb = leaderboard.map(e => `${e.position}. ${e.username}#${e.discriminator}\nLevel: ${e.level}\nXP: ${e.xp.toLocaleString()}`); // We map the outputs.
     const leaderboardembed = new Discord.MessageEmbed()
     .setTitle('**Leaderboard**')
-    .setColor('AQUA')
+    .setColor(client.confiig.color)
     .setDescription(`${lb.join("\n\n")}`)
     .setFooter(`Turtlebot XP`)
     message.channel.send(leaderboardembed);

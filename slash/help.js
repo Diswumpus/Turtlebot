@@ -11,7 +11,7 @@ module.exports = {
         const commandsss = client.confiig.cmd;
         const genEmber = (text) => {
             return new Discord.MessageEmbed()
-                .setColor('AQUA')
+                .setColor(client.confiig.color)
                 .setTitle(`Here's a list of all my commands!`)
                 .setURL(commandsss)
                 .setDescription('**This command is currently in beta**')
@@ -29,7 +29,7 @@ module.exports = {
         };
         const genCategoryHelp = (categoryName) => {
             var helpEmbed = new Discord.MessageEmbed()
-                .setColor('AQUA')
+                .setColor(client.confiig.color)
                 .setTitle("I'm Turtlebot")
                 .setDescription('Here\'s a list of all my commands:')
                 .setThumbnail(turtlebot.url);

@@ -18,7 +18,7 @@ module.exports = {
     const _ = new MessageEmbed()
       .setTitle(`Announcement! ${announceemoji}`)
       .setDescription(`${MSG}`)
-      .setColor("AQUA");
+      .setColor(client.confiig.color);
     rChannel.send(_);
     message.delete();
   },

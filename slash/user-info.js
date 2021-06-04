@@ -15,7 +15,7 @@ module.exports = {
             msgCount = dUser.messagecount;
         });
         const embeedd = new Discord.MessageEmbed()
-        .setColor('AQUA')
+        .setColor(client.confiig.color)
         .setThumbnail(userr.user.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 }))
         .setTitle(`User: ${userr.displayName}`)
         .addField(`User ID:`, `${userr.id}`)
