@@ -16,7 +16,7 @@ module.exports = {
         .setAuthor(`User: ${message.author.tag} | ${message.author.id}`, message.author.displayAvatarURL())
         .addField(`${msgg}`, `Message`)
         .setFooter(`ID: ${uniqueId}`)
-        .setColor(client.confiig.color)
+        .setColor(message.client.confiig.color)
         .setTimestamp()
         message.reply(suggestionsent)
         const suggestion = new Discord.MessageEmbed()
@@ -24,7 +24,7 @@ module.exports = {
         .setAuthor(`Suggestion from ${message.author.tag} | ${message.author.id}`, message.author.displayAvatarURL())
         .addField(`${msgg}`)
         .setFooter(uniqueId)
-        .setColor(client.confiig.color)
+        .setColor(message.client.confiig.color)
         .setTimestamp()
         // this.client.channels.get('840789206976167966').send(suggestion)
         const channel = message.client.channels.cache.get("840789206976167966");

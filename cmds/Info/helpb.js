@@ -9,7 +9,7 @@ module.exports = {
     const nodejs = message.client.emojis.cache.find(em => em.name === "Nodejs");
     const genEmber = (text) => {
       return new Discord.MessageEmbed()
-        .setColor(client.confiig.color)
+        .setColor(message.client.confiig.color)
         .setTitle(`Here's a list of all my commands!`)
         .setDescription('**This command is currently in beta**')
         .setThumbnail(turtlebot.url)
@@ -27,7 +27,7 @@ module.exports = {
     const genCategoryHelp = (categoryName) =>
     {
       var helpEmbed = new Discord.MessageEmbed()
-      .setColor(client.confiig.color)
+      .setColor(message.client.confiig.color)
       .setTitle("I'm Turtlebot")
       .setDescription('Here\'s a list of all my commands:')
       .setThumbnail(turtlebot.url);

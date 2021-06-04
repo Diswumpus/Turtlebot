@@ -28,7 +28,7 @@ module.exports = {
       .setDescription(
         `Animated **${Animated}**:\n${EmojisAnimated}\n\nStandard **${EmojiCount}**:\n${Emojis}\n\nOver all emojis **${OverallEmojis}**`
       )
-      .setColor(client.confiig.color);
+      .setColor(message.client.confiig.color);
     message.channel.send(Embed);
   },
 };

@@ -41,7 +41,7 @@ module.exports = {
       .setFooter(`Good luck`, gifts.url)
       .addField("Time left:", `${time}`)
       .setTimestamp(Date.now() + ms(args[0]))
-      .setColor(client.confiig.color);
+      .setColor(message.client.confiig.color);
     let m = await channel.send(Embed);
     let react = gift; //"🎉"; //'836423414419161138';
     m.react(react);

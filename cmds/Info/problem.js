@@ -35,7 +35,7 @@ module.exports = {
                 .setAuthor(`Report from ${message.author.tag} | ${message.author.id}`, message.author.displayAvatarURL())
                 .addField(`${msgg}`, `Users sent message`)
                 .setFooter(`ID: ${msguuid} • User: ${message.author.tag}`)
-                .setColor(client.confiig.color)
+                .setColor(message.client.confiig.color)
                 .setTimestamp();
             msgData[msguuid] = message.author.id;
             kfs.msgData = msgData;
@@ -45,7 +45,7 @@ module.exports = {
                 .addField(`${msgg}`, `Users sent message`)
                 .addField(`Suggestion was marked as spam`, `❌`)
                 .setFooter(`ID: ${msguuid} • User: ${message.author.tag}`)
-                .setColor(client.confiig.color)
+                .setColor(message.client.confiig.color)
                 .setTimestamp()
             // this.client.channels.get('840789206976167966').send(suggestion)
             message.author.send(`Hey ${message.author.username}, this is where we will notify you for when we solve your problem!\nYour ID is: ${msguuid}`);

@@ -38,6 +38,8 @@
     "random": "^3.0.6",
     "random-animals-api": "^1.2.6",
     "random-email": "^1.0.3",
-    "uuid": "^8.3.2"
+    "random-words": "^1.1.1",
+    "uuid": "^8.3.2",
+    "weky": "^1.9.0"
   }
 }

@@ -13,7 +13,7 @@ module.exports = {
         .setAuthor(`${message.author.tag}`, message.author.displayAvatarURL())
         .addField(`Case ${uuidIDMSG} has been solved`)
         .setFooter(`,problem`, `,solve`)
-        .setColor(client.confiig.color)
+        .setColor(message.client.confiig.color)
         .setTimestamp()
         // this.client.channels.get('840789206976167966').send(suggestion)
         const channel = message.client.channels.cache.get("840789206976167966");

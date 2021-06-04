@@ -9,7 +9,7 @@
 //         const remotemsg = new Discord.MessageEmbed()
 //             .setTitle(`New Message in dev-stuff!`)
 //             .addField(`They sent`, `${msgg}`)
-//             .setColor(client.confiig.color)
+//             .setColor(message.client.confiig.color)
 //             .setTimestamp()
 //             .setFooter(`From[Turtlebot](discord.com/invite/5Wutrs8s4s`)
 //         const channel = message.client.channels.cache.get("841012841909190686");
@@ -22,7 +22,7 @@
 //     const remotemsg = new Discord.MessageEmbed()
 //         .setTitle(`New Message in dev-stuff!`)
 //         .addField(`They sent`, `${msgg}`)
-//         .setColor(client.confiig.color)
+//         .setColor(message.client.confiig.colorr)
 //         .setTimestamp()
 //         .setFooter(`From[Turtlebot](discord.com/invite/5Wutrs8s4s`)
 // })
