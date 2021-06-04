@@ -51,7 +51,7 @@ client.once('ready', async () => {
         client.user.setActivity(activities[activity]);
 
         activity++;
-      }, 35000);
+      }, 10000);
 });
 
 client.commands = new Discord.Collection();
