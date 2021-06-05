@@ -5,7 +5,8 @@ module.exports = {
     name: 'user-info',
     description: 'Gives a hint',
     async execute(client, interaction) {
-        let userr = interaction.options[0].member;
+        let userr = interaction.options.length > 1 ? interaction.options[0].member : interaction.member;
+        //interaction.options.length > 0 ? interaction.options[0].user : interaction.user;
         let msgCount = 0;
         await client.messagess.findOne({
             id: interaction.user.id
@@ -17,7 +18,7 @@ module.exports = {
         const embeedd = new Discord.MessageEmbed()
         .setColor(client.confiig.color)
         .setThumbnail(userr.user.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 }))
-        .setTitle(`User: ${userr.displayName}`)
+        .setTitle(`User: ${userr.username}`)
         .addField(`User ID:`, `${userr.id}`)
         .addField(`Joined at:`, `${userr.joinedAt}`)
         .addField(`Messages Sent:`, `${msgCount}`)

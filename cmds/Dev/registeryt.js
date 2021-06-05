@@ -8,15 +8,9 @@ module.exports = {
         if (!client.application?.owner) await client.application?.fetch();
 //https://discord.com/oauth2/authorize?client_id=841782635386109972&scope=bot+applications.commands
         const data = {
-            name: 'youtube',
-            description: 'Make a youtube comment!',
+            name: 'user-info',
+            description: 'Get info on a user!',
             options: [{
-                name: 'comment',
-                type: 'STRING',
-                description: 'What should the comment be?',
-                required: true,
-            },
-            {
                 name: 'user',
                 type: 'USER',
                 description: 'What user?',
@@ -24,8 +18,8 @@ module.exports = {
             }],
         };
 
-        const command = await client.application?.commands.create(data);
-        //const command = await client.guilds.cache.get('842575277249921074')?.commands.create(data);
+        //const command = await client.application?.commands.create(data);
+        const command = await client.guilds.cache.get('842575277249921074')?.commands.create(data);
         //await command.setPermissions(permissions);
         console.log(command);
     }
