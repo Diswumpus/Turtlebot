@@ -60,7 +60,7 @@ client.snipes = new Discord.Collection();
 client.config = config;
 client.confiig = configg;
 client.version = version;
-client.disbut = require('discord-buttons')(client);
+//client.disbut = require('discord-buttons')(client);
 
 const slashFiles = fs.readdirSync('./slash').filter(file => file.endsWith('.js'));
 

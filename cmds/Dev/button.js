@@ -7,7 +7,7 @@ module.exports = {
     category: 'Dev',
     async execute(message, Member, args) {
         const emojiii = message.client.emojis.cache.get(`849069683046613012`);
-    let btn = new message.client.disbut.MessageButton()
+    let btn = new Discord.MessageButton()
       .setStyle('blurple')
       .setLabel(`Buttons!! 🎉`)
       .setID('stupiddm');

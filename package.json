@@ -25,7 +25,6 @@
     "canvacord": "^5.2.0",
     "canvas": "^2.8.0",
     "common-tags": "^1.8.0",
-    "discord-buttons": "^2.4.1",
     "discord-xp": "^1.1.14",
     "discord.js": "github:discordjs/discord.js",
     "dog-img": "^1.0.1",
