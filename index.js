@@ -182,6 +182,7 @@ client.on("message", message => {
     }
 });
 client.on("message", async (message) => {
+    if (message.member.permissions.has('ADMINISTRATOR')) { return; }
     if (message.guild && myGuilds.has(message.guild.id)) {
         if (message.content.toLowerCase().includes('discord.gg' || 'discordapp.com/invite' || 'discord.com/invite' || 'dsc.gg' || 'discord.io' || 'discord.me')) { //if it contains an invite link
             const messagedelembed = new Discord.MessageEmbed()
