@@ -34,24 +34,24 @@ client.once('ready', async () => {
     console.log('Ready!');
     Levels.setURL(config.mongoose);
     const activities = [
-        { name: `Your Server | v${vernum}`, type: 'WATCHING' }, 
+        { name: `Your Server | v${vernum}`, type: 'WATCHING' },
         { name: `Your Server | v${vernum}`, type: 'WATCHING' }
-      ];
-    
-  
-      client.user.setPresence({ status: 'online', activity: activities[0] });
-    
-      let activity = 1;
-    
-  
-      setInterval(() => {
+    ];
+
+
+    client.user.setPresence({ status: 'online', activity: activities[0] });
+
+    let activity = 1;
+
+
+    setInterval(() => {
         activities[2] = { name: `${config.prefix}help | ${client.guilds.cache.size} guilds`, type: 'WATCHING' };
-        activities[3] = { name: `${config.prefix}help | ${client.users.cache.size} users`, type: 'WATCHING' }; 
+        activities[3] = { name: `${config.prefix}help | ${client.users.cache.size} users`, type: 'WATCHING' };
         if (activity > 3) activity = 0;
         client.user.setActivity(activities[activity]);
 
         activity++;
-      }, 10000);
+    }, 10000);
 });
 
 client.commands = new Discord.Collection();
@@ -244,34 +244,38 @@ client.on('message', async message => {
     const hasEmoteRegex = /<a?:.+:\d+>/gm
     const emoteRegex = /<:.+:(\d+)>/gm
     const animatedEmoteRegex = /<a:.+:(\d+)>/gm
-  
+
     const messages = await message.channel.messages.fetch()
     //const message = await messages.find(m => m.content.match(hasEmoteRegex))
-  //emoji = 
-    if (emoji = emoteRegex.exec(message) || animatedEmoteRegex.exec(message)) {
-    let messageUser = await emojii.findOne({
-        emoji: emoji[0]
+    const words = message.content.split(" ");
+    words.forEach(async w => {
+        if (emoji = emoteRegex.exec(w) || animatedEmoteRegex.exec(w)) {
+            let messageUser = await emojii.findOne({
+                emoji: emoji[0]
+            });
+    
+            if (!messageUser) {
+                messageUser = new emojii({
+                    emoji: emoji[0],
+                    user: message.author.id,
+                    guild: message.guild.id,
+                    uses: 0
+                });
+                await messageUser.save().catch(e => console.log(e));
+            };
+    
+            await emojii.findOne({
+                emoji: emoji[0]
+            }, async (err, dUser) => {
+                if (err) console.log(err);
+                dUser.uses += 1;
+                await dUser.save().catch(e => console.log(e));
+            });
+            console.log(`Added ${emoji[0]}`)
+        }
+    
     });
 
-    if (!messageUser) {
-        messageUser = new emojii({
-            emoji: emoji[0],
-            user: message.author.id,
-            guild: message.guild.id,
-            uses: 0
-        });
-        await messageUser.save().catch(e => console.log(e));
-    };
-
-    await emojii.findOne({
-        emoji: emoji[0]
-    }, async (err, dUser) => {
-        if (err) console.log(err);
-        dUser.uses += 1;
-        await dUser.save().catch(e => console.log(e));
-    });
-    console.log(`Added ${emoji[0]}`)
-    }
 });
 // L E V E L S -
 
