@@ -16,17 +16,17 @@ module.exports = {
     const lb = new Discord.MessageEmbed()
       .setTitle(`Emoji Stats`)
       .setColor(`BLUE`)
-      .addField(`${docs.length} Emojis`, `[- Top emojis:](${message.client.confiig.cmd})`)
+      .addField(`${docs.length} Top emojis`, `[- Top emojis:](${message.client.confiig.cmd})`)
     docs.forEach(c => {
-      lb.addField(`B ${c.emoji}`, `${c.uses} Uses`);
+      lb.addField(`${c.emoji}`, `${c.uses} Uses`);
     });
-    lb.addFields({ name: `${lea.length} Emojis`, value: `[- Least used emojis:](${message.client.confiig.cmd})`})//`${lea.length} Emojis`, `[- Least used emojis:](${message.client.confiig.cmd})`
+    lb.addFields({ name: `${lea.length} Least used emojis`, value: `[- Least used emojis:](${message.client.confiig.cmd})`})//`${lea.length} Emojis`, `[- Least used emojis:](${message.client.confiig.cmd})`
     lea.forEach(c => {
-      lb.addField(`A ${c.emoji}`, `${c.uses} Uses`);
+      lb.addField(`${c.emoji}`, `${c.uses} Uses`);
     });
     //message.channel.send(lb)
     await webhook.send({ embeds: [lb] });
-    wait(2000)
+    wait(1000)
     webhook.delete()
   } catch (error) {
     console.error(`Error trying to send:`, error);
