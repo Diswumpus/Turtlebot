@@ -4,18 +4,23 @@
 * ``,invite0`` Generates an invite for your server
 * ``,invite`` Generates an invite for your server use 0 for infinite
 * ``,rsetup`` Creates the 2 Month Supporter role
+* ``,settings`` Creates the role
 * ``,ticket`` Creates a ticket
+
+### Misc 
+* ``,prefix`` Changes the bots prefix
+* ``,github`` Shows a link to the bots Git hub
 
 ### Dev 
 * ``,rstart`` Restarts the bot
-* ``,Temp`` A embed template
-* ``,test`` Test
+* ``,btns`` A embed template
 * ``,find`` -
 * ``,send`` -
 
 ### Fun 
 * ``,announce`` Get the bot to say what ever you want in a specific channel.
 * ``,avatar`` Get the avatar URL of the tagged user(s), or your own avatar.
+* ``,hack`` Shows your rank
 * ``,lb`` Shows your rank
 * ``,leaderboard`` Shows your rank
 * ``,magik`` Make a magik avatar!
@@ -39,9 +44,6 @@
 * ``,tpinvite`` Gets an invite for the developers server
 * ``,myid`` Get info about you like your ID
 
-### utility 
-* ``,emoji`` View all emojis in the guild
-
 ### info 
 * ``,ping`` Returns latency and API ping
 
@@ -53,11 +55,7 @@
 * ``,clear`` Clears the chat
 * ``,unban`` Unbans a user
 * ``,unlock`` Unlocks the chat
-* ``,verify`` Verifies the author of the message
 * ``,warn`` Warn a user
-
-### Misc 
-* ``,github`` Shows a link to the bots Git hub
 
 ### Reaction Roles 
 * ``,css`` ¯_ (ツ)_/¯
@@ -74,7 +72,7 @@
 * ``/clear``
 * ``/dog``
 * ``/undefined``
-* ``/embed``
+* ``/undefined``
 * ``/github``
 * ``/guilds``
 * ``/help``
@@ -92,3 +90,4 @@
 * ``/user-info``
 * ``/version``
 * ``/warn``
+* ``/youtube``
