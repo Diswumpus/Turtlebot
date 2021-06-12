@@ -30,6 +30,12 @@ module.exports = {
         setTimeout(async () => {
             await interaction.editReply(guildembed);
         }, 10000);
+        setTimeout(async () => {
+            await interaction.editReply(guildembed);
+        }, 20000);
+        setTimeout(async () => {
+            await interaction.editReply(guildembed);
+        }, 30000);
     } else if(interaction.user.id !== config.ownerID) {
         interaction.editReply(
             new Discord.MessageEmbed()
