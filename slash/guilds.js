@@ -5,6 +5,7 @@ module.exports = {
     name: 'guilds',
     description: 'Gives a hint',
     async execute(client, interaction) {
+        await interaction.defer();
         if(interaction.user.id === config.ownerID) {
         const guild = client.guilds.cache
         const guildembed = new Discord.MessageEmbed()
@@ -27,10 +28,10 @@ module.exports = {
         //const guilds = message.client.guilds.cache.map(g=>g.name).join('\n• ')
         guildembed.setColor(client.confiig.color)
         setTimeout(async () => {
-            await interaction.reply(guildembed);
-        }, 1000);
+            await interaction.editReply(guildembed);
+        }, 10000);
     } else if(interaction.user.id !== config.ownerID) {
-        interaction.reply(
+        interaction.editReply(
             new Discord.MessageEmbed()
             .setTitle('You don\'t have permission!')
         )
