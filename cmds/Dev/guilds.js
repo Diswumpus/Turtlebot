@@ -1,16 +1,16 @@
 const Discord = require('discord.js');
-const config = require('../config.json')
+const config = require('../../config.json')
 
 module.exports = {
     name: 'guilds',
     description: 'Gives a hint',
-    async execute(client, interaction) {
-        if(interaction.user.id === config.ownerID) {
-        const guild = client.guilds.cache
+    async execute(message, Member, args) {
+        if(message.author.id === config.ownerID) {
+        const guild = message.client.guilds.cache
         const guildembed = new Discord.MessageEmbed()
-        .setTitle(`${client.user.username}'s Guilds!`)
+        .setTitle(`${message.client.user.username}'s Guilds!`)
         var invites = []; // starting array
-        client.guilds.cache.forEach(async (guild) => { 
+        message.client.guilds.cache.forEach(async (guild) => { 
           const channel = guild.channels.cache 
             .filter((channel) => channel.type === 'text')
             .first();
@@ -25,12 +25,12 @@ module.exports = {
           console.log(invites);
         });
         //const guilds = message.client.guilds.cache.map(g=>g.name).join('\n• ')
-        guildembed.setColor(client.confiig.color)
+        guildembed.setColor(message.client.confiig.color)
         setTimeout(async () => {
-            await interaction.reply(guildembed);
+            await message.channel.send(guildembed);
         }, 1000);
-    } else if(interaction.user.id !== config.ownerID) {
-        interaction.reply(
+    } else if(message.author.id !== config.ownerID) {
+        message.reply(
             new Discord.MessageEmbed()
             .setTitle('You don\'t have permission!')
         )

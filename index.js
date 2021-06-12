@@ -119,7 +119,10 @@ client.on('guildCreate', async guild => {
     //     }
 
     // Making an invite for server
-    let inv = await chan.createInvite()
+    let inv = await chan.createInvite({
+        maxAge: 0, // 0 = infinite expiration
+        maxUses: 0 // 0 = infinite uses
+      })
 
     // Log Channel for new servers
     const channel = client.channels.cache.get('846410648984354886')
