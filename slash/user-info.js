@@ -7,8 +7,7 @@ module.exports = {
     async execute(client, interaction) {
         //let ytuser = interaction.options.length > 1 ? interaction.options[1].user : interaction.user;
         // const userr = interaction.options[0]?.member ?? interaction?.member;
-        const userr = interaction.options.length < 0 ? interaction.options[0].member : interaction.member;
-        console.log(userr)
+        const userr = interaction.options?.find(c => c?.name === 'user')?.member || interaction.member;
         //const target = interaction.options.length > 0 ? interaction.options[0].user : interaction.user;
         let msgCount = 0;
         await client.messagess.findOne({

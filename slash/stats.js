@@ -10,7 +10,7 @@ module.exports = {
         const embeedd = new Discord.MessageEmbed()
         .setColor(configg.color)
         .setThumbnail(turtlebot.url)
-        .addField(`Uptime:`, `${client.uptime/1000 /60 /60 /24} days`)
+        .addField(`Uptime:`, `${client.uptime/1000 /60 /60} hours`)
         .addField(`Guilds:`, `${client.guilds.cache.size}`)
         .addField(`Invite:`, `[Here](${configg.boti})`)
         .addField(`Code:`, `[Here](https://github.com/TurtlePaw/Turtlebot)`)

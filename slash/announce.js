@@ -4,10 +4,9 @@ module.exports = {
     name: 'announce',
     async execute(client, interaction) {
         const errorr = new Discord.MessageEmbed()
-        .setTitle(`That's a 404`)
+        .setTitle(`?`)
         .setColor(`YELLOW`)
-        .setDescription(`This may be because this is a beta command`)
-        .setImage(`https://cdn.tixte.com/uploads/turtlepaw.is-from.space/kow11oq1p9a.png`)
+        .setDescription(`Why don't you try the \`/embed\` command?`)
         await interaction.reply(errorr);
     }
 }
