@@ -14,19 +14,19 @@ module.exports = {
                 name: 'channel',
 				type: 'CHANNEL',
 				description: 'What is the channel it should be sent in?',
-				required: true,
+				required: false,
             },
             {
                 name: 'title',
 				type: 'STRING',
 				description: 'What is the title',
-				required: true,
+				required: false,
             },
             {
                 name: 'description',
 				type: 'STRING',
 				description: 'What is the description',
-				required: true,
+				required: false,
             },
             {
                 name: 'color',
@@ -45,13 +45,25 @@ module.exports = {
 				type: 'STRING',
 				description: 'What is the author',
 				required: false,
+            },
+            {
+                name: 'field_1',
+				type: 'STRING',
+				description: 'Should i add a 1 field?',
+				required: false,
+            },
+            {
+                name: 'field_2',
+				type: 'STRING',
+				description: 'Should i add a 2 field?',
+				required: false,
 			}],
         };
 
         //const command = await client.application?.commands.create(data);
-        const command = await client.guilds.cache.get('842575277249921074')?.commands.create(data);
+        //const command = await client.guilds.cache.get('842575277249921074')?.commands.create(data);
         //await command.setPermissions(permissions);
-        console.log(command);
+        console.log(command ?? 'Null');
     }
 }
 
