@@ -392,7 +392,6 @@ let cmdsas = commandsss.findOne({
 });
 
 setInterval(function() {
-    console.log('Yay!')
     //var ONE_HOUR = 60 * 60 * 1000;
     var ONE_HOUR = 60; /* ms */
 //const one = new Date(cmds.lastfead.getTime() + ONE_HOUR)
