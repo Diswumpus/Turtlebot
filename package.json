@@ -31,6 +31,7 @@
     "generate-password": "^1.6.0",
     "key-file-storage": "^2.2.9",
     "klaw-sync": "^6.0.0",
+    "moment": "^2.29.1",
     "mongoose": "^5.12.10",
     "ms": "^2.1.3",
     "node-fetch": "^2.6.1",

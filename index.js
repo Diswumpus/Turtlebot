@@ -9,6 +9,7 @@ const Levels = require("discord-xp");
 const Schema = mongoose.Schema;
 const prefix = require('./models/prefix');
 const commandsss = require('./models/commands')
+const moment = require('moment')
 
 
 mongoose.connect(config.mongoose, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -386,26 +387,41 @@ client.on('message', async message => {
         }
     }
 });//await 
-let cmdsas = commandsss.findOne();
+let cmdsas = commandsss.findOne({
+    hungry: false
+});
 
-setInterval(() => {
+setInterval(function() {
+    console.log('Yay!')
     //var ONE_HOUR = 60 * 60 * 1000;
     var ONE_HOUR = 60; /* ms */
 //const one = new Date(cmds.lastfead.getTime() + ONE_HOUR)
-if(((new Date) - cmdsas.lastfead) < ONE_HOUR){
-    if(!cmdsas) {
-        return
-    } else {
-commandsss.findOne(
+//if(((new Date) - cmdsas.lastfead) > ONE_HOUR){
+    const lessThanOneHourAgo = (date) => {
+        return moment(date).isAfter(moment().subtract(1, 'hours'));
+    }
+    if(lessThanOneHourAgo){
+        if(commandsss?.hungry === true || commandsss?.hungry === 'undefined' || commandsss?.hungry === undefined){
+            return;
+        }
+commandsss.findOne({
+    hungry: false
+}, async (err, dUser) => {
+    if (err) console.log(err);
+    dUser.hungry = true;
+    await dUser.save().catch(e => console.log(e));
+});
+   }
+}, 4000);
+    /*
+    commandsss.findOne(
     async (err, dUser) => {
     if (err) console.log(err);
     dUser.hungry = true;
     await dUser.save().catch(e => console.log(e));
 });
-    }
-    }
-}, 4000);
-    /*
+
+
         user: String,
     uses: Number,
     hungry: Boolean,
