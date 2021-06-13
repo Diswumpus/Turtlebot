@@ -484,6 +484,7 @@ client.on('message', async message => {
             }, async (err, dUser) => {
                 if (err) console.log(err);
                 dUser.uses += 1;
+                dUser.hungry = false
                 dUser.lastfead = Date.now()
                 await dUser.save().catch(e => console.log(e));
             });
