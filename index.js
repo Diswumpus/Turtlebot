@@ -392,15 +392,15 @@ let cmdsas = commandsss.findOne({
 });
 
 setInterval(function() {
-    //var ONE_HOUR = 60 * 60 * 1000;
-    var ONE_HOUR = 60; /* ms */
+    var ONE_HOUR = 60 * 60 * 1000;
+    //var ONE_HOUR = 60; /* ms */
 //const one = new Date(cmds.lastfead.getTime() + ONE_HOUR)
 //if(((new Date) - cmdsas.lastfead) > ONE_HOUR){
     const lessThanOneHourAgo = (date) => {
         return moment(date).isAfter(moment().subtract(1, 'hours'));
     }
-    if(lessThanOneHourAgo){
-        if(commandsss?.hungry === true || commandsss?.hungry === 'undefined' || commandsss?.hungry === undefined){
+    if(lessThanOneHourAgo(cmdsas.lastfead)){
+        if(cmdsas?.hungry === true || cmdsas?.hungry === 'undefined' || cmdsas?.hungry === undefined){
             return;
         }
 commandsss.findOne({
