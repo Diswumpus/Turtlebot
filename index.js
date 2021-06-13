@@ -83,6 +83,30 @@ client.on('interaction', async interaction => {
     const commandName = interaction.commandName;
 
     const command = client.slashcmds.get(commandName);
+    if(command){
+        if(commandName !== 'pets-view' || commandName !== 'buy-pet'){
+            let cmdsa = await commandsss.findOne({
+                user: interaction.user.id
+            });
+        
+            if (!cmdsa) {
+                cmdsa = new commandsss({
+                    user: interaction.user.id,
+                    uses: 0,
+                    hungry: false,
+                    lastfead: Date.now()
+                });
+                await cmdsa.save().catch(e => console.log(e));
+            };
+            await commandsss.findOne({
+                user: interaction.user.id
+            }, async (err, dUser) => {
+                if (err) console.log(err);
+                dUser.uses += 1;
+                await dUser.save().catch(e => console.log(e));
+            });
+        }
+    }
     if (!command) {
         // interaction.reply(`Sorry i don't think /${commandName} is possible ${opps}`);
     }
