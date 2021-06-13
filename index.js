@@ -209,8 +209,10 @@ client.on("message", message => {
     }
 });
 client.on("message", async (message) => {
-    if (message.member.permissions.has('ADMINISTRATOR')) { return; }
-    if (message.guild && myGuilds.has(message.guild.id)) {
+    if (message.member.permissions.has('ADMINISTRATOR')) { 
+        return console.log('User has admin!') 
+    }
+    if (message.guild && myGuilds.has(message.guild.id) && !message.member.permissions.has('ADMINISTRATOR')) {
         if (message.content.toLowerCase().includes('discord.gg' || 'discordapp.com/invite' || 'discord.com/invite' || 'dsc.gg' || 'discord.io' || 'discord.me')) { //if it contains an invite link
             const messagedelembed = new Discord.MessageEmbed()
                 .setTitle(`Your link has been deleted!`)
@@ -386,8 +388,9 @@ client.on('message', async message => {
 });//await 
 let cmdsas = commandsss.findOne();
 
-
-var ONE_HOUR = 60 * 60 * 1000; /* ms */
+setInterval(() => {
+    //var ONE_HOUR = 60 * 60 * 1000;
+    var ONE_HOUR = 60; /* ms */
 //const one = new Date(cmds.lastfead.getTime() + ONE_HOUR)
 if(((new Date) - cmdsas.lastfead) < ONE_HOUR){
     if(!cmdsas) {
@@ -401,6 +404,7 @@ commandsss.findOne(
 });
     }
     }
+}, 4000);
     /*
         user: String,
     uses: Number,
