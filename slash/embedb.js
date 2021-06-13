@@ -4,6 +4,7 @@ module.exports = {
     name: 'embed',
     description: 'Create an embed!',
     async execute(client, interaction) {
+        if (interaction.member.permissions.has('MANAGE_MESSAGES')) {
         let channel = interaction.options?.find(c => c?.name === 'channel')?.channel || interaction.channel; //? interaction.options.length > 0 ? interaction.options[0].user : interaction.user;
         let title = interaction.options?.find(c => c?.name === 'title')?.value;
         let description = interaction.options?.find(c => c?.name === 'description')?.value;
@@ -43,5 +44,6 @@ module.exports = {
             sendembed.addField('Error', 'You need to have 2 fields!')
         }
         await interaction.reply(sendembed)
+    }
     }
 }
