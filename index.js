@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const Levels = require("discord-xp");
 const Schema = mongoose.Schema;
 const prefix = require('./models/prefix');
+const commandsss = require('./models/commands')
 
 
 mongoose.connect(config.mongoose, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -61,7 +62,6 @@ client.config = config;
 client.confiig = configg;
 client.version = version;
 //client.disbut = require('discord-buttons')(client);
-
 const slashFiles = fs.readdirSync('./slash').filter(file => file.endsWith('.js'));
 
 // Here we load all the commands into client.commands
@@ -241,6 +241,7 @@ client.on("message", async (message) => {
         message.channel.send(`${message.author}, congratulations! You have leveled up to **${user.level}**. :tada:`);
     }
 });
+
 const emojii = require('./models/emojis')
 // EMOJI STUFF
 client.on('message', async message => {
@@ -358,8 +359,30 @@ client.on('message', async message => {
             )
         }
     }
-});
+});//await 
+let cmdsas = commandsss.findOne();
 
+
+var ONE_HOUR = 60 * 60 * 1000; /* ms */
+//const one = new Date(cmds.lastfead.getTime() + ONE_HOUR)
+if(((new Date) - cmdsas.lastfead) < ONE_HOUR){
+    if(!cmdsas) {
+        return
+    } else {
+commandsss.findOne(
+    async (err, dUser) => {
+    if (err) console.log(err);
+    dUser.hungry = true;
+    await dUser.save().catch(e => console.log(e));
+});
+    }
+    }
+    /*
+        user: String,
+    uses: Number,
+    hungry: Boolean,
+    lastfead: Number
+    */
 // Client events
 client.on('message', async message => {
 
@@ -385,21 +408,6 @@ client.on('message', async message => {
     const data = await prefix.findOne({
         GuildID: message.guild.id
     });
-
-    // if(data) {
-    //     const prefix = data.Prefix;
-
-    //     if (!message.content.startsWith(prefix)) return;
-    //     const commandfile = client.commands.get(cmd.slice(prefix.length)) || client.commands.get(client.aliases.get(cmd.slice(prefix.length)));
-    //     commandfile.run(message, Member, args);
-    // } else if (!data) {
-    //     //set the default prefix here
-    //     const prefix = config.prefix;
-
-    //     if (!message.content.startsWith(prefix)) return;
-    //     const commandfile = client.commands.get(cmd.slice(prefix.length)) || client.commands.get(client.aliases.get(cmd.slice(prefix.length)));
-    //     commandfile.run(message, Member, args);
-    // }
     let configStart = message.content.startsWith(config?.prefix);
     let dataStart = message.content.startsWith(data?.Prefix);
     if (configStart || dataStart) {
@@ -408,75 +416,41 @@ client.on('message', async message => {
         const args = message.content.slice(currentPrefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
         console.log(`${commandName} was executed by ${message.author.tag}`);
+        //
+        //
+        //
+        //
         const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+        if(command){
+            if(commandName !== 'pets-view' || commandName !== 'buy-pet'){
+            let cmdsa = await commandsss.findOne({
+                user: message.author.id
+            });
+        
+            if (!cmdsa) {
+                cmdsa = new commandsss({
+                    user: message.author.id,
+                    uses: 0,
+                    hungry: false,
+                    lastfead: Date.now()
+                });
+                await cmdsa.save().catch(e => console.log(e));
+            };
+            await commandsss.findOne({
+                user: message.author.id
+            }, async (err, dUser) => {
+                if (err) console.log(err);
+                dUser.uses += 1;
+                await dUser.save().catch(e => console.log(e));
+            });
+        }
+        }
         if (command) {
             await command.execute(message, Member, args);
         } else {
             console.log(`Couldn't find ${commandName}`);
         }
-        // } else {
-        //     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
-        //     const commandName = args.shift().toLowerCase();
-
-        //     const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-        //     const cat = client.emojis.cache.find(em => em.name === "cat1");
-        //     if (!command) {
-        //         //message.reply(`That's not a command ${cat}`);
-        //     }
-        //     else {
-        //         try {
-        //             await command.execute(message, Member, args);
-        //         } catch (error) {
-        //             console.error("Yikes!!");
-        //             console.error(error);
-        //             const x = client.emojis.cache.find(em => em.name === "X1");
-        //             message.reply(errorr);
-        //         }
-        //     }
-        // }
     }
-
-
-    // if (differentDays >= 60 && Member && !Member.roles.cache.some(role => role.name === roleName)) {
-    //     const role = message.guild.roles.cache.find(role => role.name === roleName);
-    //     if(!role) return;
-    //     Member.roles.add(role);
-    //     const flyEmoji = client.emojis.cache.get('831584687498461274')
-    //     let whoisEmbed = new Discord.MessageEmbed()
-    //         .setTitle(`Hey ${Member.displayName}!`)
-    //         .setColor(client.confiig.color)
-    //         .setDescription(`You are getting the '**Supporter role**' ${flyEmoji}`)
-    //         .addField(`${Member.displayName} joined`, `${message.differentDays} days ago`)
-    //         //            .addField("Joined at", Member.joinedAt)
-    //         //            .addField("Status", status)
-    //         .setFooter("Turtlebot")
-    //     message.channel.send(whoisEmbed)
-    //}
-});
-
-// Adding reaction-role function
-client.on('messageReactionAdd', async (reaction, user) => {
-    if (reaction.message.partial) await reaction.message.fetch();
-    if (reaction.partial) await reaction.fetch();
-    if (user.bot) return;
-    if (!reaction.message.guild) return;
-    if (reaction.message.channel.id == '839989770045620255') {
-        if (reaction.emoji.name === '🦊') {
-            await reaction.message.guild.members.cache
-                .get(user.id)
-                .roles.add('802208163776167977');
-        }
-        if (reaction.emoji.name === '🐯') {
-            await reaction.message.guild.members.cache
-                .get(user.id)
-                .roles.add('802208242696192040');
-        }
-        if (reaction.emoji.name === '🎈') {
-            await reaction.message.guild.members.cache
-                .get(user.id)
-                .roles.add('839988669954916354');
-        }
-    } else return;
 });
 client.on('message', message => {
     if (message.content === ';join') {
@@ -489,30 +463,6 @@ client.on('message', message => {
         message.delete();
         client.emit('guildMemberRemove', message.member);
     }
-});
-// Removing reaction roles
-client.on('messageReactionRemove', async (reaction, user) => {
-    if (reaction.message.partial) await reaction.message.fetch();
-    if (reaction.partial) await reaction.fetch();
-    if (user.bot) return;
-    if (!reaction.message.guild) return;
-    if (reaction.message.channel.id == '802209416685944862') {
-        if (reaction.emoji.name === '🦊') {
-            await reaction.message.guild.members.cache
-                .get(user.id)
-                .roles.remove('802208163776167977');
-        }
-        if (reaction.emoji.name === '🐯') {
-            await reaction.message.guild.members.cache
-                .get(user.id)
-                .roles.remove('802208242696192040');
-        }
-        if (reaction.emoji.name === '🐍') {
-            await reaction.message.guild.members.cache
-                .get(user.id)
-                .roles.remove('802208314766524526');
-        }
-    } else return;
 });
 client.on('guildMemberAdd', async (message) => { // this event gets triggered when a new member joins the server!
     //if (message.guild && myGuilds.has(message.guild.id)) {
