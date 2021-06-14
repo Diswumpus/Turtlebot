@@ -34,6 +34,7 @@ const roleName = '2 Month Supporter';
 
 client.once('ready', async () => {
     console.log('Ready!');
+    const ownderr = client.users.cache.get(config.ownerID)
     Levels.setURL(config.mongoose);
     const activities = [
         { name: `Your Server | v${vernum}`, type: 'WATCHING' },
@@ -64,7 +65,6 @@ client.confiig = configg;
 client.version = version;
 //client.disbut = require('discord-buttons')(client);
 const slashFiles = fs.readdirSync('./slash').filter(file => file.endsWith('.js'));
-
 // Here we load all the commands into client.commands
 for (const file of slashFiles) {
     const command = require(`./slash/${file}`);
@@ -131,7 +131,7 @@ client.on('guildCreate', async guild => {
         .setTitle(`Hello! I am Turtlebot!`)
         .addField("Make sure to use `,` with every command", '-')
         .setDescription("Hello, thank you for adding me. If you create a `bot-log` channel i will log deleted messages in there!\n If you create a `reports` channel i will log reports\n If you create a `tickets` channel i will log tickets!\n If you create a role called `2 Month Supporter` or use `,rsetup` after 60 days i will give them the role! Try some of my slash commands! `/rank`")
-        .setFooter(`Made By Turtlepaw#5377 | ,help`)
+        .setFooter(`Made By ${ownderr.tag} | ,help`)
         .setImage('https://cdn.tixte.com/uploads/turtle.discowd.com/kotcuf1ik9a.png')
         .setTimestamp()
 
@@ -211,7 +211,7 @@ client.on("message", message => {
 });
 client.on("message", async (message) => {
     if (message.member.permissions.has('ADMINISTRATOR')) { 
-        return console.log('User has admin!') 
+        return;
     }
     if (message.guild && myGuilds.has(message.guild.id) && !message.member.permissions.has('ADMINISTRATOR')) {
         if (message.content.toLowerCase().includes('discord.gg' || 'discordapp.com/invite' || 'discord.com/invite' || 'dsc.gg' || 'discord.io' || 'discord.me')) { //if it contains an invite link
@@ -256,7 +256,6 @@ client.on("message", async (message) => {
     //   // `rank = 'Commander'`
     //   await doc.save();
 })
-
 client.on("message", async (message) => {
     if (!message.guild) return;
     if (message.author.bot) return;
