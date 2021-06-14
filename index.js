@@ -265,10 +265,12 @@ client.on("message", async (message) => {
     if (hasLeveledUp) {
         const user = await Levels.fetch(message.author.id, message.guild.id);
         const emojiiii = client.emojis.cache.get('836421450252550199')
+        const anotheremoji = client.emojis.cache.get('846908253740204072')
         const levelupembed = new Discord.MessageEmbed()
         .setTitle(`${message.author.username}, congratulations!`)
-        .setDescription(`You have leveled up to **${user.level}** ${emojiiii}`)
-        .setThumbnail(emojiiii.url)
+        .setDescription(`You have leveled up to **${user.level}**   ${emojiiii}`)
+        .setColor('GREEN')
+        .setThumbnail(anotheremoji.url)
         message.channel.send({ embeds: [levelupembed] });
     }
 });
