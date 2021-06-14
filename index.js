@@ -268,7 +268,7 @@ client.on("message", async (message) => {
         message.channel.send(
             new Discord.MessageEmbed()
             .setTitle(`${message.author}, congratulations!\nYou have leveled up to **${user.level}** ${emojiiii}`)
-            .setThumbnail(emojiiii.url)
+            //.setThumbnail(emojiiii.url)
         );
     //}
 });
