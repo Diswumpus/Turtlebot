@@ -5,7 +5,7 @@ Turtlebot is now public! 🥳
 
 [Add the bot to your server now! 🎉](https://discord.com/oauth2/authorize?client_id=831712626626134037&permissions=4228381815&scope=bot%20applications.commands)
 
-## [Commands](https://turtlepaw.github.io/Turtlebot/commands)
+## [Commands](https://turtlebot-discord.github.io/Turtlebot/commands)
 # Menu
 - [Commands](https://turtlebot-discord.github.io/Turtlebot/commands)
 - [Setup](https://turtlebot-discord.github.io/Turtlebot/setup)
