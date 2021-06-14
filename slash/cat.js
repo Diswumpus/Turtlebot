@@ -13,7 +13,7 @@ module.exports = {
                     .setURL(json.image)
                     .setImage(json.image)
                     .setDescription(json.fact)
-                await interaction.reply(embeedd);
+                await interaction.reply({ embeds: [embeedd] });
             })
     }
 }

@@ -8,7 +8,7 @@ module.exports = {
         try {
             const genembed = new Discord.MessageEmbed()
             .setTitle(`Generating...`)
-            await interaction.reply(genembed)
+            await interaction.reply({ embeds: [genembed] })
             let user = interaction.options.length ? interaction.options[0].user.displayAvatarURL({format: 'png', size: 512}) :interaction.user.displayAvatarURL({format: 'png', size: 512});
             let numb = Math.ceil(Math.random() * 10)
         const data = await fetch(
@@ -18,7 +18,7 @@ module.exports = {
             .setColor(client.confiig.color)
             .setImage(data.message)
             await wait(100);
-            await interaction.editReply(whoisEmbed);
+            await interaction.editReply({ embeds: [whoisEmbed] });
         } catch (err) {
         
         console.log(`${err}, command name: magik`)

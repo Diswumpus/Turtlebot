@@ -15,7 +15,7 @@
 //         return message.channel.send(`You don't have permissions!`)
 //         }
 //         if (message.member.permissions.has('ADMINISTRATOR')) {
-//             const welcomech = message.mentions.channels.first()
+//             const welcomech = message.mentions.channels.first() || args[0]
 //             if(!welcomech) {
 //                 return message.channel.send(
 //                     new Discord.MessageEmbed()
@@ -26,7 +26,7 @@
 //             }
 //             const tembed = new Discord.MessageEmbed()
 //                 .setTitle(`Enabled Welcome Messages! ${yes}`)
-//                 .setDescription(`Enabled In: \`${welcomech.name}\``)
+//                 .setDescription(`Enabled In: \`${welcomech.name || `<#${args[0]}>`}\``)
 //                 .setColor(message.client.confiig.color)
 //             const sentmsg = await message.channel.send(tembed)
 //             //edit this -
@@ -54,6 +54,16 @@
 //                 })
 //                 newData.save();
 //             }
+//             /*
+//                 GuildID: String,
+//     welcome: Boolean,
+//     welcomech: String,
+//     welcomemsg: String,
+//     inviteremover: Boolean,
+//     welcomedm: Boolean,
+//     autosnipe: Boolean,
+//     banmsg: Boolean
+//     */
 //         }
 //     }
 // }

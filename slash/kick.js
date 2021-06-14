@@ -13,7 +13,7 @@ module.exports = {
         .setTitle(`Kicked ${member.user.tag}`)
         .setColor(`RED`)
         .setDescription(`${member.user.tag} Can always come back!`)
-        await interaction.reply(avatarembed);
+        await interaction.reply({ embeds: [avatarembed] });
         member.kick(`${reason}`);
         }
     }

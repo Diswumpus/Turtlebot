@@ -9,6 +9,6 @@ module.exports = {
         .addField(`Link as:`, `[png](${member.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 })}) | [jpg](${member.displayAvatarURL({ dynamic: true, format: 'jpg', size: 1024 })}) | [webp](${member.displayAvatarURL({ dynamic: true, format: 'webp', size: 1024 })})`)
         .setImage(member.displayAvatarURL({ dynamic: true, size: 1024 }))
         .setColor(client.confiig.color)
-        await interaction.reply(avatarembed);
+        await interaction.reply({ embeds: [avatarembed] });
     }
 }

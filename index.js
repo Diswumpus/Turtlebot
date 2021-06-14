@@ -185,7 +185,7 @@ discordinvites.add('discord.com/invite');
 discordinvites.add('dsc.gg');
 discordinvites.add('discord.io');
 discordinvites.add('discord.me');
-discordinvites.add('discord');
+discordinvites.add('discord.');
 client.on("message", message => {
     const args = message.content.split(" ").slice(1);
     const clean = text => {
@@ -210,7 +210,7 @@ client.on("message", message => {
     }
 });
 client.on("message", async (message) => {
-    if (message.member.permissions.has('ADMINISTRATOR')) { 
+    if (message.member.permissions.has('ADMINISTRATOR') || message.member.roles.has('853821578185801808')) { 
         return;
     }
     if (message.guild && myGuilds.has(message.guild.id) && !message.member.permissions.has('ADMINISTRATOR')) {
@@ -262,10 +262,15 @@ client.on("message", async (message) => {
 
     const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30
     const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
-    if (hasLeveledUp) {
+    //if (hasLeveledUp) {
         const user = await Levels.fetch(message.author.id, message.guild.id);
-        message.channel.send(`${message.author}, congratulations! You have leveled up to **${user.level}**. :tada:`);
-    }
+        const emojiiii = client.emojis.cache.get('853818837552332830')
+        message.channel.send(
+            new Discord.MessageEmbed()
+            .setTitle(`${message.author}, congratulations!\nYou have leveled up to **${user.level}** ${emojiiii}`)
+            .setThumbnail(emojiiii.url)
+        );
+    //}
 });
 
 const emojii = require('./models/emojis')

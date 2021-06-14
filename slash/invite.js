@@ -9,6 +9,6 @@ module.exports = {
         .setTitle('`🔗` Invite')
         .setURL(`${invitee}`)
         .setColor(colorr)
-        interaction.reply(inviteembed)
+        interaction.reply({ embeds: [inviteembed] })
     }
 }

@@ -14,7 +14,7 @@ module.exports = {
         .setFooter(`${time}`, timer.url)
         .setColor(client.confiig.color)
         .setTimestamp()  
-        await interaction.reply(embedd);
+        await interaction.reply({ embeds: [embeddd] });
         setTimeout(() => {
             const embeddd = new Discord.MessageEmbed()
             .setTitle(`Reminder > ${reminder}`)
@@ -22,8 +22,8 @@ module.exports = {
             .setDescription(`Time's Up! ${timer}`)
             .setColor(client.confiig.color)
             .setTimestamp()
-            interaction.channel.send(embeddd)
-            interaction.user.send(embeddd)
+            interaction.channel.send({ embeds: [embeddd] })
+            interaction.user.send({ embeds: [embeddd] })
         }, ms(time))
     }
 }

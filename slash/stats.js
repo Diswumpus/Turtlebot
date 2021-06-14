@@ -19,6 +19,6 @@ module.exports = {
         .addField(`Version:`, `${vernum}`)
         .addField(`You can see all my commands here!`, `[Click Me](${configg.cmd})`)
         .setTimestamp()
-        await interaction.reply(embeedd); 
+        await interaction.reply({ embeds: [embeedd] }); 
     }
 }

@@ -15,7 +15,7 @@ module.exports = {
         .setDescription(`${member.user.tag} Can't come back!`)
         //interaction.guild.members.ban(member);
         member.ban({reason: `${reason}`});
-        await interaction.reply(avatarembed);
+        await interaction.reply({ embeds: [avatarembed] });
         }
     }
 }

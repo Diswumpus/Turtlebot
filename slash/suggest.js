@@ -12,7 +12,7 @@ module.exports = {
         .setTimestamp()
         // this.client.channels.get('840789206976167966').send(suggestion)
         const channel = client.channels.cache.get("840789206976167966");
-        channel.send(suggestion)
+        channel.send({ embeds: [suggestion] })
         await interaction.reply('Suggestion Sent ✅', { ephemeral: true });
     }
 }

@@ -26,6 +26,6 @@ module.exports = {
                 .setColor(client.confiig.color)
                 .addField(`Level:`, `${user.level}`)
                 .setFooter(`${target.username}#${target.discriminator}`)
-                await interaction.reply(embedd);
+                await interaction.reply({ embeds: [embedd] });
     },
 };

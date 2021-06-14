@@ -10,6 +10,6 @@ module.exports = {
         .setTitle(`The version is: ${vernum}`)
         .setTimestamp()
         .setFooter(`Turtlebot • ${vernum}`)
-        await interaction.reply(versionembed); 
+        await interaction.reply({ embeds: [versionembed] }); 
     }
 }

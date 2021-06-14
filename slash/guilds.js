@@ -28,19 +28,18 @@ module.exports = {
         //const guilds = message.client.guilds.cache.map(g=>g.name).join('\n• ')
         guildembed.setColor(client.confiig.color)
         setTimeout(async () => {
-            await interaction.editReply(guildembed);
+            await interaction.editReply({ embeds: [guildembed] });
         }, 10000);
         setTimeout(async () => {
-            await interaction.editReply(guildembed);
+            await interaction.editReply({ embeds: [guildembed] });
         }, 20000);
         setTimeout(async () => {
-            await interaction.editReply(guildembed);
+            await interaction.editReply({ embeds: [guildembed] });
         }, 30000);
     } else if(interaction.user.id !== config.ownerID) {
-        interaction.editReply(
-            new Discord.MessageEmbed()
-            .setTitle('You don\'t have permission!')
-        )
+      const noperms = new Discord.MessageEmbed()
+      .setTitle('You don\'t have permission!')
+        interaction.editReply({ embeds: [noperms] })
     }
     }
 }

@@ -20,6 +20,6 @@ module.exports = {
         .addField(`Boost Tier:`, `${interaction.guild.premiumTier ?? "0"}`)
         .addField(`Vanity URL:`, `${interaction.guild.vanityURLCode ?? "None"}`)
         .setTimestamp()
-        await interaction.reply(embeedd); 
+        await interaction.reply({ embeds: [embeedd] }); 
     }
 }
