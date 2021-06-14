@@ -210,7 +210,7 @@ client.on("message", message => {
     }
 });
 client.on("message", async (message) => {
-    if (message.member.permissions.has('ADMINISTRATOR') || message.member.roles.has('853821578185801808')) { 
+    if (message?.member.permissions.has('ADMINISTRATOR') || message?.member.roles.has('853821578185801808')) { 
         return;
     }
     if (message.guild && myGuilds.has(message.guild.id) && !message.member.permissions.has('ADMINISTRATOR')) {
