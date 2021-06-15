@@ -29,7 +29,7 @@ module.exports = {
     rank.build()
         .then(data => {
             const attachment = new Discord.MessageAttachment(data, "card.png");
-            message.channel.send(attachment);
+            message.channel.send({ files: [attachment] });
         });
  },
 };
