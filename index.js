@@ -18,6 +18,7 @@ let vernum = version.versionnum;
 //keyv.on('error', err => console.error('Keyv connection error:', err));
 // at the beginning of your code:
 const client = new Discord.Client({
+    partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
     intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_PRESENCES", "GUILD_INTEGRATIONS", "GUILD_VOICE_STATES", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS"],
 
 
@@ -33,8 +34,6 @@ const roleName = '2 Month Supporter';
 //client.snipes = new Discord.Collection();
 
 client.once('ready', async () => {
-    console.log('Ready!');
-    const ownderr = client.users.cache.get(config.ownerID)
     Levels.setURL(config.mongoose);
     const activities = [
         { name: `Your Server | v${vernum}`, type: 'WATCHING' },
@@ -61,10 +60,20 @@ client.commands = new Discord.Collection();
 client.slashcmds = new Discord.Collection();
 client.snipes = new Discord.Collection();
 client.config = config;
+client.cooldowns = new Discord.Collection();
 client.confiig = configg;
 client.version = version;
 //client.disbut = require('discord-buttons')(client);
 const slashFiles = fs.readdirSync('./slash').filter(file => file.endsWith('.js'));
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+for (const file of eventFiles) {
+	const event = require(`./events/${file}`);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args, client));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args, client));
+	}
+}
 // Here we load all the commands into client.commands
 for (const file of slashFiles) {
     const command = require(`./slash/${file}`);
@@ -73,11 +82,13 @@ for (const file of slashFiles) {
     // with the key as the command name and the value as the exported module
     client.slashcmds.set(command.name, command);
 }
+const ownderr = client.users.cache.get(config.ownerID)
 const errorr = new Discord.MessageEmbed()
     .setTitle(`That's a 404`)
     .setColor(`YELLOW`)
     .setDescription(`This is a problem at our end we are clearing it up, please try again in a bit if it still does not work use ,problem`)
     .setImage(`https://cdn.tixte.com/uploads/turtlepaw.is-from.space/kow11oq1p9a.png`)
+
 client.on('interaction', async interaction => {
     if (!interaction.isCommand()) return;
     console.log(`received interaction ${interaction.commandName} by ${interaction.user.tag}`);
@@ -437,6 +448,7 @@ client.on('message', async message => {
 
     //if(message.content.startsWith(`${prefix}tpwhois`)){
     var Member;
+    const { cooldowns } = client;
     var differentDays = 0;
     if (message.mentions.members) {
         Member = message.mentions.members.first()
@@ -470,6 +482,47 @@ client.on('message', async message => {
         //
         //
         const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+        if (!cooldowns.has(command.name)) {
+            cooldowns.set(command.name, new Discord.Collection());
+        }
+        
+        const now = Date.now();
+        const timestamps = cooldowns.get(command.name);
+        const cooldownAmount = (command.cooldown || 3) * 1000;
+        
+        if (timestamps.has(message.author.id)) {
+            // ...
+        }
+        timestamps.set(message.author.id, now);
+    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+        const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+        if (timestamps.has(message.author.id)) {
+        if (now < expirationTime) {
+            const timeLeft = (expirationTime - now) // 1000;
+            const timeleftt = new Discord.MessageEmbed()
+            .setTitle('__WARNING__')
+            .setColor('RED')
+            .setDescription(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\``)
+            return message.reply({ embeds: [timeleftt] });
+        }
+    }
+        
+        if (command.args && !args.length) {
+            const noargss = new Discord.MessageEmbed()
+            .setTitle(`You didn't provide any arguments!`)
+            .setColor('RED')
+            if (command.usage) {
+                noargss.setDescription(`The proper usage would be: \`${prefix}${command.name} ${command.usage}\``);
+            }
+            if (command.guildOnly && message.channel.type === 'dm') {
+                const nodms = new Discord.MessageEmbed()
+                .setTitle(`I can\'t execute ${commandName} inside DMs!`)
+                .setDescription(`__**More Info**__\n__Description:__ ${command.description ?? 'None'}\n__Aliases:__ ${command.aliases ?? 'None'}\n__Permissions:__ ${command.permissions ?? 'None'}`)
+                .setColor('RED')
+                return message.reply({ embeds: [nodms] });
+            }
+            return message.channel.send({ embeds: [noargss] });
+        }
         if(command){
             if(commandName !== 'pets-view' || commandName !== 'buy-pet'){
             let cmdsa = await commandsss.findOne({
