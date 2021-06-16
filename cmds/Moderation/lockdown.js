@@ -20,10 +20,8 @@ module.exports = {
             const m = await message.channel.send(lockembed)
          }
          if (args[0]) {
-            message.guild.roles.cache.forEach(role => {
                message.channel.updateOverwrite(role, {
                   SEND_MESSAGES: false
-               })
             })
             const lockembed = new Discord.MessageEmbed()
                .setTitle(`:white_check_mark: Locked down ${message.channel.name} for ${time}`)
