@@ -1,3 +1,6 @@
+
+
+/*
 const { MessageReaction, User, MessageEmbed } = require("discord.js");
 const Db = require("../packages/reactionrole/models/schema.js");
 const reactionCooldown = new Set();
@@ -146,4 +149,4 @@ if(botCooldown.has(message.guild.id)) return;
 
 
 	};
-	
+*/

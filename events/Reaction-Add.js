@@ -1,4 +1,6 @@
 //const Event = require('../../structures/Event');
+
+/*
 const { MessageReaction, User, MessageEmbed } = require("discord.js");
 const Db = require("../packages/reactionrole/models/schema")
 const reactionCooldown = new Set();
@@ -259,3 +261,4 @@ if(db.option === 2) {
  
  }
 }
+*/
