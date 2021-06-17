@@ -5,8 +5,15 @@ module.exports = {
     category: 'Info',
     description: 'Gives info about server,avatar',
     execute(message, Member, args) {
-        message.channel.send(`Server name: ${message.guild.name}\nTotal members: ${message.guild.memberCount}
-         Your username: ${message.author.username}\nYour ID: ${message.author.id} 
-         <${message.author.displayAvatarURL({ dynamic: true })}>`);
+        const info = new Discord.MessageEmbed()
+        .setTitle('Info:')
+        .addField(`Server name:`, `${message.guild.name}`)
+        .addField(`Total members:`, `${message.guild.memberCount}`)
+        .addField('Your username:', message.author.username)
+        .addField('Your ID:', message.author.id)
+        .addField('Your avatar:', `[Click me!](${message.author.displayAvatarURL({ dynamic: true })})`)
+        .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
+        .setColor(message.client.confiig.color)
+        message.channel.send({ embeds: [info] });
     },
 };

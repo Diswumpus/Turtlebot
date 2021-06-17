@@ -10,29 +10,30 @@ module.exports = {
       if (message.member.permissions.has('MANAGE_MESSAGES')) {
          let time = args[0]
          if (!args[0]) {
-               message.channel.updateOverwrite(guild.roles.everyone, {
+               message.channel.updateOverwrite(message.guild.roles.everyone, {
                   SEND_MESSAGES: false
                })
             const lockembed = new Discord.MessageEmbed()
                .setTitle(`:white_check_mark: Locked down ${message.channel.name}`)
-            const m = await message.channel.send(lockembed)
+               .setColor(message.client.confiig.color)
+            const m = await message.channel.send({ embeds: [lockembed] })
          }
          if (args[0]) {
-               message.channel.updateOverwrite(guild.roles.everyone, {
+               message.channel.updateOverwrite(message.guild.roles.everyone, {
                   SEND_MESSAGES: false
             })
             const lockembed = new Discord.MessageEmbed()
                .setTitle(`:white_check_mark: Locked down ${message.channel.name} for ${time}`)
-            const m = await message.channel.send(lockembed)
+               .setColor(message.client.confiig.color)
+            const m = await message.channel.send({ embeds: [lockembed] })
             setTimeout(() => {
                const unlock = new Discord.MessageEmbed()
                   .setTitle(`:white_check_mark: Unlocked ${message.channel.name}`)
-               m.edit(unlock)
-               message.guild.roles.cache.forEach(role => {
-                  message.channel.updateOverwrite(role, {
+                  .setColor(message.client.confiig.color)
+               m.edit({ embeds: [unlock] })
+                  message.channel.updateOverwrite(message.guild.roles.everyone, {
                      SEND_MESSAGES: true
                   })
-               })
             }, ms(args[0]))
          }
       }
