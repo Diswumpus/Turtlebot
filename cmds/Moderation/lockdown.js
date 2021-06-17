@@ -10,17 +10,15 @@ module.exports = {
       if (message.member.permissions.has('MANAGE_MESSAGES')) {
          let time = args[0]
          if (!args[0]) {
-            message.guild.roles.cache.forEach(role => {
-               message.channel.updateOverwrite(role, {
+               message.channel.updateOverwrite(guild.roles.everyone, {
                   SEND_MESSAGES: false
                })
-            })
             const lockembed = new Discord.MessageEmbed()
                .setTitle(`:white_check_mark: Locked down ${message.channel.name}`)
             const m = await message.channel.send(lockembed)
          }
          if (args[0]) {
-               message.channel.updateOverwrite(role, {
+               message.channel.updateOverwrite(guild.roles.everyone, {
                   SEND_MESSAGES: false
             })
             const lockembed = new Discord.MessageEmbed()
