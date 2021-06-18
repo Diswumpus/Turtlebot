@@ -274,7 +274,7 @@ client.on("message", async (message) => {
 
     const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30
     const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
-    //if (hasLeveledUp) {
+    if (hasLeveledUp) {
         let schannel = await settings.findOne({
             GuildID: message.guild.id
         });
@@ -288,7 +288,7 @@ client.on("message", async (message) => {
         .setColor('GREEN')
         .setThumbnail(anotheremoji.url)
         channel.send({ embeds: [levelupembed] });
-    //}
+    }
 });
 
 const emojii = require('./models/emojis')
