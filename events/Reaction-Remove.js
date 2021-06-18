@@ -1,6 +1,5 @@
 
 
-/*
 const { MessageReaction, User, MessageEmbed } = require("discord.js");
 const Db = require("../packages/reactionrole/models/schema.js");
 const reactionCooldown = new Set();
@@ -93,17 +92,12 @@ if(db.option === 1) {
         setTimeout(()=>{
         reactionCooldown.delete(user.id)
         }, 2000);
-
-        if(guildDB.reactionDM === true){
         if(botCooldown.has(message.guild.id)) return;
         member.send({ embeds: [remEmbed] }).catch(()=>{})
          botCooldown.add(message.guild.id)
  setTimeout(()=>{
  botCooldown.delete(message.guild.id)
  }, 4000)
-
-
-        }
   
         }
       } catch (err) {
@@ -122,9 +116,7 @@ if(botCooldown.has(message.guild.id)) return;
       try {
          if (!member.roles.cache.find(r => r.name.toLowerCase() === rrRole.name.toLowerCase())){
         await member.roles.add(rrRole).catch(()=>{})
-        if(guildDB.reactionDM === true){
         member.send({ embeds: [addEmbed] }).catch(()=>{})
-        }
         reactionCooldown.add(user.id);
         setTimeout(()=>{
         reactionCooldown.delete(user.id)
@@ -149,4 +141,3 @@ if(botCooldown.has(message.guild.id)) return;
 
 
 	};
-*/

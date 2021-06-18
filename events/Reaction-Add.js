@@ -1,6 +1,5 @@
 //const Event = require('../../structures/Event');
 
-/*
 const { MessageReaction, User, MessageEmbed } = require("discord.js");
 const Db = require("../packages/reactionrole/models/schema")
 const reactionCooldown = new Set();
@@ -101,9 +100,7 @@ if(db.option === 1) {
   
 
         await member.roles.add(rrRole).catch(()=>{})
-        if(guildDB.reactionDM === true){
         member.send({ embeds: [addEmbed] }).catch(()=>{})
-        }
         reactionCooldown.add(user.id);
         setTimeout(()=>{
         reactionCooldown.delete(user.id)
@@ -125,9 +122,7 @@ if(db.option === 2) {
   try {
       if (!member.roles.cache.find(r => r.name.toLowerCase() === rrRole.name.toLowerCase())) {
       await member.roles.add(rrRole).catch(()=>{})
-        if(guildDB.reactionDM === true){
         member.send({ embeds: [addEmbed] }).catch(()=>{})
-        }
       reactionCooldown.add(user.id);
       setTimeout(() => {
         reactionCooldown.delete(user.id)
@@ -147,9 +142,7 @@ if(db.option === 2) {
     try {
       if (member.roles.cache.find(r => r.name.toLowerCase() === rrRole.name.toLowerCase())){
       await member.roles.remove(rrRole).catch(()=>{})
-        if(guildDB.reactionDM === true){
         member.send({ embeds: [remEmbed] }).catch(()=>{})
-        }
       reactionCooldown.add(user.id);
       setTimeout(() => {
         reactionCooldown.delete(user.id)
@@ -170,9 +163,7 @@ if(db.option === 2) {
          if (member.roles.cache.find(r => r.name.toLowerCase() === rrRole.name.toLowerCase())){
         await member.roles.remove(rrRole).catch(()=>{})
         reactionCooldown.add(user.id);
-        if(guildDB.reactionDM === true){
         member.send({ embeds: [remEmbed] }).catch(()=>{})
-        }
         setTimeout(()=>{
         reactionCooldown.delete(user.id)
         }, 2000);
@@ -192,10 +183,7 @@ if(db.option === 2) {
   if (member.roles.cache.find(r => r.name.toLowerCase() === rrRole.name.toLowerCase())){
       await member.roles.remove(rrRole);
      message.reactions.cache.find(r => r.emoji.name == emoji.name).users.remove(user.id).catch(()=>{})
-      
-        if(guildDB.reactionDM === true){
         member.send({ embeds: [remEmbed] }).catch(()=>{})
-        }
       reactionCooldown.add(user.id);
       setTimeout(() => {
         reactionCooldown.delete(user.id)
@@ -234,9 +222,9 @@ if(db.option === 2) {
      message.reactions.cache.find(r => r.emoji.name == emoji.name).users.remove(user.id).catch(()=>{})
         await member.roles.add(rrRole).catch(()=>{})
 
-        if(guildDB.reactionDM === true){
+        //if(guildDB.reactionDM === true){
         member.send(addEmbed).catch(()=>{})
-        }
+        //}
         reactionCooldown.add(user.id);
         setTimeout(()=>{
         reactionCooldown.delete(user.id)
@@ -261,4 +249,3 @@ if(db.option === 2) {
  
  }
 }
-*/
