@@ -274,7 +274,11 @@ client.on("message", async (message) => {
 
     const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30
     const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
-    if (hasLeveledUp) {
+    //if (hasLeveledUp) {
+        let schannel = await settings.findOne({
+            GuildID: message.guild.id
+        });
+        const channel = message.guild.channels.cache.get(schannel.levelch) ?? message.channel
         const user = await Levels.fetch(message.author.id, message.guild.id);
         const emojiiii = client.emojis.cache.get('836421450252550199')
         const anotheremoji = client.emojis.cache.get('846908253740204072')
@@ -283,8 +287,8 @@ client.on("message", async (message) => {
         .setDescription(`You have leveled up to **${user.level}**   ${emojiiii}`)
         .setColor('GREEN')
         .setThumbnail(anotheremoji.url)
-        message.channel.send({ embeds: [levelupembed] });
-    }
+        channel.send({ embeds: [levelupembed] });
+    //}
 });
 
 const emojii = require('./models/emojis')
