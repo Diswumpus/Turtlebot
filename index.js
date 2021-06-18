@@ -10,6 +10,7 @@ const Schema = mongoose.Schema;
 const prefix = require('./models/prefix');
 const commandsss = require('./models/commands')
 const moment = require('moment')
+const settings = require('./models/settings')
 
 
 mongoose.connect(config.mongoose, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -569,43 +570,49 @@ client.on('message', message => {
     }
 });
 client.on('guildMemberAdd', async (message) => { // this event gets triggered when a new member joins the server!
+    //Find the setting for the server
+    let welcomechannel = await settings.findOne({
+        GuildID: message.guild.id
+    });
+    if(welcomechannel.welcome !== true){
+        return
+    }
     //if (message.guild && myGuilds.has(message.guild.id)) {
     // Firstly we need to define a channel
     // either using .get or .find, in this case im going to use .get()
     //const Channel = member.guild.channels.cache.get('channelid') //insert channel id that you want to send to
-    const channel = message.guild.channels.cache.find(ch => ch.name.includes("welcome")); //** This is telling the script which server to send teh message in**\\
+    const channel = message.guild.channels.cache.get(welcomechannel.welcomech); //** This is telling the script which server to send teh message in**\\
     const serverName = message.guild.name
-    const rulech = message.guild.channels.cache.find(ch => ch.name.includes("rules"));
+    //const rulech = message.guild.channels.cache.find(ch => ch.name.includes("rules"));
     if (!channel) return;
-    const blob1 = client.emojis.cache.find(em => em.name === "ablobwave");
-    const blannk = client.emojis.cache.find(em => em.name === "Blank");
+    const blob1 = client.emojis.cache.get('835250126087389194');
     //making embed
     const embed = new Discord.MessageEmbed()
         .setColor('GREEN')
         .setThumbnail(message.user.displayAvatarURL())
         .setTitle(`**${message.displayName} Joined**`)
-        .addField(`Welcome to ${serverName} ${blob1}`, `Please read the Rules, hope you have a pleasant stay ${message.displayName}! Say ${config.prefix}verify to begin! ${message.displayName}`)
-        .setFooter(`${serverName}`, blob1.url)
-    const dmembed = new Discord.MessageEmbed()
-        .setColor('GREEN')
-        .setThumbnail(message.user.displayAvatarURL())
-        .setTitle(`**Welcome ${message.displayName} to ${serverName}**`)
-        .addField(`${blob1}`, `Please read the <#${rulech.id}>, hope you have a pleasant stay ${message.displayName}! Say ${config.prefix}verify to begin! ${message.displayName}`)
+        .addField(`Welcome to ${serverName} ${blob1}`, `Hope you have a pleasant stay ${message.displayName}! Thanks for joining ${serverName} ${message.displayName}`)
         .setFooter(`${serverName}`, blob1.url)
     // sends a message to the channel
-    channel.send(embed)
+    channel.send({ embeds: [embed] })
     //}
 })
 client.on('guildMemberRemove', async (message) => { // this event gets triggered when a new member leaves the server!
+    //Find the setting for the server
+    let welcomechannel = await settings.findOne({
+        GuildID: message.guild.id
+    });
+    if(welcomechannel.welcome !== true){
+        return
+    }
     //if (message.guild && myGuilds.has(message.guild.id)) {
     // Firstly we need to define a channel
     // either using .get or .find, in this case im going to use .get()
     //making embed
-    const channel = message.guild.channels.cache.find(ch => ch.name.includes("welcome")); //** This is telling the script which server to send teh message in**\\
+    const channel = message.guild.channels.cache.get(welcomechannel.welcomech); //** This is telling the script which server to send teh message in**\\
     if (!channel) return;
     const serverName = message.guild.name
-    const blob2 = client.emojis.cache.find(em => em.name === "ablobsigh");
-    const rulech = message.guild.channels.cache.find(ch => ch.name.includes("rules"));
+    const blob2 = client.emojis.cache.get('635255789329580053') ?? client.emojis.cache.get('855262242215690251');
     let embede = new Discord.MessageEmbed()
         .setColor('RED')
         .setThumbnail(message.user.displayAvatarURL())
@@ -613,7 +620,7 @@ client.on('guildMemberRemove', async (message) => { // this event gets triggered
         .setDescription(`**${message.displayName}** has left ${serverName}, we now have ${message.guild.memberCount} members!`)
         .setFooter(`${serverName}`, blob2.url)
     // sends a message to the channel
-    channel.send(embede)
+    channel.send({ embeds: [embede] })
     //}
 })
 client.login(config.token);
