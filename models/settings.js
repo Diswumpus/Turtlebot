@@ -8,6 +8,7 @@ const SettingsSchema = new mongoose.Schema({
     inviteremover: Boolean,
     welcomedm: Boolean,
     autosnipe: Boolean,
+    autosnipech: String,
     banmsg: Boolean
 });
 

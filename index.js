@@ -233,7 +233,7 @@ client.on("message", async (message) => {
                 .setDescription(`[This](${message.url}) has been deleted`)
                 .setFooter('Invite links are not permitted on this server')
             message.delete() //delete the message
-                .then(message.author.send(messagedelembed))
+                .then(message.author.send({ embeds: [messagedelembed] }))
         }
     }
 })
@@ -330,6 +330,12 @@ client.on('message', async message => {
 
 client.on("messageDelete", async (message) => {
     try {
+        let schannel = await settings.findOne({
+            GuildID: message.guild.id
+        });
+        if(schannel.autosnipe !== true){
+            return
+        }
         if (message.member.permissions.has('MANAGE_MESSAGES')) { return; }
         if (message.author.bot) return;
         const snipes = message.client.snipes.get(message.channel.id) || [];
@@ -353,11 +359,9 @@ client.on("messageDelete", async (message) => {
             )
             .addField(`Content`, message.content, true)
             .setColor(`RED`);
-        let channel = message.guild.channels.cache.find(
-            (ch) => ch.name === "bot-log"
-        );
+        let channel = message.guild.channels.cache.get(schannel.autosnipech);
         if (!channel) return;
-        channel.send(embed);
+        channel.send({ embeds: [embed] });
     } catch (e) { }
 });
 client.on('message', message => {
