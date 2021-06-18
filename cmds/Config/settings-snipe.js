@@ -15,9 +15,9 @@ module.exports = {
         return message.channel.send(`You don't have permissions!`)
         }
         if (message.member.permissions.has('ADMINISTRATOR')) {
-            const welcomech = message.mentions.channels.first().id || message.guild.channels.cache.get(args[0]);
+            const welcomech = message.mentions.channels.first()?.id;
             const thechannel = message.mentions.channels.first();
-            if(!welcomech) {
+            if(!thechannel) {
                 const nochannel = new Discord.MessageEmbed()
                 .setTitle(`Please mention a channel! ${fail}`)
                 .setDescription(`Example: \`${config.prefix}${this.name} #test\``)
