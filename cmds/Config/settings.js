@@ -12,7 +12,7 @@ module.exports = {
         if (message.member.permissions.has('ADMINISTRATOR')) {
             const tembed = new Discord.MessageEmbed()
                 .setTitle(`What would you like to edit?`)
-                .setDescription(`Use ${config.prefix}enable \`setting\` to enable a setting`)
+                .setDescription(`Use \`${config.prefix}setting\` to enable a setting`)
                 .addField(`\`${config.prefix}enable-link\``, `Delete discord invite links?`)
                 .addField(`\`${config.prefix}enable-welcomemsg\` Welcome Messages?`, "`True or false`")
                 .addField(`\`${config.prefix}prefix\` Prefix?`, `What prefix?`)
