@@ -25,7 +25,7 @@ module.exports = {
         .addField(`Joined at:`, `${userr.joinedAt}`)
         .addField(`Messages Sent:`, `${msgCount}`)
         .addField(`Joined Discord at`, `${userr.user.createdAt}`)
-        .addField(`Platform:`, `Desktop: ${userr.presence.clientStatus.desktop}`)
+        //.addField(`Platform:`, `Desktop: ${userr.presence.clientStatus.desktop}`)
         .setDescription(`[Avatar link](${userr.user.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 })})`)
         .setTimestamp()
         await interaction.reply({ embeds: [embeedd] }); 

@@ -4,7 +4,7 @@ module.exports = {
     name: 'suggest',
     description: '-',
     async execute(client, interaction) {
-        let msgg = interaction.options[0].value;
+        let msgg = interaction.options?.find(c => c?.name === 'suggestion')?.value;
         const suggestion = new Discord.MessageEmbed()
         .setAuthor(`Suggestion from ${interaction.user.tag} | ${interaction.user.id}`, interaction.user.displayAvatarURL())
         .addField(`${msgg}`, `——————`)
@@ -13,6 +13,6 @@ module.exports = {
         // this.client.channels.get('840789206976167966').send(suggestion)
         const channel = client.channels.cache.get("840789206976167966");
         channel.send({ embeds: [suggestion] })
-        await interaction.reply('Suggestion Sent ✅', { ephemeral: true });
+        await interaction.reply({ content: 'Suggestion Sent ✅', ephemeral: true });
     }
 }

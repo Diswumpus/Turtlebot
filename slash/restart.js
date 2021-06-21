@@ -5,8 +5,8 @@ module.exports = {
     name: 'restart',
     description: 'Gives a hint',
     async execute(client, interaction) {
-        if (interaction.user.id !== config.ownerID) return interaction.reply(`You don't have permissions`);
-        await interaction.reply('Restarting...');
+        if (interaction.user.id !== config.ownerID) return interaction.reply({ content: `You don't have permissions` });
+        await interaction.reply({ content: 'Restarting...' });
         setTimeout(() =>
         {  process.exit(); }, 1000); 
     }

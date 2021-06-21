@@ -6,7 +6,7 @@ module.exports = {
   name: 'youtube',
   async execute(client, interaction) {
     if (interaction.member.permissions.has('MANAGE_MESSAGES')) {
-      let ytuser = interaction.options.length > 1 ? interaction.options[1].user : interaction.user;
+      let ytuser = interaction.options?.find(c => c?.name === 'user')?.value || interaction.user;
       let comment = interaction.options?.find(c => c?.name === 'comment')?.value;
       await interaction.defer();
       let link = (`https://some-random-api.ml/canvas/youtube-comment?username=${ytuser.username}&comment=${comment}&avatar=${ytuser.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 })}&dark=true%E2%80%8B`)

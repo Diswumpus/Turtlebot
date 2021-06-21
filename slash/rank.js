@@ -8,7 +8,7 @@ module.exports = {
     async execute(client, interaction) {
         //const userData = getDataSomehow();
         
-        const target = interaction.options.length > 0 ? interaction.options[0].user : interaction.user;
+        const target = interaction.options?.find(c => c?.name === 'user')?.user || interaction.user;
 
         //const target = message.mentions.users.first() || interaction.user;
         const avatarr = target.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 })
