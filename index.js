@@ -225,7 +225,11 @@ client.on("message", async (message) => {
     if (message?.member?.permissions.has('ADMINISTRATOR') || message?.member.roles.has('853821578185801808')) { 
         return;
     }
-    if (message.guild && myGuilds.has(message.guild.id) && !message.member.permissions.has('ADMINISTRATOR')) {
+    const thedata = await settings.findOne({
+        GuildID: message.guild.id
+    });
+    if (message.guild && myGuilds.has(message.guild.id)) {// && !message.member.permissions.has('ADMINISTRATOR')
+        if(!message.member.roles.cache.some(r=> thedata.roles.includes(r.id)) ) {
         if (message.content.toLowerCase().includes('discord.gg' || 'discordapp.com/invite' || 'discord.com/invite' || 'dsc.gg' || 'discord.io' || 'discord.me')) { //if it contains an invite link
             const messagedelembed = new Discord.MessageEmbed()
                 .setTitle(`Your link has been deleted!`)
@@ -235,6 +239,7 @@ client.on("message", async (message) => {
             message.delete() //delete the message
                 .then(message.author.send({ embeds: [messagedelembed] }))
         }
+    }
     }
 })
 // L E V E L S = >
