@@ -9,7 +9,7 @@ module.exports = {
             const genembed = new Discord.MessageEmbed()
             .setTitle(`Generating...`)
             await interaction.reply({ embeds: [genembed] })
-            let user = interaction.options.length ? interaction.options[0].user.displayAvatarURL({format: 'png', size: 512}) :interaction.user.displayAvatarURL({format: 'png', size: 512});
+            let user = interaction.options?.find(c => c?.name === 'user')?.user.displayAvatarURL({format: 'png', size: 512}) || interaction.user.displayAvatarURL({format: 'png', size: 512});
             let numb = Math.ceil(Math.random() * 10)
         const data = await fetch(
             `https://nekobot.xyz/api/imagegen?type=magik&image=${user}&intensity=${numb}`
@@ -21,7 +21,7 @@ module.exports = {
             await interaction.editReply({ embeds: [whoisEmbed] });
         } catch (err) {
         
-        console.log(`${err}, command name: magik`)
+        console.warn(`${err}, command name: magik`)
         //interaction.reply("```ERROR```")
        }
     },

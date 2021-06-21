@@ -7,7 +7,7 @@ module.exports = {
  description: "Returns latency and API ping",
  timeout: 10000,
  execute: async (message, Member, args) => {
-   message.channel.send(`🏓 Pinging....`).then((msg) => {
+   message.channel.send({ content: `🏓 Pinging....`}).then((msg) => {
      const _ = new Discord.MessageEmbed()
        .setTitle("Pong!")
        .setDescription(
@@ -16,8 +16,8 @@ module.exports = {
          )}ms\nAPI Latency is ${Math.round(message.client.ws.ping)}ms`
        )
        .setColor("RANDOM");
-     msg.edit(_);
-     msg.edit("\u200B");
+     msg.edit({ embeds: [_] });
+     msg.edit({ content: "\u200B" });
    });
  },
 };

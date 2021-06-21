@@ -17,7 +17,7 @@ module.exports = {
           .setTitle(`Here's a list of all my commands!`)
           .setURL(conffig.cmd)
           .setDescription('**This command is currently in beta**')
-          .setThumbnail(turtlebot.url)
+          .setThumbnail(message.client.user.displayAvatarURL())
           .addField('1️⃣ Config', 'Settings, invite and 2ms role')
           .addField('2️⃣ Dev', 'Don\' go here!')
           .addField('3️⃣ Fun', 'Snipe, magik and all that')
@@ -35,7 +35,7 @@ module.exports = {
           .setTitle("I'm Turtlebot")
           .setURL(conffig.cmd)
           .setDescription('Here\'s a list of all my commands:')
-          .setThumbnail(turtlebot.url);
+          .setThumbnail(message.client.user.displayAvatarURL());
         const { commands } = message.client;
         const { config } = message.client;
         commands.forEach(cmd => {
@@ -50,7 +50,7 @@ module.exports = {
           .setFooter('Turtlebot Discord.Javascript', nodejs.url);
         return helpEmbed;
       }
-      message.channel.send(genEmber(`Here's a list of my commands`)).then((editthis) => {
+      message.channel.send({ embeds: [genEmber(`Here's a list of my commands`)] }).then((editthis) => {
         editthis.react('1️⃣')
         editthis.react('2️⃣')
         editthis.react('3️⃣')
@@ -63,50 +63,50 @@ module.exports = {
             return
           }
           if (reaction.emoji.name === '1️⃣') {
-            editthis.edit(genCategoryHelp('Config'));
+            editthis.edit({ embeds: [genCategoryHelp('Config')]});
           }
           if (reaction.emoji.name === '2️⃣') {
-            editthis.edit(genCategoryHelp(`Dev`));
+            editthis.edit({ embeds: [genCategoryHelp(`Dev`)]});
           }
           if (reaction.emoji.name === '3️⃣') {
-            editthis.edit(genCategoryHelp(`Fun`));
+            editthis.edit({ embeds: [genCategoryHelp(`Fun`)] });
           }
           if (reaction.emoji.name === '4️⃣') {
-            editthis.edit(genCategoryHelp(`Info`));
+            editthis.edit({ embeds: [genCategoryHelp(`Info`)]});
           }
           if (reaction.emoji.name === '5️⃣') {
-            editthis.edit(genCategoryHelp(`Misc`));
+            editthis.edit({ embeds: [genCategoryHelp(`Misc`)]});
           }
           if (reaction.emoji.name === '6️⃣') {
-            editthis.edit(genCategoryHelp(`Moderation`));
+            editthis.edit({ embeds: [genCategoryHelp(`Moderation`)]});
           }
           if (reaction.emoji.name === '7️⃣') {
-            editthis.edit(genCategoryHelp(`Reaction Roles`));
+            editthis.edit({ embeds: [genCategoryHelp(`Reaction Roles`)]});
           }
           message.client.on('messageReactionRemove', async (reaction, user) => {
             if (user.bot) {
               return
             }
             if (reaction.emoji.name === '1️⃣') {
-              editthis.edit(genEmber(`-`));
+              editthis.edit({ embeds: [genEmber(`-`)]});
             }
             if (reaction.emoji.name === '2️⃣') {
-              editthis.edit(genEmber(`-`));
+              editthis.edit({ embeds: [genEmber(`-`)]});
             }
             if (reaction.emoji.name === '3️⃣') {
-              editthis.edit(genEmber(`-`));
+              editthis.edit({ embeds: [genEmber(`-`)]});
             }
             if (reaction.emoji.name === '4️⃣') {
-              editthis.edit(genEmber(`-`));
+              editthis.edit({ embeds: [genEmber(`-`)]});
             }
             if (reaction.emoji.name === '5️⃣') {
-              editthis.edit(genEmber(`-`));
+              editthis.edit({ embeds: [genEmber(`-`)]});
             }
             if (reaction.emoji.name === '6️⃣') {
-              editthis.edit(genEmber(`-`));
+              editthis.edit({ embeds: [genEmber(`-`)]});
             }
             if (reaction.emoji.name === '7️⃣') {
-              editthis.edit(genEmber(`-`));
+              editthis.edit({ embeds: [genEmber(`-`)]});
             }
           }
         );
@@ -120,12 +120,11 @@ module.exports = {
   const cmd = commands.find(c => c.name === args[0])
   helpp.addField(`Name: ${cmd.name}`, `Description: ${cmd.description}`)
   if (!cmd) {
-    message.channel.send(
-      new Discord.MessageEmbed()
-        .setTitle(`Not found!`)
-    )
+    const notfound = new Discord.MessageEmbed()
+    .setTitle(`Not found!`)
+    message.channel.send({ embeds: [notfound] })
   }
-  await message.channel.send(helpp);
+  await message.channel.send({ embeds: [helpp] });
 }
   }
 }
