@@ -6,6 +6,7 @@ const SettingsSchema = new mongoose.Schema({
     welcomech: String,
     welcomemsg: String,
     inviteremover: Boolean,
+    roles: [String],
     welcomedm: Boolean,
     autosnipe: Boolean,
     autosnipech: String,

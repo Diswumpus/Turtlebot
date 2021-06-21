@@ -1,0 +1,50 @@
+/* hr for 'borders' */
+hr {
+	border: none;
+	border-top: 1px solid rgba(160,160,160, 0.2);
+}
+
+/* makes text smaller than the default font size */
+.small-text {
+	font-size: 80%;
+}
+.extra-large-text {
+    font-size: 10%; 
+}
+body.theme-dark{
+    background: #2c2f33 url(https://discordapp.com/assets/530280c4e76a27a6dd43c0ecabb96e7d.png) fixed;
+}
+.dark-mode {
+    background-color: rgb(116, 116, 116);
+    color: white;
+    background: #2c2f33 url(https://discordapp.com/assets/530280c4e76a27a6dd43c0ecabb96e7d.png) fixed;
+  }
+  body {
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    font-size: 25px;
+  }
+/* applied to anchor elements which do not go anywhere */
+a.no-link {
+	color: rgba(0,0,0,0.87); /* Default text colour in Materialize-css */
+}
+
+footer .copyright-info {
+	display: inline;
+}
+
+/* Special formatting for SVGs */
+.side-links>ul>li>a>img.responsive-img {
+	padding: 6px;
+}
+
+.projects-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.projects-list .col {
+    margin-left: initial !important;
+}
