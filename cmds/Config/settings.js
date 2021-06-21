@@ -16,6 +16,7 @@ module.exports = {
                 .addField(`\`${config.prefix}enable-link\``, `Delete discord invite links?`)
                 .addField(`\`${config.prefix}enable-welcomemsg\` Welcome Messages?`, "`True or false`")
                 .addField(`\`${config.prefix}prefix\` Prefix?`, `What prefix?`)
+                .addField(`\`${config.prefix}levelch\``, `Should i send level messages in a specific channel?`)
                 .addField(`\`${config.prefix}enable-snipe\` Auto Snipe?`, `When a message is deleted i will post it in the mentioned channel`)
                 .setColor(message.client.confiig.color)
             const sentmsg = await message.channel.send({ embeds: [tembed] });
