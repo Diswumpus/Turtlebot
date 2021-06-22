@@ -4,6 +4,7 @@ module.exports = {
     name: 'help',
     description: '-',
     async execute(client, interaction) {
+        return
         interaction.reply('✅', { ephemeral: true })
         const message = interaction
         const turtlebot = message.client.emojis.cache.find(em => em.name === "Turtlebot");

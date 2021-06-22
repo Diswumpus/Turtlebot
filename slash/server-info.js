@@ -4,7 +4,7 @@ module.exports = {
     name: 'server-info',
     description: 'Gives a hint',
     async execute(client, interaction) {
-        const userr = interaction.guild
+        const userr = interaction.guild;
         const embeedd = new Discord.MessageEmbed()
         .setColor(client.confiig.color)
         .setThumbnail(interaction.guild.iconURL())

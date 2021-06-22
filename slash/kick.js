@@ -7,8 +7,8 @@ module.exports = {
             interaction.reply(`You don't have permissions`)
         }
         if (interaction.member.permissions.has('KICK_MEMBERS')) {
-        const member = interaction.options[0].member;
-        const reason = interaction.options[1].value;
+        const member = interaction.options?.find(c => c?.name === 'user')?.member;
+        const reason = interaction.options?.find(c => c?.name === 'reason')?.value;
         const avatarembed = new Discord.MessageEmbed()
         .setTitle(`Kicked ${member.user.tag}`)
         .setColor(`RED`)
