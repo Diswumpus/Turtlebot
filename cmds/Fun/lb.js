@@ -20,7 +20,7 @@ module.exports = {
     .setColor(message.client.confiig.color)
     .setDescription(`${lb.join("\n\n")}`)
     .setFooter(`Turtlebot XP`)
-    message.channel.send(leaderboardembed);
+    message.channel.send({ embeds: [leaderboardembed] });
     //message.channel.send(`**Leaderboard**:\n\n${lb.join("\n\n")}`);
  },
 };
