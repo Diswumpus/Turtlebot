@@ -8,14 +8,14 @@ module.exports = {
         if (!client.application?.owner) await client.application?.fetch();
         //https://discord.com/oauth2/authorize?client_id=841782635386109972&scope=bot+applications.commands
         const data = {
-            name: 'avatar',
-            description: 'Get a users avatar',
-            options: [{
-                name: 'user',
-                type: 'USER',
-                description: 'What user?',
-                required: false,
-            }],
+            name: 'chaoswords',
+            description: 'Play chaoswords!',
+            // options: [{
+            //     name: 'user',
+            //     type: 'USER',
+            //     description: 'What user?',
+            //     required: false,
+            // }],
         };
 
         const command = await client.application?.commands.create(data);
