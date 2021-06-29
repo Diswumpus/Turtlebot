@@ -588,7 +588,7 @@ client.on('guildMemberAdd', async (message) => { // this event gets triggered wh
     let welcomechannel = await settings.findOne({
         GuildID: message.guild.id
     });
-    if(welcomechannel.welcome !== true){
+    if(welcomechannel?.welcome !== true){
         return
     }
     //if (message.guild && myGuilds.has(message.guild.id)) {
@@ -616,7 +616,7 @@ client.on('guildMemberRemove', async (message) => { // this event gets triggered
     let welcomechannel = await settings.findOne({
         GuildID: message.guild.id
     });
-    if(welcomechannel.welcome !== true){
+    if(welcomechannel?.welcome !== true){
         return
     }
     //if (message.guild && myGuilds.has(message.guild.id)) {
