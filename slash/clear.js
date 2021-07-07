@@ -14,7 +14,10 @@ module.exports = {
             interaction.channel.bulkDelete(deletenum + 1)
             //await interaction.reply({ embeds: [embeedd] });
             setTimeout(async () => {
+                const m = await interaction.fetchReply();
+                if(m){
                 await interaction.deleteReply();
+                }
             }, 200);
         }
     }
