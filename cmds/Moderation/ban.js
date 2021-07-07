@@ -12,6 +12,7 @@ module.exports = {
                 edittthis.react('✅')
                 edittthis.react('❎')
                 message.client.on('messageReactionAdd', async (reaction, user) => {
+                    if(reaction.message !== edittthis.id) return
                     if (user.bot) {
                         return
                     }

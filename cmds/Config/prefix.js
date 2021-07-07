@@ -9,20 +9,20 @@ module.exports = {
     async execute(message, Member, args) {
         let newprefix = args[0]
         const changed = new Discord.MessageEmbed()
-        .setTitle(`${newprefix} Will be the new prefix!`)
+        .setTitle(`${require('../../emojis.json').check} ${newprefix} Will be the new prefix!`)
         .setDescription("You can still use `,`")
         .setColor(message.client.confiig.color) 
         const noarg = new Discord.MessageEmbed()
-        .setTitle(`Wait... What is the new prefix?`)
+        .setTitle(`${require('../../emojis.json').x} Wait... What is the new prefix?`)
         .setColor('RED')
         if(!newprefix){
-            return message.reply(noarg)
+            return message.reply({ embeds: [noarg] })
         }
         const toomuch = new Discord.MessageEmbed()
-        .setTitle(`That's too long!`)
+        .setTitle(`${require('../../emojis.json').x} That's too long!`)
         .setDescription(`Your prefix must me under \`5\` characters!`)
         .setColor('RED')
-        if (args[0].length > 5) return message.reply(toomuch)
+        if (args[0].length > 1) return message.reply({ embeds: [toomuch] })
         const data = await prefixModel.findOne({
             GuildID: message.guild.id
         });
@@ -31,7 +31,7 @@ module.exports = {
                 GuildID: message.guild.id
             })
             
-            message.reply(changed)
+            message.reply({ embeds: [changed] })
     
             let newData = new prefixModel({
                 Prefix: args[0],
@@ -39,7 +39,7 @@ module.exports = {
             })
             newData.save();
         } else if (!data) {
-            message.reply(changed)
+            message.reply({ embeds: [changed] });
     
             let newData = new prefixModel({
                 Prefix: args[0],

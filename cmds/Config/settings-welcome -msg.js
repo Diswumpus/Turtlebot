@@ -9,10 +9,10 @@ module.exports = {
     category: 'Config',
     description: `Enables Welcome Messages!`,
     async execute(message, Member, args) {
-        const yes = message.client.emojis.cache.get('849400604576841738')
-        const fail = message.client.emojis.cache.get('849400604597026836')
+        const yes = require('../../emojis.json').check;
+        const fail = require('../../emojis.json').x;
         if(!message.member.permissions.has('ADMINISTRATOR')) {
-        return message.channel.send(`You don't have permissions!`)
+        return message.channel.send({ content: `You don't have permissions!` })
         }
         if (message.member.permissions.has('ADMINISTRATOR')) {
             const welcomech = message.mentions.channels.first()?.id || message.guild.channels.cache.get(args[0])

@@ -264,14 +264,6 @@ client.on("message", async (message) => {
         dUser.messagecount += 1;
         await dUser.save().catch(e => console.log(e));
     });
-    //   const doc = new messagess({
-    //     id: message.author.id,
-    //     guild: message.guild.id,
-    //     messagecount: +1
-    //   });
-    //   // Inserts a new document with `name = 'Will Riker'` and
-    //   // `rank = 'Commander'`
-    //   await doc.save();
 })
 client.on("message", async (message) => {
     if (!message.guild) return;
@@ -283,7 +275,7 @@ client.on("message", async (message) => {
         let schannel = await settings.findOne({
             GuildID: message.guild.id
         });
-        const channel = message.guild.channels.cache.get(schannel.levelch) ?? message.channel
+        const channel = message.guild.channels.cache.get(schannel?.levelch) ?? message.channel
         const user = await Levels.fetch(message.author.id, message.guild.id);
         const emojiiii = client.emojis.cache.get('836421450252550199')
         const anotheremoji = client.emojis.cache.get('846908253740204072')
@@ -303,11 +295,12 @@ client.on('message', async message => {
     const hasEmoteRegex = /<a?:.+:\d+>/gm
     const emoteRegex = /<:.+:(\d+)>/gm
     const animatedEmoteRegex = /<a:.+:(\d+)>/gm
-
+    let emoji
     const messages = await message.channel.messages.fetch()
     //const message = await messages.find(m => m.content.match(hasEmoteRegex))
     const words = message.content.split(" ");
     words.forEach(async w => {
+        if(!emoji) return
         if (emoji = emoteRegex.exec(w) || animatedEmoteRegex.exec(w)) {
             let messageUser = await emojii.findOne({
                 emoji: emoji[0]

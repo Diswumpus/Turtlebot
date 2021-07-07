@@ -9,7 +9,7 @@ module.exports = {
  execute: async (message, Member, args) => {
    const snipes = message.client.snipes.get(message.channel.id) || [];
    const msg = snipes[args[0] - 1 || 0];
-   if (!msg) return message.channel.send(`That is not a valid snipe...`);
+   if (!msg) return message.channel.send(`${require('../../emojis.json').x} There's nothing to snipe!`);
    const Embed = new MessageEmbed()
      .setAuthor(
        msg.author.tag,

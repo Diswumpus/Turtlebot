@@ -6,9 +6,10 @@ module.exports = {
     description: 'Restarts the bot',
     aliases: ['restart'],
     execute(message, Member, args) {
-        if (message.author.id === '820465204411236362') {
-        const b4 = message.client.emojis.cache.find(em => em.name === "verify");
-        message.channel.send(`Restarting ${b4}`);
+        if (message.author.id === require('../../config.json').ownerID) {
+        const b4 = require('../../emojis.json').check;
+        const m = message.channel.send({ content: `Restarting ${b4}` });
+        m.edit({ content: `${require('../../emojis.json').tb} Bye!`})
         setTimeout(() =>
              {  process.exit(); }, 1000);    
      }    

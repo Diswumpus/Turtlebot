@@ -17,7 +17,6 @@ module.exports = {
       usertosend.send(
         new Discord.MessageEmbed()
         .setTitle(`You have been warned`)
-        .setURL(`${m.url}`)
         .addField(`Reason:`, `${reason ?? 'None'}`)
         .setColor(message.client.confiig.color)
     )

@@ -13,6 +13,6 @@ module.exports = {
             maxAge: ageDays * 60 * 60 * 24, // 0 = infinite expiration
             maxUses: uses // 0 = infinite uses
           }).catch(console.error);
-        message.channel.send(`Here's an invite for ${message.guild.name}! ${invite}`);
+        message.channel.send(`${require('../../emojis.json').check} Here's an invite for ${message.guild.name}! ${invite}`);
     },
 };

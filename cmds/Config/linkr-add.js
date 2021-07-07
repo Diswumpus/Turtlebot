@@ -12,7 +12,7 @@ module.exports = {
         const fail = message.client.emojis.cache.get('849400604597026836')
         const thechannel = message.mentions.roles;
         const tembed = new Discord.MessageEmbed()
-            .setTitle(`Added roles! ${yes}`)
+            .setTitle(`${require('../../emojis.json').check} Added roles!`)
             .setColor(message.client.confiig.color)
             thechannel.forEach(r => {
                 tembed.addField(`Name: ${r.name}`, `ID: ${r.id}`);

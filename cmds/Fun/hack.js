@@ -21,7 +21,7 @@ module.exports = {
         if(hackuser.bot === true){
             return message.reply(
                 new Discord.MessageEmbed()
-                .setTitle(`We can't hack bots!`)
+                .setTitle(`${require('../../emojis.json').x} We can't hack bots!`)
                 .setColor(`RED`)
                 .setDescription(`${message.author.tag} tried to hack ${hackuser.tag}!`)
             )

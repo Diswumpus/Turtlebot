@@ -6,7 +6,7 @@ module.exports = {
     description: 'Gives info about server,avatar',
     execute(message, Member, args) {
         const info = new Discord.MessageEmbed()
-        .setTitle('Info:')
+        .setTitle(`${require('../../emojis.json').tb} Info:`)
         .addField(`Server name:`, `${message.guild.name}`)
         .addField(`Total members:`, `${message.guild.memberCount}`)
         .addField('Your username:', message.author.username)

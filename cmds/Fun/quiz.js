@@ -36,7 +36,7 @@ module.exports = {
             .addField('**Difficulty**', `\`${decodeURIComponent(difficult)}\``, true)
             .addField('**Quiz Genre**', `\`${decodeURIComponent(category)}\``, true)
             .addField('**Type**', `\`${decodeURIComponent(type)}\``, true)
-            .setFooter('You have 30 seconds to answer this! | $40 Reward if Answered Correctly')
+            .setFooter('You have 30 seconds to answer this!')
         message.channel.send({ embeds: [embed] });
         const filter = res => choices.includes(res.content) && res.author.id === message.author.id
         const reply = await message.channel.awaitMessages(filter, {
@@ -44,8 +44,8 @@ module.exports = {
             time: 30000
         });
         const timeremoji = message.client.emojis.cache.get('846868929065517066')
-        const no = message.client.emojis.cache.get('849400604601876490')
-        const yes = message.client.emojis.cache.get('849400604576841738')
+        const no = require('../../emojis.json').check;
+        const yes = require('../../emojis.json').x;
         const tada = message.client.emojis.cache.get('836421450252550199')
         const noembed = new Discord.MessageEmbed()
         .setTitle(`Time's Up! ${timeremoji}`)

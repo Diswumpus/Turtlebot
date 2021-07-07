@@ -26,7 +26,7 @@ module.exports = {
         } catch (err) {
         
         console.log(`${err}, command name: magik`)
-        message.channel.send(`Something went wrong with ${this.name}`)
+        message.channel.send(`${require('../../emojis.json').x} Something went wrong with ${this.name}`)
        }
     },
 };

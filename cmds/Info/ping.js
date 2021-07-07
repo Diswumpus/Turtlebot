@@ -11,7 +11,7 @@ module.exports = {
      const _ = new Discord.MessageEmbed()
        .setTitle("Pong!")
        .setDescription(
-         `🏓 Pong!\nLatency is ${Math.floor(
+         `${require('../../emojis.json').check} Pong!\nLatency is ${Math.floor(
            msg.createdTimestamp - message.createdTimestamp
          )}ms\nAPI Latency is ${Math.round(message.client.ws.ping)}ms`
        )

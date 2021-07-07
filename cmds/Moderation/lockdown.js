@@ -14,7 +14,7 @@ module.exports = {
                   SEND_MESSAGES: false
                })
             const lockembed = new Discord.MessageEmbed()
-               .setTitle(`:white_check_mark: Locked down ${message.channel.name}`)
+               .setTitle(`${require('../../emojis.json').check} Locked down ${message.channel.name}`)
                .setColor(message.client.confiig.color)
             const m = await message.channel.send({ embeds: [lockembed] })
          }
@@ -23,12 +23,12 @@ module.exports = {
                   SEND_MESSAGES: false
             })
             const lockembed = new Discord.MessageEmbed()
-               .setTitle(`:white_check_mark: Locked down ${message.channel.name} for ${time}`)
+               .setTitle(`${require('../../emojis.json').check} Locked down ${message.channel.name} for ${time}`)
                .setColor(message.client.confiig.color)
             const m = await message.channel.send({ embeds: [lockembed] })
             setTimeout(() => {
                const unlock = new Discord.MessageEmbed()
-                  .setTitle(`:white_check_mark: Unlocked ${message.channel.name}`)
+                  .setTitle(`${require('../../emojis.json').check} Unlocked ${message.channel.name}`)
                   .setColor(message.client.confiig.color)
                m.edit({ embeds: [unlock] })
                   message.channel.updateOverwrite(message.guild.roles.everyone, {
