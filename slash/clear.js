@@ -8,11 +8,12 @@ module.exports = {
             const embeedd = new Discord.MessageEmbed()
                 .setTitle(`${require('../emojis.json').check} Deleted ${deletenum} messages!`)
                 .setColor(client.confiig.color)
-            interaction.channel.bulkDelete(deletenum)
-            await interaction.reply({ embeds: [embeedd] });
+            interaction.channel.bulkDelete(deletenum + 1)
+            await interaction.defer();
+            //await interaction.reply({ embeds: [embeedd] });
             setTimeout(async () => {
                 await interaction.deleteReply();
-            }, 2000);
+            }, 200);
         }
     }
 }
