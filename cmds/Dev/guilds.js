@@ -27,13 +27,13 @@ module.exports = {
         //const guilds = message.client.guilds.cache.map(g=>g.name).join('\n• ')
         guildembed.setColor(message.client.confiig.color)
         setTimeout(async () => {
-            await message.channel.send(guildembed);
+            await message.channel.send({ embeds: [guildembed] });
         }, 1000);
     } else if(message.author.id !== config.ownerID) {
-        message.reply(
+        message.reply({ embeds: [
             new Discord.MessageEmbed()
             .setTitle('You don\'t have permission!')
-        )
+        ]})
     }
     }
 }
