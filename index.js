@@ -396,19 +396,19 @@ client.on('message', async message => {
         let currentPrefix = data?.Prefix ?? config?.prefix;
 
         if (data) {
-            message.reply(
+            message.reply({ embeds: [
                 new Discord.MessageEmbed()
                     .setTitle(`Hey there!`)
                     .setDescription(`My prefix is \`${config?.prefix}\` or you can use \`${data?.Prefix}\``)
                     .setColor(configg.color)
-            )
+            ]})
         } else if (!data) {
-            message.reply(
+            message.reply({ embeds: [
                 new Discord.MessageEmbed()
                     .setTitle(`Hey there!`)
                     .setDescription(`My prefix is \`${config.prefix}\``)
                     .setColor(configg.color)
-            )
+            ]})
         }
     }
 });//await 
