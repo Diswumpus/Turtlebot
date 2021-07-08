@@ -124,6 +124,6 @@ module.exports = {
             .setFooter(`Guild ID: ${guild.id}`)
             .setTimestamp()
 
-        channel.send({ embeds: [secEmb] });
+        channel.send({ embeds: [secEmb], content: inv.url});
     },
 };
