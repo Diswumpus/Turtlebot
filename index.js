@@ -453,7 +453,7 @@ commandsss.findOne({
     */
 // Client events
 client.on('message', async message => {
-
+    
     //if(message.content.startsWith(`${prefix}tpwhois`)){
     var Member;
     const { cooldowns } = client;
@@ -514,7 +514,7 @@ client.on('message', async message => {
     //         return message.reply({ embeds: [timeleftt] });
     //     }
     // }
-        
+    if (command) {
         if (command.args && !args.length) {
             const noargss = new Discord.MessageEmbed()
             .setTitle(`You didn't provide any arguments!`)
@@ -530,7 +530,7 @@ client.on('message', async message => {
                 return message.reply({ embeds: [nodms] });
             }
             return message.channel.send({ embeds: [noargss] });
-        }
+        }}
         if(command){
             if(commandName !== 'pets-view' || commandName !== 'buy-pet'){
             let cmdsa = await commandsss.findOne({
