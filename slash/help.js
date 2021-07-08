@@ -1,14 +1,63 @@
 const Discord = require('discord.js');
+const { MessageActionRow, MessageButton, MessageSelectMenu} = require('discord.js');
 
 module.exports = {
     name: 'help',
-    description: '-',
     async execute(client, interaction) {
-        return
-        interaction.reply('✅', { ephemeral: true })
-        const message = interaction
-        const turtlebot = message.client.emojis.cache.find(em => em.name === "Turtlebot");
-        const nodejs = message.client.emojis.cache.find(em => em.name === "Nodejs");
+        const owner = client.users.cache.get(require('../config.json').ownerID)
+        const row = new MessageActionRow()
+        .addComponents(
+    new MessageSelectMenu()
+    .setCustomId('help_options')
+    .setPlaceholder('Select a category!')
+    .addOptions([
+      {
+        label: 'Config',
+        description: 'Settings, invite and other',
+        value: '1',
+      },
+      {
+        label: 'Dev',
+        description: 'Don\'t go here!',
+        value: '2',
+      },
+      {
+        label: 'Fun',
+        description: 'Snipe, magik and all that',
+        value: '3',
+      },
+      {
+        label: 'Info',
+        description: 'Help, ping info',
+        value: '4',
+      },
+      {
+        label: 'Misc',
+        description: 'All the others',
+        value: '5',
+      },
+      {
+        label: 'Moderation',
+        description: 'For server staff! Like ban and kick',
+        value: '6',
+      },
+      {
+        label: 'Reaction Roles',
+        description: 'Reaction Roles!',
+        value: '7',
+      },
+    ]),
+        );
+  const roww = new MessageActionRow()
+        .addComponents(
+    new MessageButton()
+    .setCustomId('delete')
+    .setLabel('Delete')
+    .setStyle('DANGER')
+        );
+        const message = interaction;
+        const turtlebot = client.emojis.cache.get(require('../emojis.json').tbid);
+        const nodejs = client.emojis.cache.get('841008822482894879');
         const commandsss = client.confiig.cmd;
         const genEmber = (text) => {
             return new Discord.MessageEmbed()
@@ -17,14 +66,14 @@ module.exports = {
                 .setURL(commandsss)
                 .setDescription('**This command is currently in beta**')
                 .setThumbnail(turtlebot.url)
-                .addField('1️⃣ Config')
-                .addField('2️⃣ Dev')
-                .addField('3️⃣ Fun')
-                .addField('4️⃣ Info')
-                .addField('5️⃣ Misc')
-                .addField('6️⃣ Moderation')
-                .addField('7️⃣ Reaction Roles')
-                .addField('If you see a problem notify my developers **Turtlepaw#5377**', 'You can use the ,problem command to submit an issue')
+                .addField('1️⃣ Config', 'Settings, invite and other')
+                .addField('2️⃣ Dev', 'Don\'t go here!')
+                .addField('3️⃣ Fun', 'Snipe, magik and all that')
+                .addField('4️⃣ Info', 'Help, ping info')
+                .addField('5️⃣ Misc', 'All the others')
+                .addField('6️⃣ Moderation', 'For mods! Like ban and kick')
+                .addField('7️⃣ Reaction Roles', 'Reaction Roles!')
+                .addField(`If you see a problem notify my developers ${owner.tag}`, 'You can use the ,problem command to submit an issue')
                 .setTimestamp()
                 .setFooter('Turtlebot Discord.Javascript', nodejs.url);
         };
@@ -34,82 +83,68 @@ module.exports = {
                 .setTitle("I'm Turtlebot")
                 .setDescription('Here\'s a list of all my commands:')
                 .setThumbnail(turtlebot.url);
-            const { commands } = message.client;
-            const { config } = message.client;
+            const { commands } = client;
+            const { config } = client;
             commands.forEach(cmd => {
-                if (cmd.category === categoryName) helpEmbed.addField(cmd.name, cmd.description);
+                if (cmd.category === categoryName) helpEmbed.addField(`Name: ${cmd.name}`, `Description: ${cmd.description}`);
             });
             //data.push(commands.map(command => command.name).join(', '));
             //data.push(`\nYou can send \`${config.prefix}help [command name]\` to get info on a specific command!`);
 
             helpEmbed
-                .addField('If you see a problem notify my developers **Turtlepaw#5377**')
+                .addField('If you see a problem notify my developers!', `${owner.tag}`)
                 .setTimestamp()
                 .setFooter('Turtlebot Discord.Javascript', nodejs.url);
             return helpEmbed;
         }
-        message.channel.send(genEmber(`Here's a list of my commands`)).then((editthis) => {
-            editthis.react('1️⃣')
-            editthis.react('2️⃣')
-            editthis.react('3️⃣')
-            editthis.react('4️⃣')
-            editthis.react('5️⃣')
-            editthis.react('6️⃣')
-            editthis.react('7️⃣')
-            message.client.on('messageReactionAdd', async (reaction, user) => {
-                if (user.bot) {
-                    return
-                }
-                if (reaction.emoji.name === '1️⃣') {
-                    editthis.edit(genCategoryHelp('Config'));
-                }
-                if (reaction.emoji.name === '2️⃣') {
-                    editthis.edit(genCategoryHelp(`Dev`));
-                }
-                if (reaction.emoji.name === '3️⃣') {
-                    editthis.edit(genCategoryHelp(`Fun`));
-                }
-                if (reaction.emoji.name === '4️⃣') {
-                    editthis.edit(genCategoryHelp(`Info`));
-                }
-                if (reaction.emoji.name === '5️⃣') {
-                    editthis.edit(genCategoryHelp(`Misc`));
-                }
-                if (reaction.emoji.name === '6️⃣') {
-                    editthis.edit(genCategoryHelp(`Moderation`));
-                }
-                if (reaction.emoji.name === '7️⃣') {
-                    editthis.edit(genCategoryHelp(`Reaction Roles`));
-                }
-                message.client.on('messageReactionRemove', async (reaction, user) => {
-                    if (user.bot) {
-                        return
-                    }
-                    if (reaction.emoji.name === '1️⃣') {
-                        editthis.edit(genEmber(`-`));
-                    }
-                    if (reaction.emoji.name === '2️⃣') {
-                        editthis.edit(genEmber(`-`));
-                    }
-                    if (reaction.emoji.name === '3️⃣') {
-                        editthis.edit(genEmber(`-`));
-                    }
-                    if (reaction.emoji.name === '4️⃣') {
-                        editthis.edit(genEmber(`-`));
-                    }
-                    if (reaction.emoji.name === '5️⃣') {
-                        editthis.edit(genEmber(`-`));
-                    }
-                    if (reaction.emoji.name === '6️⃣') {
-                        editthis.edit(genEmber(`-`));
-                    }
-                    if (reaction.emoji.name === '7️⃣') {
-                        editthis.edit(genEmber(`-`));
-                    }
+        interaction.reply({ embeds: [genEmber(`Here's a list of my commands`)], components: [row, roww] }).then((editthis) => {
+                    //Create collector
+        const filter = i => i.user.id === interaction.user.id;
 
-                }
-                );
-            })
+        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 150000 });
+        let value;
+        collector.on('collect', async i => {
+          if(i.values){
+          value = i.values[0];
+          } else {
+              value = null
+          }
+          async function reply(t) {
+            const tt = {"1": "Config", "2": "Dev", "3": "Fun", "4": "Info", "5": "Misc", "6": "Moderation", "7": " Reaction Roles"}
+            await i.reply({ content: `Changed Menu to ${tt[t]}`, ephemeral: true })
+            return null
+          }
+          if(value === '1'){
+            await interaction.editReply({ embeds: [genCategoryHelp('Config')], components: [row, roww] });
+            reply('1');
+          } else if(value === '2'){
+            await interaction.editReply({ embeds: [genCategoryHelp('Dev')], components: [row, roww] });
+            reply('2');
+          } else if(value === '3'){
+            await interaction.editReply({ embeds: [genCategoryHelp('Fun')], components: [row, roww] });
+            reply('3');
+          } else if(value === '4'){
+            await interaction.editReply({ embeds: [genCategoryHelp('Info')], components: [row, roww] });
+            reply('4');
+          } else if(value === '5'){
+            await interaction.editReply({ embeds: [genCategoryHelp('Misc')], components: [row, roww] });
+            reply('5');
+          } else if(value === '6'){
+            await interaction.editReply({ embeds: [genCategoryHelp('Moderation')], components: [row, roww] });
+            reply('6');
+          } else if(value === '7'){
+            await interaction.editReply({ embeds: [genCategoryHelp('Reaction Roles')], components: [row, roww]});
+            reply('7');
+          } else if(i?.customId === 'delete'){
+            await interaction.deleteReply();
+            return await i.reply({ content: `${require('../emojis.json').check} Deleted the help menu!`, ephemeral: true })
+          }
+         console.log(`Collected ${i.customId}`)
+        });
+        collector.on('end', async collected => {
+            await interaction.editReply({ embeds: [genEmber(`Here's a list of my commands`)], content: 'This message is now inactive'})
+          console.log(`Collected ${collected.size} items`)
+        });
         })
     }
 }

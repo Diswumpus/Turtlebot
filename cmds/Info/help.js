@@ -71,7 +71,7 @@ module.exports = {
           .setURL(conffig.cmd)
           .setDescription('**This command is currently in beta**')
           .setThumbnail(message.client.user.displayAvatarURL())
-          .addField('1️⃣ Config', 'Settings, invite and 2ms role')
+          .addField('1️⃣ Config', 'Settings, invite and other')
           .addField('2️⃣ Dev', 'Don\'t go here!')
           .addField('3️⃣ Fun', 'Snipe, magik and all that')
           .addField('4️⃣ Info', 'Help, ping info')
@@ -112,7 +112,9 @@ module.exports = {
         collector.on('collect', i => {
           if(i.values){
           value = i.values[0];
-          };
+          } else {
+            value = null
+        }
           async function reply(t) {
             const tt = {"1": "Config", "2": "Dev", "3": "Fun", "4": "Info", "5": "Misc", "6": "Moderation", "7": " Reaction Roles"}
             await i.reply({ content: `Changed Menu to ${tt[t]}`, ephemeral: true })
