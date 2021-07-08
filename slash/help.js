@@ -99,7 +99,7 @@ module.exports = {
         }
         interaction.reply({ embeds: [genEmber(`Here's a list of my commands`)], components: [row, roww] }).then((editthis) => {
                     //Create collector
-        const filter = i => i.user.id === interaction.user.id;
+        const filter = i => i.user.id === interaction.user.id && i.message.id === editthis.id;
 
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 150000 });
         let value;
