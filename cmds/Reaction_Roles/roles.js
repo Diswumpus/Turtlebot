@@ -16,7 +16,7 @@ module.exports = {
         }
         const embed = new Discord.MessageEmbed()
         .setTitle(`Users with role: ${role.name}`)
-        .setDescription(`${role.members.map(m => m.user)}`)
+        .setDescription(`${role.members.map(m => `${m.user}, `)}`)
         .setColor(message.client.confiig.color)
         message.channel.send({ embeds: [embed] });
     },
