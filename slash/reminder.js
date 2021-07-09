@@ -14,8 +14,8 @@ module.exports = {
         .setFooter(`${time}`, timer.url)
         .setColor(client.confiig.color)
         .setTimestamp()  
-        await interaction.reply({ embeds: [embeddd] });
-        setTimeout(() => {
+        const m = await interaction.reply({ embeds: [embeddd] });
+        setTimeout(async () => {
             const embeddd = new Discord.MessageEmbed()
             .setTitle(`Reminder > ${reminder}`)
             .setAuthor(`Author > ${interaction.user.tag}`, interaction.user.displayAvatarURL({ dynamic: true, size: 1024 }))
@@ -23,7 +23,8 @@ module.exports = {
             .setColor(client.confiig.color)
             .setTimestamp()
             interaction.channel.send({ embeds: [embeddd] })
-            interaction.user.send({ embeds: [embeddd] })
+            const view = await require('../interactions').link(m.url)
+            interaction.user.send({ embeds: [embeddd], components: [view] })
         }, ms(time))
     }
 }

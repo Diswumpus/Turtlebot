@@ -52,7 +52,8 @@ module.exports = {
             sendembed.addField('Error', 'You need to have 2 fields!')
         }
         //channel.send({ embeds: [embed, embed2] });
-        await interaction.reply({ embeds: [sendembed] });
+        const view = await require('../interactions').link(m.url)
+        await interaction.reply({ embeds: [sendembed], components: [view] });
     }
     }
 }

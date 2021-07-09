@@ -1,6 +1,8 @@
-module.exports.link = async (link) => {
+module.exports.link = async (link, t) => {
     const Discord = require('discord.js');
-    const view = new Discord.MessageActionRow()
+    let view
+    if(!t){
+    view = new Discord.MessageActionRow()
     .addComponents(
         new Discord.MessageButton()
             .setLabel(`Jump to message`)
@@ -8,5 +10,15 @@ module.exports.link = async (link) => {
             .setStyle('LINK')
             .setURL(link)
     );
+    } else {
+        view = new Discord.MessageActionRow()
+        .addComponents(
+            new Discord.MessageButton()
+                .setLabel(t)
+                .setEmoji('862868020073857065')
+                .setStyle('LINK')
+                .setURL(link)
+        );
+    }
     return view
 }

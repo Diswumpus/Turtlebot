@@ -9,6 +9,7 @@ module.exports = {
         .setTitle('`🔗` Invite')
         .setURL(`${invitee}`)
         .setColor(colorr)
-        interaction.reply({ embeds: [inviteembed] })
+        const view = await require('../interactions').link(invitee, 'Invite Me!')
+        interaction.reply({ embeds: [inviteembed], components: [view] })
     }
 }

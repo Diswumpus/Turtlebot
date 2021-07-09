@@ -13,11 +13,10 @@ module.exports = {
         const attachment = new Discord.MessageAttachment(link, 'youtube.png');
           //const json = await res.json()
           const embeedd = new Discord.MessageEmbed()
-          .attachFiles(attachment)
           .setImage('attachment://youtube.png')
           .setColor(client.confiig.color)
           await wait(2000);
-          await interaction.editReply({ embeds: [ embeedd ] });
+          await interaction.editReply({ embeds: [ embeedd ], files: [attachment] });
     }
   },//discordjs/discord.js#7f0d93a2dacf07b39c358b2cf2f5519a757e43b5
 };
