@@ -39,8 +39,12 @@ module.exports = {
                         const role = collected2.first().mentions.roles.first();
                         const roles = new Array()
                         roles.push(Array.from(collected2.first().mentions.roles)[1][1] || null)
+                        if(collected2.first().mentions.roles.size > 1){
                         roles.push(Array.from(collected2.first().mentions.roles)[0][1] || null)
+                        }
+                        if(collected2.first().mentions.roles.size > 2){
                         roles.push(Array.from(collected2.first().mentions.roles)[2][1] || null)
+                        }
                         if (!role) return message.channel.send({ content: 'Wrong Response, Button Role Builder Cancelled' })
                         roles.forEach(role => {
                             if (role.managed) {
