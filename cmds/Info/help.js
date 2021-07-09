@@ -105,7 +105,7 @@ module.exports = {
       }
       message.channel.send({ embeds: [genEmber(`Here's a list of my commands`)], components: [row, roww] }).then((editthis) => {
         //Create collector
-        const filter = i => i.user.id === message.author.id && i.message.id === editthis.id;
+        const filter = i => i.user.id === message.author.id;
 
         const collector = message.channel.createMessageComponentCollector({ filter, time: 150000 });
         let value;
