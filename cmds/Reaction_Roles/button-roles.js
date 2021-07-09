@@ -38,9 +38,9 @@ module.exports = {
                     message.channel.awaitMessages({ filter, max: 1, time: 70000, errors: ['time'] }).then(async collected2 => {
                         const role = collected2.first().mentions.roles.first();
                         const roles = new Array()
-                        roles.push(Array.from(collected2.first().mentions.roles)[1][1] || null)
-                        if(collected2.first().mentions.roles.size > 1){
                         roles.push(Array.from(collected2.first().mentions.roles)[0][1] || null)
+                        if(collected2.first().mentions.roles.size > 1){
+                        roles.push(Array.from(collected2.first().mentions.roles)[1][1] || null)
                         }
                         if(collected2.first().mentions.roles.size > 2){
                         roles.push(Array.from(collected2.first().mentions.roles)[2][1] || null)

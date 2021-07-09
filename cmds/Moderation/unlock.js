@@ -12,8 +12,7 @@ module.exports = {
             })
          const lockembed = new Discord.MessageEmbed()
          .setTitle(`${require('../../emojis.json').check} Unlocked ${message.channel.name}`)
-         //.setImage(`https://cdn.tixte.com/uploads/turtlepaw.is-from.space/koxkjxcr49a.png`)
-      message.channel.send(lockembed)
+      message.channel.send({ embeds: [lockembed] });
     }
   },
 };
