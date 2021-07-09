@@ -108,7 +108,15 @@ module.exports = {
                             .addField('Role:', `${roles.map(a => a)}`, true)
                             .setDescription(`[Jump to message](${m.url})`)
                             .setColor(message.client.confiig.color)
-                        message.channel.send({ embeds: [membed] })
+                            const view = new Discord.MessageActionRow()
+                            .addComponents(
+                                new Discord.MessageButton()
+                                    .setLabel(`Jump to message`)
+                                    .setEmoji('862868020073857065')
+                                    .setStyle('LINK')
+                                    .setURL(m.url)
+                            );
+                        message.channel.send({ embeds: [membed], components: [view] })
                     }).catch(err => { message.channel.send({ embeds: [timeEnd] }) && console.log(err) })
                 }).catch(err => { message.channel.send({ embeds: [timeEnd] })  && console.log(err) })
             }).catch(err => { message.channel.send({ embeds: [timeEnd] }) && console.log(err)})
