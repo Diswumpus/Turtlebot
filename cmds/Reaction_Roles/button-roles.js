@@ -103,6 +103,7 @@ module.exports = {
                             .addField('ID:', `${uid3}`, true)
                             .addField('Role:', `${roles.map(a => a)}`, true)
                             .setDescription(`[Jump to message](${m.url})`)
+                            .setColor(message.client.confiig.color)
                         message.channel.send({ embeds: [membed] })
                     }).catch(err => { message.channel.send({ embeds: [timeEnd] }) && console.log(err) })
                 }).catch(err => { message.channel.send({ embeds: [timeEnd] })  && console.log(err) })
