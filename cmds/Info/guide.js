@@ -2,21 +2,12 @@ const Discord = require('discord.js');
 const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
 
 module.exports = {
-    name: 'guildCreate',
-    async execute(guild, client) {
-        const ownderr = client.users.cache.get(require('../config.json').ownerID);
-        let chan = guild.channels.cache.find(channel => channel.type === 'text' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'))
-
-        // Embed
-        let embed = new Discord.MessageEmbed()
-            .setColor(client.confiig.color)
-            .setAuthor(`\u200b`, client.user.displayAvatarURL())
-            .setTitle(`Hey, thanks for adding me!`)
-            .setThumbnail(client.user.displayAvatarURL())
-            .setDescription(`${require('../emojis.json').tb} Thanks for using ${client.user.username}!\nTo see a full list of commands use \`${require('../config.json').prefix}help\`\nOr to see the guide use the menu below!\n\n**- [Turtlebot](${require('../config2.json').invite})**`)
-            .setFooter(`Made By ${ownderr.tag} | ,help`)
-            .addField("Make sure to use `,` with every command", `[Support Server](${require('../config2.json').invite}) | [Vote for me!](${require('../config2.json').vote}) | [Invite Me!](${require('../config2.json').boti})`)
-            .setTimestamp()
+    name: 'guide',
+    category: 'Info',
+    description: 'Show\'s you the guide!',
+    async execute(message, Member, args) {
+        const chan = message.channel;
+        const { client } = message;
         const row = new MessageActionRow()
             .addComponents(
                 new MessageSelectMenu()
@@ -47,23 +38,25 @@ module.exports = {
                     .setLabel('Delete')
                     .setStyle('DANGER')
             );
-
+                const embed = new Discord.MessageEmbed()
+                .setTitle('Guide')
+                .setDescription('Use the menu below to use the guide!')
         // If no channels, it will dm the owner.
         const editthis = await chan.send({ embeds: [embed], components: [row, roww] });
         //Define embeds
-        const prefix = require('../config.json').prefix;
+        const prefix = require('../../config.json').prefix;
         const sembed = new Discord.MessageEmbed()
             .setTitle(`Settings | Guide`)
             .setImage('https://cdn.tixte.com/uploads/turtlepaw.is-from.space/kqvhbdryc9a.gif')
-            .setDescription(`Change your guild settings with \`${require('../config.json').prefix}config\`\n\n__**STEPS:**__\n1) Type \`${require('../config.json').prefix}config\`\n2) Type \`${require('../config.json').prefix}{setting} <args>\`\n3) If it replys everything should work!\n\nIf it does not reply join [here](${require('../config2.json').invite} "Support Server")`)
+            .setDescription(`Change your guild settings with \`${require('../../config.json').prefix}config\`\n\n__**STEPS:**__\n1) Type \`${require('../../config.json').prefix}config\`\n2) Type \`${require('../../config.json').prefix}{setting} <args>\`\n3) If it replys everything should work!\n\nIf it does not reply join [here](${require('../../config2.json').invite} "Support Server")`)
             .setColor(client.confiig.color)
         const rembed = new Discord.MessageEmbed()
             .setTitle(`Reaction Roles | Guide`)
-            .setDescription(`Reaction Roles are currently unstable, try something else`)
+            .setDescription(`Reaction Roles are currently unstable, try button roles`)
             .setColor(client.confiig.color)
         const bembed = new Discord.MessageEmbed()
             .setTitle(`Button Roles | Guide`)
-            .setDescription(`**Button Roles**, the new reaction roles!\n\n__**STEPS:**__\n1) Type \`${prefix}br\`\n2)Follow the steps\n3)Your done!`)
+            .setDescription(`**Button Roles**, the new reaction roles!\n\n__**STEPS:**__\n1) Type \`${prefix}br\`\n2) Follow the steps\n3) Your done!\nIf you want more then 1 role mention 2 or 3 roles`)
             .setColor(client.confiig.color)
             .setImage('https://cdn.tixte.com/uploads/turtlepaw.is-from.space/kqvk89bcm9a.gif')
         //Create collector
@@ -79,7 +72,7 @@ module.exports = {
             }
             async function reply(t) {
                 const tt = { "1": sembed, "2": rembed, "3": bembed }
-                
+
                 await i.reply({ embeds: [tt[t]], ephemeral: true })
 
                 return null
@@ -91,39 +84,11 @@ module.exports = {
             } else if (value === 'br') {
                 reply('3');
             } else if (i?.customId === 'delete') {
-                editthis.delete().catch(( ) => { });
+                editthis.delete().catch(() => { });
             }
         });
         collector.on('end', collected => {
             editthis.edit({ embeds: [embed], content: 'This message is now inactive' })
         });
-        // if(!chan) {
-        //         guild.owner.send(embed)
-        //     }  else if(chan) {
-        //         chan.send(embed)
-        //     }
-
-        // Making an invite for server
-        let inv = await chan.createInvite({
-            maxAge: 0, // 0 = infinite expiration
-            maxUses: 0 // 0 = infinite uses
-        })
-
-        // Log Channel for new servers
-        const channel = client.channels.cache.get('846410648984354886')
-
-        const secEmb = new Discord.MessageEmbed()
-            .setColor(`GREEN`)
-            .setAuthor(`\u200b`, client.user.displayAvatarURL())
-            .setDescription(`**New Server**
-                    Guild: ${guild.name}
-                    Users: ${guild.memberCount}
-                    Owner: idk
-                    Owner ID: ${guild.ownerID}
-                    Invite: \`${inv.url}\``)
-            .setFooter(`Guild ID: ${guild.id}`)
-            .setTimestamp()
-
-        channel.send({ embeds: [secEmb], content: inv.url});
-    },
-};
+    }
+}
