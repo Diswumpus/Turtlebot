@@ -4,27 +4,40 @@ module.exports = {
     name: 'kick',
     category: 'Moderation',
     description: 'Kicks a user',
-    execute(message, Member, args) {
+    async execute(message, Member, args) {
         message.delete();
         if (message.member.permissions.has('KICK_MEMBERS')) {
-            const member = message.mentions.members.first();
-            message.channel.send(`Kick ${member}?`).then((edittthis) => {
-                edittthis.react('✅')
-                edittthis.react('❎')
-                message.client.on('messageReactionAdd', async (reaction, user) => {
-                    if (user.bot) {
-                        return
+            const member = message.mentions.members.first()  || message.client.users.cache.get(args[0]);
+            const ban = new Discord.MessageActionRow()
+            .addComponents(
+                new Discord.MessageButton()
+                    .setLabel(`Kick`)
+                    .setStyle('DANGER')
+                    .setEmoji(require('../../emojis.json').xid)
+                    .setCustomId('kick'),
+                    new Discord.MessageButton()
+                    .setLabel(`Cancel`)
+                    .setStyle('SUCCESS')
+                    .setEmoji(require('../../emojis.json').checkid)
+                    .setCustomId('cancel')
+            );
+            const embed = new Discord.MessageEmbed()
+            .setTitle(`Kick ${member.username}?`)
+            message.channel.send({ embeds: [embed], components: [ban]}).then(editthis => {
+                const filter = i => i.message.id === editthis.id && i.user.id === message.author.id;
+
+                const collector = message.channel.createMessageComponentCollector({ filter, time: 150000 });
+                collector.on('collect', async i => {
+                    if (i?.customId === 'kick') {
+                        message.guild.members.kick(member.id, `${args[1] || 'None'}`)
+                        i.reply({ content: `Kicked ${member.username}`, ephemeral: true})
+                     } else if (i?.customId === 'cancel') {
+                        editthis.delete().catch(() => { });
                     }
-                    if (reaction.emoji.name === '✅') {
-                        member.kick();
-                    }
-                    if (reaction.emoji.name === '✅') {
-                        edittthis.edit(`Successfully kicked ${member}`);
-                    }
-                    if (reaction.emoji.name === '❎') {
-                        edittthis.delete();
-                    }
-                })
+                });
+                collector.on('end', collected => {
+                    editthis.edit({ embeds: [embed], content: 'This message is now inactive' })
+                });
             })
         }
     },
