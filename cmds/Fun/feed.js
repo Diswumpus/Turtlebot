@@ -43,7 +43,7 @@ module.exports = {
         .setThumbnail(newpettt.url)
         .setColor(message.client.confiig.color)
         if(cmdss){
-            message.channel.send(cembed)
+            message.channel.send({ embeds: [cembed] })
         }
             /*
         user: String,

@@ -42,14 +42,14 @@ module.exports = {
         .setThumbnail(newpettt.url)
         .setColor(message.client.confiig.color)
         if(cmdss){
-            message.channel.send(cembed)
+            message.channel.send({ embeds: [cembed] })
         }
     } else if(cmdss.uses < 5){
-        message.reply(
+        message.reply({ embeds: [
             new Discord.MessageEmbed()
             .setTitle('You haven\'t executed enough commands!')
             .setDescription(`Commands used: ${cmdss?.uses ?? '0'}`)
-        )
+        ]})
     }
             /*
         user: String,
