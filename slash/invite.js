@@ -10,6 +10,13 @@ module.exports = {
         .setURL(`${invitee}`)
         .setColor(colorr)
         const view = await require('../interactions').link(invitee, 'Invite Me!')
+        view.addComponents(
+            new Discord.MessageButton()
+            .setLabel('Support Server')
+            .setEmoji('862868020073857065')
+            .setStyle('LINK')
+            .setURL(client.confiig.invite)
+        )
         interaction.reply({ embeds: [inviteembed], components: [view] })
     }
 }
