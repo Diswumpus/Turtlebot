@@ -22,11 +22,14 @@ module.exports = {
         const cembed = new Discord.MessageEmbed()
             .setTitle('Channel')
             .setDescription('Please mention a channel.')
+            .setColor(message.client.confiig.color)
         const rembed = new Discord.MessageEmbed()
             .setTitle('Role')
             .setDescription('Please mention a role.')
+            .setColor(message.client.confiig.color)
         const timeEnd = new Discord.MessageEmbed()
             .setTitle('Time has ended!')
+            .setColor(message.client.confiig.color)
         message.channel.send({ embeds: [cembed] }).then(() => {
             message.channel.awaitMessages({ filter, max: 1, time: 70000, errors: ['time'] }).then(collected1 => {
                 const channel = collected1.first().mentions.channels.first();
@@ -37,6 +40,7 @@ module.exports = {
                         const roles = new Array()
                         roles.push(Array.from(collected2.first().mentions.roles)[1][1] || null)
                         roles.push(Array.from(collected2.first().mentions.roles)[0][1] || null)
+                        roles.push(Array.from(collected2.first().mentions.roles)[2][1] || null)
                         if (!role) return message.channel.send({ content: 'Wrong Response, Button Role Builder Cancelled' })
                         roles.forEach(role => {
                             if (role.managed) {
@@ -65,7 +69,8 @@ module.exports = {
                                     .setLabel(`${roles[1].name}`)
                                     .setStyle('SECONDARY')
                             );
-                        } else if (roles[2]) {
+                        }
+                        if (roles[2]) {
                             row.addComponents(
                                 new Discord.MessageButton()
                                     .setCustomId(uid2)
