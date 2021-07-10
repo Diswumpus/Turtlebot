@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const mongoose = require('mongoose');
+const emojis = require('../emojis.json');
 
 module.exports = {
     name: 'user-info',
@@ -20,14 +21,13 @@ module.exports = {
         const embeedd = new Discord.MessageEmbed()
         .setColor(client.confiig.color)
         .setThumbnail(userr.user.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 }))
-        .setTitle(`User: ${userr.displayName}`)
-        .addField(`User ID:`, `${userr.id}`)
-        .addField(`Joined at:`, `${userr.joinedAt}`)
-        .addField(`Messages Sent:`, `${msgCount}`)
-        .addField(`Joined Discord at`, `${userr.user.createdAt}`)
+        .setTitle(`${emojis.useradd}  User: ${userr.displayName}`)
+        .addField(`${emojis.id}  User ID:`, `${userr.id}`)
+        .addField(`${emojis.join}  Joined at:`, `${userr.joinedAt}`)
+        .addField(`${emojis.messages}  Messages Sent:`, `${msgCount}`)
+        .addField(`${emojis.join}  Joined Discord at`, `${userr.user.createdAt}`)
         //.addField(`Platform:`, `Desktop: ${userr.presence.clientStatus.desktop}`)
-        .setDescription(`[Avatar link](${userr.user.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 })})`)
-        .setTimestamp()
-        await interaction.reply({ embeds: [embeedd] }); 
+        .setTimestamp()//[Avatar link](${userr.user.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 })})
+        await interaction.reply({ embeds: [embeedd], components: [await require('../interactions').link(userr.user.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 }), 'Avatar')] }); 
     }
 }

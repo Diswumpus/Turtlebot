@@ -8,8 +8,8 @@ module.exports = {
     description: 'null',
     usage: "<roles>",
     async execute(message, Member, args) {
-        const yes = message.client.emojis.cache.get('849400604576841738')
-        const fail = message.client.emojis.cache.get('849400604597026836')
+        const yes = require('../../emojis.json').good;
+        const fail = require('../../emojis.json').bad;
         const thechannel = message.mentions.roles;
         const tembed = new Discord.MessageEmbed()
             .setTitle(`${require('../../emojis.json').check} Added roles!`)

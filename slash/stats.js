@@ -10,6 +10,7 @@ module.exports = {
         const embeedd = new Discord.MessageEmbed()
         .setColor(configg.color)
         .setThumbnail(turtlebot.url)
+        .setTitle(`${require('../emojis.json').good} Stats`)
         .addField(`Uptime:`, `${client.uptime/1000 /60 /60} hours`)
         .addField(`Guilds:`, `${client.guilds.cache.size}`)
         .addField(`Invite:`, `[Here](${configg.boti})`)

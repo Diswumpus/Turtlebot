@@ -7,7 +7,7 @@ module.exports = {
     async execute(client, interaction) {
         if (interaction.user.id !== config.ownerID) return interaction.reply({ content: `You don't have permissions` });
         const b4 = require('../../emojis.json').check;
-        await interaction.reply({ content: `Restarting ${b4}` });
+        await interaction.reply({ content: `${require('../emojis.json').good} Restarting ${b4}` });
         await interaction.editReply({ content: `${require('../../emojis.json').tb} Bye!`})
         setTimeout(() =>
         {  process.exit(); }, 1000); 

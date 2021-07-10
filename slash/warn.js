@@ -7,12 +7,12 @@ module.exports = {
       let usertosend = interaction.options?.find(c => c?.name === 'user')?.user;
       let reason = interaction.options?.find(c => c?.name === 'reason')?.value || 'None';
       const embedy = new Discord.MessageEmbed()
-      .setTitle(`${usertosend.tag} has been warned`)
+      .setTitle(`${require('../emojis.json').good} ${usertosend.tag} has been warned`)
       .addField(`Reason:`, `${reason}`)
       .setColor(client.confiig.color)
       await interaction.reply({ embeds: [embedy] });
       const embeds = new Discord.MessageEmbed()
-      .setTitle(`You have been warned`)
+      .setTitle(`${require('../emojis.json').bad} You have been warned`)
       .addField(`Reason:`, `${reason}`)
       .setColor(client.confiig.color)
       usertosend.send({ embeds: [embeds] })
