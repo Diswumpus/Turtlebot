@@ -22,3 +22,19 @@ module.exports.link = async (link, t) => {
     }
     return view
 }
+module.exports.delete = async () => {
+    const Discord = require('discord.js');
+    const view = new Discord.MessageActionRow()
+    .addComponents(
+        new Discord.MessageButton()
+            .setLabel(`Delete`)
+            .setCustomId('deleteme')
+            .setEmoji(require('../emojis.json').trashid)
+            .setStyle('DANGER')
+    );
+    return view
+}
+/*
+const view = await require('../interactions').delete();
+, components: [view]
+*/

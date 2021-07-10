@@ -17,8 +17,9 @@ module.exports = {
         let whoisEmbed = new Discord.MessageEmbed()
             .setColor(client.confiig.color)
             .setImage(data.message)
+            const view = await require('../interactions').delete();
             await wait(100);
-            await interaction.editReply({ embeds: [whoisEmbed] });
+            await interaction.editReply({ embeds: [whoisEmbed], components: [view] });
         } catch (err) {
         
         console.warn(`${err}, command name: magik`)

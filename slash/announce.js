@@ -7,6 +7,7 @@ module.exports = {
         .setTitle(`?`)
         .setColor(`YELLOW`)
         .setDescription(`Why don't you try the \`/embed\` command?`)
-        await interaction.reply({ embeds: [errorr] });
+        const view = await require('../interactions').delete();
+        await interaction.reply({ embeds: [errorr], components: [view] });
     }
 }
