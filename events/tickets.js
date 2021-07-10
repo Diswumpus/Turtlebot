@@ -7,9 +7,22 @@ module.exports = {
     name: 'interactionCreate',
     async execute(interaction, client) {
         if (!interaction.isButton()) return;
+        let category = interaction.guild.channels.cache.find(c => c.name == "Tickets" && c.type == "category")
+        if(!category){
+            category = await interaction.guild.channels.create(`Tickets`, { type: 'category',
+                reason: 'Ticket Category',
+                permissionOverwrites: [
+                   {
+                     id: interaction.guild.roles.everyone,
+                     deny: [Discord.Permissions.FLAGS.VIEW_CHANNEL],
+                  },
+                ],
+               })
+        }
         if (interaction.customId === 'ticket_open') {
             const ch = await interaction.guild.channels.create(`ticket-${interaction.user.tag}`, {
                  reason: 'Ticket Channel',
+                 parent: category,
                  permissionOverwrites: [
                     {
                       id: interaction.guild.roles.everyone,
