@@ -8,13 +8,13 @@ module.exports = {
         const time = interaction.options?.find(c => c?.name === 'time')?.value;
         const reminder = interaction.options?.find(c => c?.name === 'reminder')?.value;
         const timer = client.emojis.cache.get('846868929065517066');
-        const embedd = new Discord.MessageEmbed()
+        const embed = new Discord.MessageEmbed()
         .setTitle(`Reminder > ${reminder}`)
         .setAuthor(`Author > ${interaction.user.tag}`, interaction.user.displayAvatarURL({ dynamic: true, size: 1024 }))
         .setFooter(`${time}`, timer.url)
         .setColor(client.confiig.color)
         .setTimestamp()  
-        const m = await interaction.reply({ embeds: [embeddd] });
+        const m = await interaction.reply({ embeds: [embed] });
         setTimeout(async () => {
             const embeddd = new Discord.MessageEmbed()
             .setTitle(`Reminder > ${reminder}`)
