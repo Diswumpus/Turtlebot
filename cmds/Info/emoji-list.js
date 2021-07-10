@@ -11,6 +11,7 @@ module.exports = {
         const embeds = new Array()
         const embed = new Discord.MessageEmbed()
             .setTitle(`${emojis.reaction} ${message.guild}'s Emojis:`)
+            .setColor(color)
         const charactersPerMessage = 2000;
         // we're going to go with 2000 instead of 2048 for breathing room
         const emojis2 = message.guild.emojis.cache.map(e => { return `${e} = \`:${e.name}:\`\n\n` }).join(''); // does virtually the same thing as forEach()
