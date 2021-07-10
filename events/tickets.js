@@ -8,18 +8,18 @@ module.exports = {
     async execute(interaction, client) {
         if (!interaction.isButton()) return;
         let category = interaction.guild.channels.cache.find(c => c.name == "Tickets" && c.type == "category")
-        if(!category){
-            category = await interaction.guild.channels.create(`Tickets`, { type: 'category',
-                reason: 'Ticket Category',
-                permissionOverwrites: [
-                   {
-                     id: interaction.guild.roles.everyone,
-                     deny: [Discord.Permissions.FLAGS.VIEW_CHANNEL],
-                  },
-                ],
-               })
-        }
         if (interaction.customId === 'ticket_open') {
+            if(!category){
+                category = await interaction.guild.channels.create(`Tickets`, { type: 'category',
+                    reason: 'Ticket Category',
+                    permissionOverwrites: [
+                       {
+                         id: interaction.guild.roles.everyone,
+                         deny: [Discord.Permissions.FLAGS.VIEW_CHANNEL],
+                      },
+                    ],
+                   }).catch(( )=>{ })
+            }
             const ch = await interaction.guild.channels.create(`ticket-${interaction.user.tag}`, {
                  reason: 'Ticket Channel',
                  parent: category,
@@ -33,7 +33,7 @@ module.exports = {
                     allow: [Discord.Permissions.FLAGS.VIEW_CHANNEL],
                  },
                  ],
-                })
+                }).catch(( )=>{ })
             await interaction.reply({ content: `${require('../emojis.json').check} Created a ticket in ${ch}`, ephemeral: true });
             const embed = new Discord.MessageEmbed()
             .setTitle(`${emojis.ticket} Open a ticket!`)
@@ -43,7 +43,7 @@ module.exports = {
             .addComponents(
                 await buttons.button('Close Ticket', 3, `ticket_close | ${interaction.user.id}`, emojis.ticketid)
             );
-            ch.send({ embeds: [embed], components: [ticketb] })
+            ch.send({ embeds: [embed], components: [ticketb] }).catch(( )=>{ })
         }
     },
 };
