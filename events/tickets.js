@@ -15,6 +15,10 @@ module.exports = {
                       id: interaction.guild.roles.everyone,
                       deny: [Discord.Permissions.FLAGS.VIEW_CHANNEL],
                    },
+                   {
+                    id: interaction.user.id,
+                    allow: [Discord.Permissions.FLAGS.VIEW_CHANNEL],
+                 },
                  ],
                 })
             await interaction.reply({ content: `${require('../emojis.json').check} Created a ticket in ${ch}`, ephemeral: true });
