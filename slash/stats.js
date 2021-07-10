@@ -6,10 +6,10 @@ module.exports = {
     description: 'Gives a hint',
     async execute(client, interaction) {
         let vernum = client.version.versionnum;
-        const turtlebot = client.emojis.cache.find(em => em.name === "Turtlebot")
+        const turtlebot = client.emojis.cache.get(require('../emojis.json').tbid);
         const embeedd = new Discord.MessageEmbed()
         .setColor(configg.color)
-        .setThumbnail(turtlebot.url)
+        .setThumbnail(turtlebot?.url)
         .setTitle(`${require('../emojis.json').good} Stats`)
         .addField(`Uptime:`, `${client.uptime/1000 /60 /60} hours`)
         .addField(`Guilds:`, `${client.guilds.cache.size}`)
