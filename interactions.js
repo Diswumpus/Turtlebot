@@ -37,4 +37,16 @@ module.exports.delete = async () => {
 /*
 const view = await require('../interactions').delete();
 , components: [view]
+
+label, type, id, emoji
 */
+module.exports.button = async (label, type, id, emoji) => {
+    const Discord = require('discord.js');
+    const types = {"1": "PRIMARY", "2": "SECONDARY", "3": "SUCCESS", "4": "DANGER"};
+    const button = new Discord.MessageButton()
+    .setLabel(label)
+    .setStyle(types[type])
+    if(id) button.setCustomId(id)
+    if(emoji) button.setEmoji(emoji)
+    return button
+}
