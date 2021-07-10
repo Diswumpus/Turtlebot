@@ -29,7 +29,7 @@ module.exports.delete = async () => {
         new Discord.MessageButton()
             .setLabel(`Delete`)
             .setCustomId('deleteme')
-            .setEmoji(require('../emojis.json').trashid)
+            .setEmoji(require('./emojis.json').trashid)
             .setStyle('DANGER')
     );
     return view
