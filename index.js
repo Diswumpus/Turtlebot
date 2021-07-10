@@ -181,7 +181,7 @@ client.on("message", async (message) => {
         return;
     }
     const thedata = await settings.findOne({
-        GuildID: message.guild.id
+        GuildID: message.guild?.id
     });
     if (message.guild && myGuilds.has(message.guild.id)) {// && !message.member.permissions.has('ADMINISTRATOR')
         if(!message.member.roles.cache.some(r=> thedata.roles.includes(r.id)) ) {
