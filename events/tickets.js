@@ -20,6 +20,20 @@ module.exports = {
                     ],
                    }).catch(( )=>{ })
             }
+            const lModel = require('../models/plugins/logger');
+            let v = await lModel.find({
+                guild: interaction.guild.id
+            });
+            if(v){
+            v.forEach(c => {
+                  if(c.ticket === true){
+                        const ch = client.channels.cache.get(`${c.logsch}`)
+                        const nembed = new Discord.MessageEmbed()
+                        .setTitle(`${require('../emojis.json').ticket} ${interaction.user.tag} Opened a ticket!`)
+                        require('../models/plugins/logger').log(ch, 'ticket', nembed)
+                  }
+            });
+          }
             const ch = await interaction.guild.channels.create(`ticket-${interaction.user.tag}`, {
                  reason: 'Ticket Channel',
                  parent: category,

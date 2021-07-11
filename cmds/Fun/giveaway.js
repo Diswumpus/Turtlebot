@@ -8,6 +8,7 @@ module.exports = {
   category: "fun",
   aliases: ['g'],
   execute: async (message, Member, args) => {
+    return
     if (!args[0]) return message.channel.send(`You did not specify your time! ${opps}`);
     const opps = message.client.emojis.cache.find(em => em.name === "ablobglitch");
     const think = message.client.emojis.cache.find(em => em.name === "ablobthinkingeyes");

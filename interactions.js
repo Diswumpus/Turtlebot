@@ -1,5 +1,6 @@
+const Discord = require('discord.js');
+
 module.exports.link = async (link, t) => {
-    const Discord = require('discord.js');
     let view
     if(!t){
     view = new Discord.MessageActionRow()
@@ -23,7 +24,6 @@ module.exports.link = async (link, t) => {
     return view
 }
 module.exports.delete = async () => {
-    const Discord = require('discord.js');
     const view = new Discord.MessageActionRow()
     .addComponents(
         new Discord.MessageButton()
@@ -41,7 +41,6 @@ const view = await require('../interactions').delete();
 label, type, id, emoji
 */
 module.exports.button = async (label, type, id, emoji) => {
-    const Discord = require('discord.js');
     const types = {"1": "PRIMARY", "2": "SECONDARY", "3": "SUCCESS", "4": "DANGER"};
     const button = new Discord.MessageButton()
     .setLabel(label)
@@ -49,4 +48,19 @@ module.exports.button = async (label, type, id, emoji) => {
     if(id) button.setCustomId(id)
     if(emoji) button.setEmoji(emoji)
     return button
+}
+/**
+ * 
+ * @param {Discord.Guild} [guild] Guild
+ * @returns Bot Invite
+ */
+module.exports.invite = async (guild) => {
+    const client = require('./index').client;
+    let inv;
+    if(!guild){
+        inv = `https://discord.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=4228381815`
+    } else {
+        inv = `https://discord.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=4228381815&guild_id=${guild.id}&disable_guild_select=true`
+    }
+    return inv
 }

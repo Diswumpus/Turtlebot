@@ -41,5 +41,19 @@ module.exports = {
             interaction.member.roles.remove(role.id)
             await interaction.reply({ content: `Removed the ${role} role!`, ephemeral: true });
         }
+        const lModel = require('../models/plugins/logger');
+        let v = await lModel.find({
+            guild: interaction.guild.id
+        });
+        if(v){
+        v.forEach(c => {
+              if(c.ticket === true){
+                    const ch = client.channels.cache.get(`${c.logsch}`)
+                    const nembed = new Discord.MessageEmbed()
+                    .setTitle(`${require('../emojis.json').channeladd} ${interaction.user.tag} Got the ${role.name}!`)
+                    require('../models/plugins/logger').log(ch, 'clickbutton', nembed)
+              }
+        });
+      }
 	},
 };

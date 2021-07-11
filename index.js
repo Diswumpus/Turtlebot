@@ -31,6 +31,7 @@ const client = new Discord.Client({
 //Slash commands are out!!
 //Your server! ${config.prefix}help | WATCHING
 const roleName = '2 Month Supporter';
+module.exports.client = client
 
 //client.snipes = new Discord.Collection();
 
