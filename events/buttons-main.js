@@ -21,6 +21,8 @@ module.exports = {
                           if(c.ticket === true){
                                 const ch = client.channels.cache.get(`${c.logsch}`)
                                 const nembed = new Discord.MessageEmbed()
+                                .setThumbnail(interaction.user.displayAvatarURL())
+                                .setAuthor(`${interaction.user.username}`, interaction.user.displayAvatarURL())
                                 .setTitle(`${require('../emojis.json').ticket} ${interaction.user.tag} closed there ticket!`)
                                 require('../models/plugins/logger').log(ch, 'ticket', nembed)
                           }

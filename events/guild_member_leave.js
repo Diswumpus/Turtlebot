@@ -20,6 +20,8 @@ module.exports = {
                   if(c.user === true || c.server === true){
                         const ch = client.channels.cache.get(`${c.logsch}`)
                         const nembed = new Discord.MessageEmbed()
+                        .setAuthor(`${member.user.username}`, member.user.displayAvatarURL())
+                        .setThumbnail(member.user.displayAvatarURL())
                         .setTitle(`${require('../emojis.json').leave} ${member.user.tag} Left the server!`)
                         require('../models/plugins/logger').log(ch, 'server', nembed)
                   }

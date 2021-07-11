@@ -23,6 +23,8 @@ module.exports = {
           if(c.mod === true){
                 const ch = client.channels.cache.get(`${c.logsch}`)
                 const nembed = new Discord.MessageEmbed()
+                .setAuthor(`${user.username}`, user.displayAvatarURL())
+                .setThumbnail(user.displayAvatarURL())
                 if (target.id === user.id) {
                 nembed.setTitle(`${require('../emojis.json').ban} ${user.tag} was banned by ${executor.tag}`)
                 } else {

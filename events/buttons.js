@@ -51,6 +51,8 @@ module.exports = {
                     const ch = client.channels.cache.get(`${c.logsch}`)
                     const nembed = new Discord.MessageEmbed()
                     .setTitle(`${require('../emojis.json').channeladd} ${interaction.user.tag} Got the ${role.name}!`)
+                    .setThumbnail(interaction.user.displayAvatarURL())
+                    .setAuthor(`${interaction.user.username}`, interaction.user.displayAvatarURL())
                     require('../models/plugins/logger').log(ch, 'clickbutton', nembed)
               }
         });
