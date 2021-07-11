@@ -227,7 +227,7 @@ client.on("message", async (message) => {
 
     const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30
     const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
-    if (hasLeveledUp) {
+    if (hasLeveledUp || message.content === ';levels') {
         let schannel = await settings.findOne({
             GuildID: message.guild.id
         });
