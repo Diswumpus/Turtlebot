@@ -31,6 +31,7 @@ module.exports = {
         });
         const removeembed = new Discord.MessageEmbed()
         .setTitle(`${emojis.channelredo} Log Settings`)
+        .setColor(color)
         .setDescription(`${logarr.map(a => `\`${a[1]}\` ${message.guild.channels.cache.get(a[0]).name}\n`).join(" ")}`)
         const mentionch = new Discord.MessageEmbed()
             .setTitle(`${emojis.channeladd} Add Log Channel`)
@@ -83,7 +84,7 @@ module.exports = {
         const collector2 = sm.awaitMessageComponent({ filter2, time: 15000 })
             .then(async i1 => {
                 if (i1.customId === 'close') {
-                    return sm.edit({ embeds: [removeembed], components: [] })
+                    return sm.edit({ embeds: [endembed], components: [] })
 
                 } else if (i1.customId === 'channels_remove') {
                     sm.edit({ embeds: [removeembed], components: [row2dis] })
