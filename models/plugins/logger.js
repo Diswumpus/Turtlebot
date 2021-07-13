@@ -1,11 +1,13 @@
 const Discord = require('discord.js');
 
 /**
- * @param {Discord.MessageEmbed} [embed] 
- * @param {any} [channel]
- * @param {String} [type]
+ * @param {Discord.MessageEmbed} [embed] Embed sent
+ * @param {any} [channel] Channel for log
+ * @param {String} [type] Type of log
+ * @param {Discord.MessageActionRow} [com] Components
+ * @returns Discord Message Link
 */
-module.exports.log = async (channel, type, embed) => {
+module.exports.log = async (channel, type, embed, com) => {
     const emojis = require('../../emojis.json');
     const interactions = require('../../interactions');
     const types = ['ticket', 'clickbutton', 'user', 'server', 'msg', 'mod', 'uk']
@@ -20,8 +22,14 @@ module.exports.log = async (channel, type, embed) => {
                 .setStyle('SECONDARY')
                 .setLabel('Delete'),
         )
-
-    channel.send({ embeds: [embed.setColor(require('../../config2.json').color)], components: [row2] });
+        let link;
+        if(com.components.length !== 0){
+            const m = await channel.send({ embeds: [new Discord.MessageEmbed(embed).setColor(require('../../config2.json').color)], components: [com, row2] });
+            link = m.url;
+        } else {
+            const m = await channel.send({ embeds: [new Discord.MessageEmbed(embed).setColor(require('../../config2.json').color)], components: [row2] });
+            link = m.url;
+        }
     
-    return null
+    return link
 }
