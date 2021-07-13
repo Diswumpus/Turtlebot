@@ -12,6 +12,7 @@ const { v4: uuidv4 } = require('uuid');
 module.exports = {
     name: 'button-roles',
     aliases: ['br'],
+    permissions: 'MANAGE_MESSAGES',
     category: 'Reaction Roles',
     description: 'Create\'s a new button role!',
     async execute(message, Member, args) {

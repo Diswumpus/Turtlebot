@@ -4,6 +4,7 @@ module.exports = {
   name: 'warn',
   category: 'Moderation',
   description: 'Warn a user',
+  permissions: 'MANAGE_MESSAGES',
   async execute(message, Member, args) {
     if (message.member.permissions.has('MANAGE_MESSAGES')) {
       let usertosend = message.mentions.users.first() || message.client.users.cache.get(args[0]);

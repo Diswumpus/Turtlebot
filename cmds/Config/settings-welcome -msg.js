@@ -8,6 +8,7 @@ module.exports = {
     aliases: ['enable welcome msg', 'enable welmsg', 'enable welcomemsg'],
     category: 'Config',
     description: `Enables Welcome Messages!`,
+    permissions: 'ADMINISTRATOR',
     async execute(message, Member, args) {
         const yes = require('../../emojis.json').check;
         const fail = require('../../emojis.json').x;

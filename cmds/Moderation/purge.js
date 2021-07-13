@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
   name: 'clear',
   aliases: ['purge', 'clean', 'clear'],
+  permissions: 'MANAGE_MESSAGES',
   category: 'Moderation',
   description: 'Clears the chat',
   async execute(message, Member, args) {

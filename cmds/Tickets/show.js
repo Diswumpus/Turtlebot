@@ -6,6 +6,7 @@ const emojis = require('../../emojis.json');
 module.exports = {
     name: 'ticket',
     category: 'Config',
+    permissions: 'MANAGE_MESSAGES',
     description: 'Sends a message to open a ticket!',
     async execute(message, Member, args) {
         if (!message.member.permissions.has('MANAGE_MESSAGES')) return

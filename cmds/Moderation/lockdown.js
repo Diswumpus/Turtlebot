@@ -4,6 +4,7 @@ const ms = require("ms");
 module.exports = {
    name: 'lockdown',
    category: 'Moderation',
+   permissions: 'MANAGE_MESSAGES',
    description: 'Locks the chat',
    async execute(message, Member, args) {
       if (!message.guild) return;

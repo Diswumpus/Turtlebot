@@ -454,7 +454,7 @@ client.on('message', async message => {
         return
     }
     const data = await prefix.findOne({
-        GuildID: message.guild.id
+        GuildID: message.guild?.id
     });
     let configStart = message.content.startsWith(config?.prefix);
     let dataStart = message.content.startsWith(data?.Prefix);
@@ -516,6 +516,13 @@ client.on('message', async message => {
         //     }
         // }
         if (command) {
+            if (message.channel.type === 'dm') {
+                const nodms = new Discord.MessageEmbed()
+                    .setTitle(`I can\'t execute ${commandName} inside DMs!`)
+                    .setColor('RED')
+                    const link2 = await require('./interactions').link(configg.invite, `Support Server`)
+                return message.channel.send({ embeds: [nodms], components: [link2] });
+            }
             if (command.args && !args.length) {
                 const noargss = new Discord.MessageEmbed()
                     .setTitle(`You didn't provide any arguments!`)
@@ -523,14 +530,16 @@ client.on('message', async message => {
                 if (command.usage) {
                     noargss.setDescription(`The proper usage would be: \`${prefix}${command.name} ${command.usage}\``);
                 }
-                if (command.guildOnly && message.channel.type === 'dm') {
-                    const nodms = new Discord.MessageEmbed()
-                        .setTitle(`I can\'t execute ${commandName} inside DMs!`)
-                        .setDescription(`__**More Info**__\n__Description:__ ${command.description ?? 'None'}\n__Aliases:__ ${command.aliases ?? 'None'}\n__Permissions:__ ${command.permissions ?? 'None'}`)
-                        .setColor('RED')
-                    return message.reply({ embeds: [nodms] });
-                }
                 return message.channel.send({ embeds: [noargss] });
+            }
+            if(command?.permissions){
+            if(!Member.permissions.has(`${command.permissions}`)){
+                const noperms = new Discord.MessageEmbed()
+                .setTitle(`${emojijson.x} You do not have permissions!`)
+                .setColor(configg.color)
+                .setDescription(`You must have the \`${command.permissions}\` permission to use this command!`)
+                return message.channel.send({ embeds: [noperms] });
+            }
             }
         }
         if (command) {

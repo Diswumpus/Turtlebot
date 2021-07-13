@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'roles',
     category: 'Reaction Roles',
+    permissions: 'MANAGE_MESSAGES',
     description: 'See how many users have a role!',
     async execute(message, Member, args) {
         //Check perms

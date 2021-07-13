@@ -7,7 +7,8 @@ module.exports = {
     name: 'enable-snipe', // ? Could not figure out how to create space log the msg?
     //aliases: ['enable welcome msg', 'enable welmsg', 'enable welcomemsg'],
     category: 'Config',
-    description: `Enables Welcome Messages!`,
+    description: `This command is old! Use logs!`,
+    permissions: 'ADMINISTRATOR',
     async execute(message, Member, args) {
         const yes = require('../../emojis.json').good;
         const fail = require('../../emojis.json').bad;

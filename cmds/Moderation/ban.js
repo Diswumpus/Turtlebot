@@ -4,6 +4,7 @@ module.exports = {
     name: 'ban',
     category: 'Moderation',
     description: 'Bans a user',
+    permissions: 'BAN_MEMBERS',
     execute(message, Member, args) {
         message.delete();
         if (message.member.permissions.has('BAN_MEMBERS')) {

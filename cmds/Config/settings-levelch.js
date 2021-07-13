@@ -7,13 +7,11 @@ module.exports = {
     name: 'levelch',
     //aliases: ['enable welcome msg', 'enable welmsg', 'enable welcomemsg'],
     category: 'Config',
+    permissions: 'ADMINISTRATOR',
     description: `Enables Welcome Messages!`,
     async execute(message, Member, args) {
         const yes = require('../../emojis.json').good;
         const fail = require('../../emojis.json').bad;
-        if(!message.member.permissions.has('ADMINISTRATOR')) {
-        return message.channel.send(`You don't have permissions!`)
-        }
         if (message.member.permissions.has('ADMINISTRATOR')) {
             const welcomech = message.mentions.channels.first()?.id;
             const thechannel = message.mentions.channels.first();
