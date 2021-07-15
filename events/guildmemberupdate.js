@@ -12,9 +12,11 @@ module.exports = {
                 v.forEach(async c => {
                     if (c.user === true) {
                         let nembed;
+                        const eventrun = false;
                         const row = new Discord.MessageActionRow()
                         // check if username changed
                         if (newMember.user.username != oldMember.user.username) {
+                            eventrun = true
                             nembed = new Discord.MessageEmbed()
                             .setAuthor(`${newMember.user.username}`, newMember.user.displayAvatarURL())
                             .setThumbnail(newMember.user.displayAvatarURL())
@@ -22,6 +24,7 @@ module.exports = {
                         }
                         // check if nickname changed
                         if (newMember.nickname != oldMember.nickname) {
+                            eventrun = true
                             nembed = new Discord.MessageEmbed()
                             .setAuthor(`${newMember.nickname || newMember.user.username}`, newMember.user.displayAvatarURL())
                             .setThumbnail(newMember.user.displayAvatarURL())
@@ -29,6 +32,7 @@ module.exports = {
                         }
                         // check if avatar changed
                         if (newMember.user.avatarURL != oldMember.user.avatarURL) {
+                            eventrun = true
                             nembed = new Discord.MessageEmbed()
                             .setAuthor(`${newMember.user.username}`, newMember.user.displayAvatarURL())
                             .setThumbnail(newMember.user.displayAvatarURL())
@@ -37,9 +41,16 @@ module.exports = {
                             row.addComponents(comp.components[0]);
                         }
 
+                        if(!eventrun) return
+                        
                         const ch = client.channels.cache.get(`${c.logsch}`)
-
-                        require('../models/plugins/logger').log(ch, 'user', nembed, row)
+                        const logs = require('../models/plugins/logger').log;
+                        new logs({
+                            channel: ch,
+                            type: 'user',
+                            embed: nembed.setFooter('Server | User', 'https://cdn.tixte.com/uploads/turtlepaw.is-from.space/kr44ljw3a9a.png'),
+                            components: row || null
+                        }).log()
                     }
                 })
             }

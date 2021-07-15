@@ -486,7 +486,7 @@ client.on('message', async message => {
             const rowsend = await require('./interactions').link(configg.invite, `Support Server`)
             return message.channel.send({ embeds: [embed], components: [rowsend] });
         }
-        if (command.owneronly === true && message.author.id !== config.ownerID) {
+        if (command?.owneronly === true && message.author.id !== config.ownerID) {
             const owembed = new Discord.MessageEmbed().setTitle(`${emojijson.x}`).setDescription(`This is a owner only command!\n\nTry something else.. Feel like this is a command for everyone? Report it [here](${configg.invite})`)
             const link2 = await require('./interactions').link(configg.invite, `Support Server`)
             return message.channel.send({ embeds: [owembed], components: [link2] })

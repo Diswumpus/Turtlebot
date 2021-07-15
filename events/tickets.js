@@ -7,7 +7,7 @@ module.exports = {
     name: 'interactionCreate',
     async execute(interaction, client) {
         if (!interaction.isButton()) return;
-        let category = interaction.guild.channels.cache.find(c => c.name == "Tickets" && c.type == "category")
+        let category = interaction.guild.channels.cache.find(c => c.name === 'Tickets' && c.type === 'GUILD_CATEGORY')
         if (interaction.customId === 'ticket_open') {
             if(!category){
                 category = await interaction.guild.channels.create(`Tickets`, { type: 'category',
@@ -30,13 +30,18 @@ module.exports = {
                         .setAuthor(`${interaction.user.username}`, interaction.user.displayAvatarURL())
                         .setThumbnail(interaction.user.displayAvatarURL())
                         .setTitle(`${require('../emojis.json').ticket} ${interaction.user.tag} Opened a ticket!`)
-                        require('../models/plugins/logger').log(ch, 'ticket', nembed)
+                        const logs = require('../models/plugins/logger').log;
+                        new logs({
+                            channel: ch,
+                            type: 'ticket',
+                            embed: nembed
+                        }).log();
                   }
             });
           }
             const ch = await interaction.guild.channels.create(`ticket-${interaction.user.tag}`, {
                  reason: 'Ticket Channel',
-                 parent: category,
+                 parent: category.id,
                  permissionOverwrites: [
                     {
                       id: interaction.guild.roles.everyone,

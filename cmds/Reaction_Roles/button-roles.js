@@ -46,6 +46,12 @@ module.exports = {
                         if(collected2.first().mentions.roles.size > 2){
                         roles.push(Array.from(collected2.first().mentions.roles)[2][1] || null)
                         }
+                        if(collected2.first().mentions.roles.size > 3){
+                            roles.push(Array.from(collected2.first().mentions.roles)[3][1] || null)
+                            }
+                            if(collected2.first().mentions.roles.size > 4){
+                                roles.push(Array.from(collected2.first().mentions.roles)[4][1] || null)
+                                }
                         if (!role) return message.channel.send({ content: 'Wrong Response, Button Role Builder Cancelled' })
                         roles.forEach(role => {
                             if (role.managed) {
@@ -58,6 +64,8 @@ module.exports = {
                         const uid1 = uuidv4();
                         const uid2 = uuidv4();
                         const uid3 = uuidv4();
+                        const uid4 = uuidv4();
+                        const uid5 = uuidv4();
                         //Create button
                         if (!role || !channel) return
                         const row = new Discord.MessageActionRow()
@@ -80,6 +88,22 @@ module.exports = {
                                 new Discord.MessageButton()
                                     .setCustomId(uid2)
                                     .setLabel(`${roles[2].name}`)
+                                    .setStyle('SECONDARY')
+                            );
+                        }
+                        if (roles[3]) {
+                            row.addComponents(
+                                new Discord.MessageButton()
+                                    .setCustomId(uid4)
+                                    .setLabel(`${roles[3].name}`)
+                                    .setStyle('SUCCESS')
+                            );
+                        }
+                        if (roles[4]) {
+                            row.addComponents(
+                                new Discord.MessageButton()
+                                    .setCustomId(uid5)
+                                    .setLabel(`${roles[4].name}`)
                                     .setStyle('SUCCESS')
                             );
                         }
@@ -95,9 +119,13 @@ module.exports = {
                             role1: roles[0].id,
                             role2: roles[1]?.id || null,
                             role3: roles[2]?.id || null,
+                            role4: roles[3]?.id || null,
+                            role5: roles[4]?.id || null,
                             button1: uid,
                             button2: uid1 || null,
                             button3: uid2 || null,
+                            button4: uid4 || null,
+                            button5: uid5 || null,
                             guild: message.guild.id,
                             id: uid3
                         });

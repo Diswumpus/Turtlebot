@@ -20,6 +20,12 @@ module.exports = {
                     if(interaction.member.roles.cache.has(r.role3)){
                         roles.push(r.role3)
                     }
+                    if(interaction.member.roles.cache.has(r.role4)){
+                        roles.push(r.role4)
+                    }
+                    if(interaction.member.roles.cache.has(r.role5)){
+                        roles.push(r.role5)
+                    }
                 });
                 const embed = new Discord.MessageEmbed()
                 .setTitle('Your roles')
