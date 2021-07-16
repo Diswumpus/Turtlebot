@@ -5,6 +5,7 @@ module.exports = {
     category: 'Config',
     description: 'Generates an invite for your server use 0 for infinite',
     usage: "<age> <uses>",
+    permissions: 'MANAGE_MESSAGES',
     async execute(message, Member, args) {
         let ageDays = parseInt(args[1]);
         let uses = parseInt(args[0]);

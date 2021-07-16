@@ -4,6 +4,7 @@ module.exports = {
     name: 'kick',
     category: 'Moderation',
     description: 'Kicks a user',
+    permissions: 'KICK_MEMBERS',
     async execute(message, Member, args) {
         message.delete();
         if (message.member.permissions.has('KICK_MEMBERS')) {

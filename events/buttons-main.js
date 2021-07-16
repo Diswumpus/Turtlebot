@@ -20,11 +20,17 @@ module.exports = {
                     v.forEach(c => {
                           if(c.ticket === true){
                                 const ch = client.channels.cache.get(`${c.logsch}`)
+                                const user = client.users.cache.get(ticketuser);
                                 const nembed = new Discord.MessageEmbed()
-                                .setThumbnail(interaction.user.displayAvatarURL())
-                                .setAuthor(`${interaction.user.username}`, interaction.user.displayAvatarURL())
-                                .setTitle(`${require('../emojis.json').ticket} ${interaction.user.tag} closed there ticket!`)
-                                require('../models/plugins/logger').log(ch, 'ticket', nembed)
+                                .setThumbnail(user.displayAvatarURL())
+                                .setAuthor(`${user.username}`, user.displayAvatarURL())
+                                .setTitle(`${require('../emojis.json').ticket} ${user.tag} closed there ticket!`)
+                                const logs = require('../models/plugins/logger').log;
+                                new logs({
+                                      channel: ch,
+                                      type: 'ticket',
+                                      embed: nembed
+                                }).log();
                           }
                     });
                   }

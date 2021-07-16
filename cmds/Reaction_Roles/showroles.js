@@ -4,6 +4,7 @@ module.exports = {
     name: 'show-roles',
     aliases: ['sr', 'showroles'],
     category: 'Reaction Roles',
+    permissions: 'MANAGE_MESSAGES',
     description: 'See how many users have a role!',
     async execute(message, Member, args) {
         //Check perms

@@ -7,13 +7,11 @@ module.exports = {
     name: 'enable-link', // ? Could not figure out how to create space log the msg?
     //aliases: ['enable welcome msg', 'enable welmsg', 'enable welcomemsg'],
     category: 'Config',
+    permissions: 'ADMINISTRATOR',
     description: `Enables Welcome Messages!`,
     async execute(message, Member, args) {
         const yes = require('../../emojis.json').good;
         const fail = require('../../emojis.json').bad;
-        if(!message.member.permissions.has('ADMINISTRATOR')) {
-        return message.channel.send(`You don't have permissions!`)
-        }
         if (message.member.permissions.has('ADMINISTRATOR')) {
             const welcomech = message.mentions.roles.first()?.id;
             const thechannel = message.mentions.roles.first();

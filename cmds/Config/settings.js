@@ -8,6 +8,7 @@ module.exports = {
     aliases: ['config', 'setting'],
     category: 'Config',
     description: `Creates the role`,
+    permissions: 'ADMINISTRATOR',
     async execute(message, Member, args) {
         if (message.member.permissions.has('ADMINISTRATOR')) {
             const tembed = new Discord.MessageEmbed()

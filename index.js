@@ -11,6 +11,9 @@ const prefix = require('./models/prefix');
 const commandsss = require('./models/commands')
 const moment = require('moment')
 const settings = require('./models/settings')
+const emojijson = require('./emojis.json');
+const banmodel = require('./models/ban');
+const dt = require('discord-turtle');
 
 
 mongoose.connect(config.mongoose, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -69,12 +72,12 @@ client.version = version;
 const slashFiles = fs.readdirSync('./slash').filter(file => file.endsWith('.js'));
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
-	const event = require(`./events/${file}`);
-	if (event.once) {
-		client.once(event.name, (...args) => event.execute(...args, client));
-	} else {
-		client.on(event.name, (...args) => event.execute(...args, client));
-	}
+    const event = require(`./events/${file}`);
+    if (event.once) {
+        client.once(event.name, (...args) => event.execute(...args, client));
+    } else {
+        client.on(event.name, (...args) => event.execute(...args, client));
+    }
 }
 // Here we load all the commands into client.commands
 for (const file of slashFiles) {
@@ -97,12 +100,29 @@ client.on('interaction', async interaction => {
     const commandName = interaction.commandName;
 
     const command = client.slashcmds.get(commandName);
-    if(command){
-        if(commandName !== 'pets-view' || commandName !== 'buy-pet'){
+    const banres = await banmodel.findOne({
+        user: interaction.user.id
+    });
+    if(banres?.user === interaction.user.id){
+        let embed = new Discord.MessageEmbed()
+        if(banres.action === 'timeout'){
+            embed.setTitle(`${emojijson.ban}`)
+            embed.setDescription(`You can use this command again ${await dt.timestamp(Math.round(new Date(Number(banres.time)).getTime() / 1000))}`)//(new Date).valueOf()
+            embed.setColor(configg.color)
+        } else if(banres.action === 'ban'){
+            embed.setTitle(`${emojijson.ban}`)
+            embed.setDescription(`You have been banned from Turtlebot!`)
+            embed.setColor(configg.color)
+        }
+        const rowsend = await require('./interactions').link(configg.invite, `Support Server`)
+        return interaction.reply({ embeds: [embed], components: [rowsend], ephemeral: true });
+    }
+    if (command) {
+        if (commandName !== 'pets-view' || commandName !== 'buy-pet') {
             let cmdsa = await commandsss.findOne({
                 user: interaction.user.id
             });
-        
+
             if (!cmdsa) {
                 cmdsa = new commandsss({
                     user: interaction.user.id,
@@ -178,24 +198,24 @@ client.on("message", message => {
     }
 });
 client.on("message", async (message) => {
-    if (message?.member?.permissions.has('ADMINISTRATOR')) { 
+    if (message?.member?.permissions.has('ADMINISTRATOR')) {
         return;
     }
     const thedata = await settings.findOne({
         GuildID: message.guild?.id
     });
     if (message.guild && myGuilds.has(message.guild.id)) {// && !message.member.permissions.has('ADMINISTRATOR')
-        if(!message.member.roles.cache.some(r=> thedata.roles.includes(r.id)) ) {
-        if (message.content.toLowerCase().includes('discord.gg' || 'discordapp.com/invite' || 'discord.com/invite' || 'dsc.gg' || 'discord.io' || 'discord.me')) { //if it contains an invite link
-            const messagedelembed = new Discord.MessageEmbed()
-                .setTitle(`Your link has been deleted!`)
-                .setColor('RED')
-                .setDescription(`[This](${message.url}) has been deleted`)
-                .setFooter('Invite links are not permitted on this server')
-            message.delete() //delete the message
-                .then(message.author.send({ embeds: [messagedelembed] }))
+        if (!message.member.roles.cache.some(r => thedata.roles.includes(r.id))) {
+            if (message.content.toLowerCase().includes('discord.gg' || 'discordapp.com/invite' || 'discord.com/invite' || 'dsc.gg' || 'discord.io' || 'discord.me')) { //if it contains an invite link
+                const messagedelembed = new Discord.MessageEmbed()
+                    .setTitle(`Your link has been deleted!`)
+                    .setColor('RED')
+                    .setDescription(`[This](${message.url}) has been deleted`)
+                    .setFooter('Invite links are not permitted on this server')
+                message.delete() //delete the message
+                    .then(message.author.send({ embeds: [messagedelembed] }))
+            }
         }
-    }
     }
 })
 // L E V E L S = >
@@ -236,10 +256,10 @@ client.on("message", async (message) => {
         const emojiiii = client.emojis.cache.get('836421450252550199')
         const anotheremoji = client.emojis.cache.get('846908253740204072')
         const levelupembed = new Discord.MessageEmbed()
-        .setTitle(`${message.author.username}, congratulations!`)
-        .setDescription(`You have leveled up to **${user.level}**   ${emojiiii}`)
-        .setColor('GREEN')
-        .setThumbnail(anotheremoji.url)
+            .setTitle(`${message.author.username}, congratulations!`)
+            .setDescription(`You have leveled up to **${user.level}**   ${emojiiii}`)
+            .setColor('GREEN')
+            .setThumbnail(anotheremoji.url)
         channel.send({ embeds: [levelupembed], content: `${message.author} ${require('./emojis.json').completed}` });
     }
 });
@@ -255,12 +275,12 @@ client.on('message', async message => {
     //const message = await messages.find(m => m.content.match(hasEmoteRegex))
     const words = message.content.split(" ");
     words.forEach(async w => {
-        if(!emoji) return
+        if (!emoji) return
         if (emoji = emoteRegex.exec(w) || animatedEmoteRegex.exec(w)) {
             let messageUser = await emojii.findOne({
                 emoji: emoji[0]
             });
-    
+
             if (!messageUser) {
                 messageUser = new emojii({
                     emoji: emoji[0],
@@ -270,7 +290,7 @@ client.on('message', async message => {
                 });
                 await messageUser.save().catch(e => console.log(e));
             };
-    
+
             await emojii.findOne({
                 emoji: emoji[0]
             }, async (err, dUser) => {
@@ -280,7 +300,7 @@ client.on('message', async message => {
             });
             console.log(`Added ${emoji[0]}`)
         }
-    
+
     });
 
 });
@@ -291,7 +311,7 @@ client.on("messageDelete", async (message) => {
         let schannel = await settings.findOne({
             GuildID: message.guild.id
         });
-        if(schannel.autosnipe !== true){
+        if (schannel.autosnipe !== true) {
             return
         }
         if (message.member.permissions.has('MANAGE_MESSAGES')) { return; }
@@ -351,19 +371,23 @@ client.on('message', async message => {
         let currentPrefix = data?.Prefix ?? config?.prefix;
 
         if (data) {
-            message.reply({ embeds: [
-                new Discord.MessageEmbed()
-                    .setTitle(`Hey there!`)
-                    .setDescription(`My prefix is \`${config?.prefix}\` or you can use \`${data?.Prefix}\``)
-                    .setColor(configg.color)
-            ]})
+            message.reply({
+                embeds: [
+                    new Discord.MessageEmbed()
+                        .setTitle(`Hey there!`)
+                        .setDescription(`My prefix is \`${config?.prefix}\` or you can use \`${data?.Prefix}\``)
+                        .setColor(configg.color)
+                ]
+            })
         } else if (!data) {
-            message.reply({ embeds: [
-                new Discord.MessageEmbed()
-                    .setTitle(`Hey there!`)
-                    .setDescription(`My prefix is \`${config.prefix}\``)
-                    .setColor(configg.color)
-            ]})
+            message.reply({
+                embeds: [
+                    new Discord.MessageEmbed()
+                        .setTitle(`Hey there!`)
+                        .setDescription(`My prefix is \`${config.prefix}\``)
+                        .setColor(configg.color)
+                ]
+            })
         }
     }
 });//await 
@@ -371,44 +395,44 @@ let cmdsas = commandsss.findOne({
     hungry: false
 });
 
-setInterval(function() {
+setInterval(function () {
     var ONE_HOUR = 60 * 60 * 1000;
     //var ONE_HOUR = 60; /* ms */
-//const one = new Date(cmds.lastfead.getTime() + ONE_HOUR)
-//if(((new Date) - cmdsas.lastfead) > ONE_HOUR){
+    //const one = new Date(cmds.lastfead.getTime() + ONE_HOUR)
+    //if(((new Date) - cmdsas.lastfead) > ONE_HOUR){
     const lessThanOneHourAgo = (date) => {
         return moment(date).isAfter(moment().subtract(1, 'hours'));
     }
-    if(lessThanOneHourAgo(cmdsas.lastfead)){
-        if(cmdsas?.hungry === true || cmdsas?.hungry === 'undefined' || cmdsas?.hungry === undefined){
+    if (lessThanOneHourAgo(cmdsas.lastfead)) {
+        if (cmdsas?.hungry === true || cmdsas?.hungry === 'undefined' || cmdsas?.hungry === undefined) {
             return;
         }
-commandsss.findOne({
-    hungry: false
-}, async (err, dUser) => {
-    if (err) console.log(err);
-    dUser.hungry = true;
-    await dUser.save().catch(e => console.log(e));
-});
-   }
+        commandsss.findOne({
+            hungry: false
+        }, async (err, dUser) => {
+            if (err) console.log(err);
+            dUser.hungry = true;
+            await dUser.save().catch(e => console.log(e));
+        });
+    }
 }, 4000);
-    /*
-    commandsss.findOne(
-    async (err, dUser) => {
-    if (err) console.log(err);
-    dUser.hungry = true;
-    await dUser.save().catch(e => console.log(e));
+/*
+commandsss.findOne(
+async (err, dUser) => {
+if (err) console.log(err);
+dUser.hungry = true;
+await dUser.save().catch(e => console.log(e));
 });
 
 
-        user: String,
-    uses: Number,
-    hungry: Boolean,
-    lastfead: Number
-    */
+    user: String,
+uses: Number,
+hungry: Boolean,
+lastfead: Number
+*/
 // Client events
 client.on('message', async message => {
-    
+
     //if(message.content.startsWith(`${prefix}tpwhois`)){
     var Member;
     const { cooldowns } = client;
@@ -430,7 +454,7 @@ client.on('message', async message => {
         return
     }
     const data = await prefix.findOne({
-        GuildID: message.guild.id
+        GuildID: message.guild?.id
     });
     let configStart = message.content.startsWith(config?.prefix);
     let dataStart = message.content.startsWith(data?.Prefix);
@@ -445,72 +469,104 @@ client.on('message', async message => {
         //
         //
         const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-    //     if (!cooldowns.has(command.name)) {
-    //         cooldowns.set(command.name, new Discord.Collection());
-    //     }
-        
-    //     const now = Date.now();
-    //     const timestamps = cooldowns.get(command.name);
-    //     const cooldownAmount = (command.cooldown || 3) * 1000;
-        
-    //     if (timestamps.has(message.author.id)) {
-    //         // ...
-    //     }
-    //     timestamps.set(message.author.id, now);
-    // setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-    //     const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-    //     if (timestamps.has(message.author.id)) {
-    //     if (now < expirationTime) {
-    //         const timeLeft = (expirationTime - now) // 1000;
-    //         const timeleftt = new Discord.MessageEmbed()
-    //         .setTitle('__WARNING__')
-    //         .setColor('RED')
-    //         .setDescription(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\``)
-    //         return message.reply({ embeds: [timeleftt] });
-    //     }
-    // }
-    if (command) {
-        if (command.args && !args.length) {
-            const noargss = new Discord.MessageEmbed()
-            .setTitle(`You didn't provide any arguments!`)
-            .setColor('RED')
-            if (command.usage) {
-                noargss.setDescription(`The proper usage would be: \`${prefix}${command.name} ${command.usage}\``);
+        const banres = await banmodel.findOne({
+            user: message.author.id
+        });
+        if(banres?.user === message.author.id){
+            let embed = new Discord.MessageEmbed()
+            if(banres.action === 'timeout'){
+                embed.setTitle(`${emojijson.ban}`)
+                embed.setDescription(`You can use this command again ${await dt.timestamp(Math.round(new Date(Number(banres.time)).getTime() / 1000))}`)//(new Date).valueOf()
+                embed.setColor(configg.color)
+            } else if(banres.action === 'ban'){
+                embed.setTitle(`${emojijson.ban}`)
+                embed.setDescription(`You have been banned from Turtlebot!`)
+                embed.setColor(configg.color)
             }
-            if (command.guildOnly && message.channel.type === 'dm') {
-                const nodms = new Discord.MessageEmbed()
-                .setTitle(`I can\'t execute ${commandName} inside DMs!`)
-                .setDescription(`__**More Info**__\n__Description:__ ${command.description ?? 'None'}\n__Aliases:__ ${command.aliases ?? 'None'}\n__Permissions:__ ${command.permissions ?? 'None'}`)
-                .setColor('RED')
-                return message.reply({ embeds: [nodms] });
-            }
-            return message.channel.send({ embeds: [noargss] });
-        }}
-        if(command){
-            if(commandName !== 'pets-view' || commandName !== 'buy-pet'){
-            let cmdsa = await commandsss.findOne({
-                user: message.author.id
-            });
-        
-            if (!cmdsa) {
-                cmdsa = new commandsss({
-                    user: message.author.id,
-                    uses: 0,
-                    hungry: false,
-                    lastfead: Date.now()
-                });
-                await cmdsa.save().catch(e => console.log(e));
-            };
-            await commandsss.findOne({
-                user: message.author.id
-            }, async (err, dUser) => {
-                if (err) console.log(err);
-                dUser.uses += 1;
-                dUser.hungry = false
-                dUser.lastfead = Date.now()
-                await dUser.save().catch(e => console.log(e));
-            });
+            const rowsend = await require('./interactions').link(configg.invite, `Support Server`)
+            return message.channel.send({ embeds: [embed], components: [rowsend] });
         }
+        if (command?.owneronly === true && message.author.id !== config.ownerID) {
+            const owembed = new Discord.MessageEmbed().setTitle(`${emojijson.x}`).setDescription(`This is a owner only command!\n\nTry something else.. Feel like this is a command for everyone? Report it [here](${configg.invite})`)
+            const link2 = await require('./interactions').link(configg.invite, `Support Server`)
+            return message.channel.send({ embeds: [owembed], components: [link2] })
+        }
+        //     if (!cooldowns.has(command.name)) {
+        //         cooldowns.set(command.name, new Discord.Collection());
+        //     }
+
+        //     const now = Date.now();
+        //     const timestamps = cooldowns.get(command.name);
+        //     const cooldownAmount = (command.cooldown || 3) * 1000;
+
+        //     if (timestamps.has(message.author.id)) {
+        //         // ...
+        //     }
+        //     timestamps.set(message.author.id, now);
+        // setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+        //     const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+        //     if (timestamps.has(message.author.id)) {
+        //     if (now < expirationTime) {
+        //         const timeLeft = (expirationTime - now) // 1000;
+        //         const timeleftt = new Discord.MessageEmbed()
+        //         .setTitle('__WARNING__')
+        //         .setColor('RED')
+        //         .setDescription(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\``)
+        //         return message.reply({ embeds: [timeleftt] });
+        //     }
+        // }
+        if (command) {
+            if (message.channel.type === 'dm') {
+                const nodms = new Discord.MessageEmbed()
+                    .setTitle(`I can\'t execute ${commandName} inside DMs!`)
+                    .setColor('RED')
+                    const link2 = await require('./interactions').link(configg.invite, `Support Server`)
+                return message.channel.send({ embeds: [nodms], components: [link2] });
+            }
+            if (command.args && !args.length) {
+                const noargss = new Discord.MessageEmbed()
+                    .setTitle(`You didn't provide any arguments!`)
+                    .setColor('RED')
+                if (command.usage) {
+                    noargss.setDescription(`The proper usage would be: \`${prefix}${command.name} ${command.usage}\``);
+                }
+                return message.channel.send({ embeds: [noargss] });
+            }
+            if(command?.permissions){
+            if(!Member.permissions.has(`${command.permissions}`)){
+                const noperms = new Discord.MessageEmbed()
+                .setTitle(`${emojijson.x} You do not have permissions!`)
+                .setColor(configg.color)
+                .setDescription(`You must have the \`${command.permissions}\` permission to use this command!`)
+                return message.channel.send({ embeds: [noperms] });
+            }
+            }
+        }
+        if (command) {
+            if (commandName !== 'pets-view' || commandName !== 'buy-pet') {
+                let cmdsa = await commandsss.findOne({
+                    user: message.author.id
+                });
+
+                if (!cmdsa) {
+                    cmdsa = new commandsss({
+                        user: message.author.id,
+                        uses: 0,
+                        hungry: false,
+                        lastfead: Date.now()
+                    });
+                    await cmdsa.save().catch(e => console.log(e));
+                };
+                await commandsss.findOne({
+                    user: message.author.id
+                }, async (err, dUser) => {
+                    if (err) console.log(err);
+                    dUser.uses += 1;
+                    dUser.hungry = false
+                    dUser.lastfead = Date.now()
+                    await dUser.save().catch(e => console.log(e));
+                });
+            }
         }
         if (command) {
             await command.execute(message, Member, args);
@@ -536,7 +592,7 @@ client.on('guildMemberAdd', async (message) => { // this event gets triggered wh
     let welcomechannel = await settings.findOne({
         GuildID: message.guild.id
     });
-    if(welcomechannel?.welcome !== true){
+    if (welcomechannel?.welcome !== true) {
         return
     }
     //if (message.guild && myGuilds.has(message.guild.id)) {
@@ -564,7 +620,7 @@ client.on('guildMemberRemove', async (message) => { // this event gets triggered
     let welcomechannel = await settings.findOne({
         GuildID: message.guild.id
     });
-    if(welcomechannel?.welcome !== true){
+    if (welcomechannel?.welcome !== true) {
         return
     }
     //if (message.guild && myGuilds.has(message.guild.id)) {
@@ -585,5 +641,22 @@ client.on('guildMemberRemove', async (message) => { // this event gets triggered
     channel.send({ embeds: [embede] })
     //}
 })
+
+setInterval(async () => {
+    const results = await banmodel.find()
+
+    if (results && results.length) {
+        for (const result of results) {
+            if (Date.now() >= Number(result.time)) {
+                await banmodel.findOneAndDelete({
+                    user: result.user
+                });
+            }
+
+        }
+    }
+
+}, 1000)
+
 client.login(config.token);
 //client.user.setActivity(',help');

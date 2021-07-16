@@ -6,6 +6,7 @@ module.exports = {
     name: 'linkr-add',
     category: 'Config',
     description: 'null',
+    permissions: 'ADMINISTRATOR',
     usage: "<roles>",
     async execute(message, Member, args) {
         const yes = require('../../emojis.json').good;

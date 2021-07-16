@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
   name: 'unlock',
   category: 'Moderation',
+  permissions: 'MANAGE_MESSAGES',
   description: 'Unlocks the chat',
   execute(message, Member, args) {
     if (!message.guild) return;

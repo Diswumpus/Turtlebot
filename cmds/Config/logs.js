@@ -17,6 +17,7 @@ const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.
 
 module.exports = {
     name: 'logs',
+    permissions: 'ADMINISTRATOR',
     category: 'Config',
     description: 'Changes the bots prefix',
     async execute(message, Member, args) {

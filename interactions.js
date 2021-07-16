@@ -1,5 +1,11 @@
 const Discord = require('discord.js');
 
+/**
+ * 
+ * @param {String} [link] The button link
+ * @param {String} [t] The button label
+ * @returns Discord.MessageActionRow
+ */
 module.exports.link = async (link, t) => {
     let view
     if(!t){
@@ -23,6 +29,9 @@ module.exports.link = async (link, t) => {
     }
     return view
 }
+/**
+ * @returns Discord.MessageActionRow
+ */
 module.exports.delete = async () => {
     const view = new Discord.MessageActionRow()
     .addComponents(
@@ -40,6 +49,14 @@ const view = await require('../interactions').delete();
 
 label, type, id, emoji
 */
+/**
+ * 
+ * @param {String} label The button label
+ * @param {Discord.MessageButtonStyle} type The button style 
+ * @param {String} id The buttons customId
+ * @param {String} emoji The button emojis. Must be a emoji ID
+ * @returns Discord.MessageButton
+ */
 module.exports.button = async (label, type, id, emoji) => {
     const types = {"1": "PRIMARY", "2": "SECONDARY", "3": "SUCCESS", "4": "DANGER"};
     const button = new Discord.MessageButton()

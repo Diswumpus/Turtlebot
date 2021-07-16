@@ -6,6 +6,7 @@ module.exports = {
     name: 'prefix',
     category: 'Misc',
     description: 'Changes the bots prefix',
+    permissions: 'ADMINISTRATOR',
     async execute(message, Member, args) {
         let newprefix = args[0]
         const changed = new Discord.MessageEmbed()

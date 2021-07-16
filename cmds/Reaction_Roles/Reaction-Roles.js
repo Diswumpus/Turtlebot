@@ -8,6 +8,7 @@ const config = require("../../config.json");
 react.setURL(config.mongoose)
 module.exports = {
   name: "builder",
+  permissions: 'MANAGE_MESSAGES',
   aliases: ["rrb", "reactionrolebuilder", "reactionbuilder", "rolebuilder", "rrbuilder"],
   description: "Start a prompt and create your reaction role",
   category: 'Reaction Roles',
