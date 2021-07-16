@@ -10,7 +10,7 @@ module.exports = {
     //const userData = getDataSomehow();
     const target = message.mentions.users.first() || message.author;
     const avatarr = target.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 })
-
+        message.channel.startTyping();
         // const user = await Levels.fetch(target.id, message.guild.id);
         const user = await Levels.fetch(target.id, message.guild.id, true);
         const neededXp = Levels.xpFor(parseInt(user.level) + 1);
@@ -21,13 +21,14 @@ module.exports = {
         .setRequiredXP(neededXp)
         .setRank(user.position)
         .setLevel(user.level)
-        .setStatus(`${target.presence.status}`)
+        .setStatus(`${Member.presence.status}`)
         .setProgressBar("#FFFFFF", "COLOR")
         .setUsername(`${target.username}`)
         .setDiscriminator(`${target.discriminator}`);
     
     rank.build()
         .then(data => {
+            message.channel.stopTyping();
             const attachment = new Discord.MessageAttachment(data, "card.png");
             message.channel.send({ content: `${require('../../emojis.json').check} ${target}'s Rank!`, files: [attachment] });
         });
