@@ -27,7 +27,7 @@
     "canvas": "2.6",
     "chalk": "^2.4.2",
     "common-tags": "^1.8.0",
-    "discord-turtle": "^2.1.0",
+    "discord-turtle": "^2.2.2",
     "discord-xp": "^1.1.14",
     "discord.js": "^13.0.0-dev.98c6078.1626264203",
     "dog-img": "^1.0.1",

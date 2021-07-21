@@ -5,12 +5,14 @@ module.exports = {
     description: 'Gives a hint',
     async execute(client, interaction) {
         const userr = interaction.guild;
+        const guild = interaction.guild;
+        const guildowner = guild.fetchOwner()
         const embeedd = new Discord.MessageEmbed()
         .setColor(client.confiig.color)
         .setThumbnail(interaction.guild.iconURL())
         .setTitle(`${interaction.guild.name}`)
         .addField(`Verification Level:`, `${interaction.guild.verificationLevel}`)
-        .addField(`Owner:`, `<@${interaction.guild.ownerID}>`)
+        .addField(`Owner:`, `${guildowner}`)
         .addField(`Members:`, `${interaction.guild.memberCount}`)
         .addField(`Region:`, `${interaction.guild.region}`)
         .addField(`Rules:`, `${interaction.guild.rulesChannel?? "None"}`)

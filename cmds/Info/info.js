@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'info',
     category: 'Info',
-    description: 'Gives info about server,avatar',
+    description: 'Get info about server',
     execute(message, Member, args) {
         const info = new Discord.MessageEmbed()
         .setTitle(`${require('../../emojis.json').tb} Info:`)

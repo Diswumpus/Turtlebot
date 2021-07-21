@@ -1,6 +1,8 @@
 const Discord = require("discord.js")
 const canvacord = require("canvacord");
 const Levels = require("discord-xp");
+const levelsc = require('../../models/plugins/rank-card');
+const levelfn = require('../../models/plugins/functions');
 
 module.exports = {
  name: "rank",
@@ -21,10 +23,20 @@ module.exports = {
         .setRequiredXP(neededXp)
         .setRank(user.position)
         .setLevel(user.level)
-        .setStatus(`${Member.presence.status}`)
+        .setStatus('online')
         .setProgressBar("#FFFFFF", "COLOR")
         .setUsername(`${target.username}`)
         .setDiscriminator(`${target.discriminator}`);
+        const RANK_CARD = await levelfn.RANK_FIND(message.guild.id);
+        if(RANK_CARD){
+            if(!RANK_CARD.res.URL.endsWith('.png')){
+                RANK_CARD.res.URL = RANK_CARD.res.URL
+                .replace('.webp', '.png')
+                .replace('.jpg', '.png')
+                .replace('.jpeg', '.png')
+            }
+            rank.setBackground('IMAGE', RANK_CARD.res.URL)
+        };
     
     rank.build()
         .then(data => {
