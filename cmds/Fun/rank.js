@@ -28,7 +28,7 @@ module.exports = {
         .setUsername(`${target.username}`)
         .setDiscriminator(`${target.discriminator}`);
         const RANK_CARD = await levelfn.RANK_FIND(message.guild.id);
-        if(RANK_CARD){
+        if(RANK_CARD.found === true){
             if(!RANK_CARD.res.URL.endsWith('.png')){
                 RANK_CARD.res.URL = RANK_CARD.res.URL
                 .replace('.webp', '.png')
@@ -36,7 +36,10 @@ module.exports = {
                 .replace('.jpeg', '.png')
             }
             rank.setBackground('IMAGE', RANK_CARD.res.URL)
-        };
+        } else {
+            rank.setBackground('COLOR', '#292B2E')
+            rank.setOverlay('#292B2E')
+        }
     
     rank.build()
         .then(data => {
