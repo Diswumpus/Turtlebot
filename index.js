@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const config = require('./config.json');
 const fs = require('fs');
 const klawSync = require('klaw-sync')
+const plugin_manager = require('./models/plugins/plugin_manager');
 const version = require('./version.json');
 const configg = require('./config2.json')
 const mongoose = require('mongoose');
@@ -65,6 +66,7 @@ client.commands = new Discord.Collection();
 client.slashcmds = new Discord.Collection();
 client.snipes = new Discord.Collection();
 client.config = config;
+client.site = configg.website;
 client.cooldowns = new Discord.Collection();
 client.confiig = configg;
 client.version = version;
@@ -245,6 +247,8 @@ client.on("message", async (message) => {
     if (!message.guild) return;
     if (message.author.bot) return;
 
+    const levelSettings = await plugin_manager.findPlugin(message.guild.id, 'LEVELS');
+    if(!levelSettings.object.ENABLED) return
     const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30
     const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
     if (hasLeveledUp || message.content === ';levels') {
@@ -254,13 +258,20 @@ client.on("message", async (message) => {
         const channel = message.guild.channels.cache.get(schannel?.levelch) ?? message.channel
         const user = await Levels.fetch(message.author.id, message.guild.id);
         const emojiiii = client.emojis.cache.get('836421450252550199')
-        const anotheremoji = client.emojis.cache.get('846908253740204072')
+        const anotheremoji = client.emojis.cache.get('846908253740204072');
+        if(levelSettings.object.LEVELMESSAGE.includes('{{ -d }}')){
         const levelupembed = new Discord.MessageEmbed()
             .setTitle(`${message.author.username}, congratulations!`)
             .setDescription(`You have leveled up to **${user.level}**   ${emojiiii}`)
             .setColor('GREEN')
             .setThumbnail(anotheremoji.url)
-        channel.send({ embeds: [levelupembed], content: `${message.author} ${require('./emojis.json').completed}` });
+            channel.send({ embeds: [levelupembed], content: `${message.author} ${require('./emojis.json').completed}` });
+        } else if(levelSettings.object.LEVELMESSAGE){
+            channel.send({ content: levelSettings.object.LEVELMESSAGE
+                .replace('{{user}}', message.author)
+                .replace('{{level}}', user.level)
+            });
+        }
     }
 });
 
@@ -463,12 +474,9 @@ client.on('message', async message => {
 
         const args = message.content.slice(currentPrefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
-        console.log(`${commandName} was executed by ${message.author.tag}`);
-        //
-        //
-        //
-        //
+
         const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+
         const banres = await banmodel.findOne({
             user: message.author.id
         });
@@ -491,31 +499,8 @@ client.on('message', async message => {
             const link2 = await require('./interactions').link(configg.invite, `Support Server`)
             return message.channel.send({ embeds: [owembed], components: [link2] })
         }
-        //     if (!cooldowns.has(command.name)) {
-        //         cooldowns.set(command.name, new Discord.Collection());
-        //     }
-
-        //     const now = Date.now();
-        //     const timestamps = cooldowns.get(command.name);
-        //     const cooldownAmount = (command.cooldown || 3) * 1000;
-
-        //     if (timestamps.has(message.author.id)) {
-        //         // ...
-        //     }
-        //     timestamps.set(message.author.id, now);
-        // setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-        //     const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-        //     if (timestamps.has(message.author.id)) {
-        //     if (now < expirationTime) {
-        //         const timeLeft = (expirationTime - now) // 1000;
-        //         const timeleftt = new Discord.MessageEmbed()
-        //         .setTitle('__WARNING__')
-        //         .setColor('RED')
-        //         .setDescription(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\``)
-        //         return message.reply({ embeds: [timeleftt] });
-        //     }
-        // }
         if (command) {
+            console.log(`${commandName} was executed by ${message.author.tag}`);
             if (message.channel.type === 'dm') {
                 const nodms = new Discord.MessageEmbed()
                     .setTitle(`I can\'t execute ${commandName} inside DMs!`)

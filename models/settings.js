@@ -10,7 +10,6 @@ const SettingsSchema = new mongoose.Schema({
     welcomedm: Boolean,
     autosnipe: Boolean,
     autosnipech: String,
-    levelch: String,
     banmsg: Boolean
 });
 

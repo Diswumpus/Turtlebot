@@ -1,6 +1,7 @@
 {
     "color": "AQUA",
     "cmd": "https://turtlebot-discord.github.io/Turtlebot/commands",
+    "website": "https://turtlebot-discord.github.io/Turtlebot/",
     "dev": "820465204411236362",
     "invite": "https://discord.gg/5Wutrs8s4s",
     "boti": "https://discord.com/oauth2/authorize?client_id=831712626626134037&permissions=4228381815&scope=bot%20applications.commands",
