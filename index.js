@@ -255,7 +255,7 @@ client.on("message", async (message) => {
         let schannel = await settings.findOne({
             GuildID: message.guild.id
         });
-        const channel = message.guild.channels.cache.get(levelSettings.object.CHANNEL) || message.channel
+        const channel = message.guild.channels.cache.get(levelSettings.object?.CHANNEL) ?? message.channel
         const user = await Levels.fetch(message.author.id, message.guild.id);
         const emojiiii = client.emojis.cache.get('836421450252550199')
         const anotheremoji = client.emojis.cache.get('846908253740204072');
