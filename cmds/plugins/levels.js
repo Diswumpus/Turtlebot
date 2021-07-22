@@ -8,7 +8,7 @@ const { Message } = require('discord.js');
 
 module.exports = {
     name: 'levels',
-    category: 'Misc',
+    category: 'Config',
     description: 'Changes the rank card',
     usage: '--info | --edit',
     permissions: 'ADMINISTRATOR',
@@ -60,7 +60,7 @@ module.exports = {
         const plFind = await plugins.findPlugin(message.guild.id, 'LEVELS')
         const embed = new MessageEmbed().setAuthor(`${message.client.user.username} Plugins`, message.client.user.displayAvatarURL(), message.client.site).setColor(message.client.confiig.color)
         .setThumbnail(levelstn)
-        .setDescription(`Plugin info for ${this.name}\n\n${emojis.check1} **Enabled:** ${plFind.found.toString()}\n${emojis.messages} **Message:** ${plFind.object?.LEVELMESSAGE || 'None'}\n${emojis.channeladd} **Channel:** ${message.client.channels.cache.get(plFind.object.CHANNEL) || 'None'}`)
+        .setDescription(`Plugin info for ${this.name}\n\n${emojis.check1} **Enabled:** ${plFind.found.toString()}\n${emojis.messages} **Message:** ${plFind.object?.LEVELMESSAGE || 'None'}\n${emojis.channeladd} **Channel:** ${message.client.channels.cache.get(plFind.object?.CHANNEL) || 'None'}`)
         let pluginEnabledb = new MessageActionRow()
         if(plFind.found){
             pluginEnabledb.addComponents(enableButton.setDisabled(true), disableButton, editMessageButton, channelButton, rchannelButton)
@@ -103,14 +103,14 @@ module.exports = {
                 genRow();
                 const embed2 = new MessageEmbed().setAuthor(`${message.client.user.username} Plugins`, message.client.user.displayAvatarURL(), message.client.site).setColor(message.client.confiig.color)
                 .setThumbnail(levelstn)
-                .setDescription(`Plugin info for ${this.name}\n\n${emojis.check1} **Enabled:** true\n**Message:** ${plFind.object?.LEVELMESSAGE || 'None'}\n${emojis.channeladd} **Channel:** ${message.client.channels.cache.get(plFind.object.CHANNEL) || 'None'}`)
+                .setDescription(`Plugin info for ${this.name}\n\n${emojis.check1} **Enabled:** true\n**Message:** ${plFind.object?.LEVELMESSAGE || 'None'}\n${emojis.channeladd} **Channel:** ${message.client.channels.cache.get(plFind.object?.CHANNEL) || 'None'}`)
                 i.update({ embeds: [embed2] });
             } else if(i.customId === 'disable'){
                 plugins.editPlugin('LEVELS', message.guild.id, false);
                 genRow();
                 const embed2 = new MessageEmbed().setAuthor(`${message.client.user.username} Plugins`, message.client.user.displayAvatarURL(), message.client.site).setColor(message.client.confiig.color)
                 .setThumbnail(levels)
-                .setDescription(`Plugin info for ${this.name}\n\n${emojis.xmark} **Enabled:** false\n**Message:** ${plFind.object?.LEVELMESSAGE || 'None'}\n${emojis.channeladd} **Channel:** ${message.client.channels.cache.get(plFind.object.CHANNEL) || 'None'}`)
+                .setDescription(`Plugin info for ${this.name}\n\n${emojis.xmark} **Enabled:** false\n**Message:** ${plFind.object?.LEVELMESSAGE || 'None'}\n${emojis.channeladd} **Channel:** ${message.client.channels.cache.get(plFind.object?.CHANNEL) || 'None'}`)
                 i.update({ embeds: [embed2] });
             } else if(i.customId === 'edit_message'){
                 i.reply({ embeds: [
@@ -125,7 +125,7 @@ module.exports = {
                 .then(async m2 => {
                     const embed2 = new MessageEmbed().setAuthor(`${message.client.user.username} Plugins`, message.client.user.displayAvatarURL(), message.client.site).setColor(message.client.confiig.color)
                     .setThumbnail(levelstn)
-                    .setDescription(`Plugin info for ${this.name}\n\n${emojis.check1} **Enabled:** true\n**Message:** ${m2.first().content}\n${emojis.channeladd} **Channel:** ${message.client.channels.cache.get(plFind.object.CHANNEL) || 'None'}`)
+                    .setDescription(`Plugin info for ${this.name}\n\n${emojis.check1} **Enabled:** true\n**Message:** ${m2.first().content}\n${emojis.channeladd} **Channel:** ${message.client.channels.cache.get(plFind.object?.CHANNEL) || 'None'}`)
                     genRow();
                     m.edit({ embeds: [embed2] });
                     plugins.editMessage(message.guild.id, m2.first().content);
