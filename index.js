@@ -248,14 +248,14 @@ client.on("message", async (message) => {
     if (message.author.bot) return;
 
     const levelSettings = await plugin_manager.findPlugin(message.guild.id, 'LEVELS');
-    if(!levelSettings.object.ENABLED) return
+    if(!levelSettings.object?.ENABLED) return
     const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30
     const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
     if (hasLeveledUp || message.content === ';levels') {
         let schannel = await settings.findOne({
             GuildID: message.guild.id
         });
-        const channel = message.guild.channels.cache.get(schannel?.levelch) ?? message.channel
+        const channel = message.guild.channels.cache.get(levelSettings.object.CHANNEL) || message.channel
         const user = await Levels.fetch(message.author.id, message.guild.id);
         const emojiiii = client.emojis.cache.get('836421450252550199')
         const anotheremoji = client.emojis.cache.get('846908253740204072');
