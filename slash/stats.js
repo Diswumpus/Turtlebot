@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const configg = require('../config2.json')
+const emojis = require('../emojis.json');
 
 module.exports = {
     name: 'stats',

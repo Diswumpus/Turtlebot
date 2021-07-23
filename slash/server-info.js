@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const emojis = require('../emojis.json');
 
 module.exports = {
     name: 'server-info',
@@ -6,21 +7,20 @@ module.exports = {
     async execute(client, interaction) {
         const userr = interaction.guild;
         const guild = interaction.guild;
-        const guildowner = guild.fetchOwner()
+        const guildowner = await guild.fetchOwner()
         const embeedd = new Discord.MessageEmbed()
         .setColor(client.confiig.color)
-        .setThumbnail(interaction.guild.iconURL())
-        .setTitle(`${interaction.guild.name}`)
-        .addField(`Verification Level:`, `${interaction.guild.verificationLevel}`)
-        .addField(`Owner:`, `${guildowner}`)
-        .addField(`Members:`, `${interaction.guild.memberCount}`)
-        .addField(`Region:`, `${interaction.guild.region}`)
-        .addField(`Rules:`, `${interaction.guild.rulesChannel?? "None"}`)
-        .addField(`You joined:`, `${interaction.guild.joinedAt}`)
-        .addField(`Server created at:`, `${interaction.guild.createdAt}`)
-        .addField(`Boosts:`, `${interaction.guild.premiumSubscriptionCount ?? "None"}`)
-        .addField(`Boost Tier:`, `${interaction.guild.premiumTier ?? "0"}`)
-        .addField(`Vanity URL:`, `${interaction.guild.vanityURLCode ?? "None"}`)
+        .setAuthor(interaction.user.tag, interaction.user.displayAvatarURL())
+        .setThumbnail(guild.iconURL())
+        .setTitle(`${guild.name}`)
+        .addField(`${emojis.flag_redo} Verification Level:`, `${guild.verificationLevel}`)
+        .addField(`${emojis.pin} Owner:`, `${guildowner}`)
+        .addField(`${emojis.useradd} Members:`, `${guild.memberCount}`)
+        .addField(`${emojis.channeladd} Channels`, `${guild.channels.cache.size}`)
+        .addField(`${emojis.useradd} You joined:`, `<t:${Math.round(new Date(guild.joinedTimestamp).getTime()/1000)}:F>`)
+        .addField(`${emojis.flag} Server created at:`, `<t:${Math.round(new Date(guild.createdTimestamp).getTime()/1000)}:F>`)
+        .addField(`<:nitroboost:835250125319176192> Boosts:`, `${guild.premiumSubscriptionCount ?? "0"} Boosts`)
+        .addField(`${emojis.completed} Vanity URL:`, `${guild.vanityURLCode ?? "None"}`)
         .setTimestamp()
         await interaction.reply({ embeds: [embeedd] }); 
     }
