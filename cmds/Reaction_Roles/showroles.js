@@ -18,7 +18,7 @@ module.exports = {
                 .setCustomId('showrolesbt')
                 .setLabel(`Show roles`)
                 .setEmoji('862868020073857065')
-                .setStyle('PRIMARY')
+                .setStyle('SECONDARY')
         );
         const embed = new Discord.MessageEmbed()
         .setTitle('Show your roles <:magic:862868020073857065>')
