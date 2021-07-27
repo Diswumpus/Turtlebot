@@ -67,6 +67,7 @@ client.slashcmds = new Discord.Collection();
 client.snipes = new Discord.Collection();
 client.config = config;
 client.site = configg.website;
+client.color = configg.color;
 client.cooldowns = new Discord.Collection();
 client.confiig = configg;
 client.version = version;
