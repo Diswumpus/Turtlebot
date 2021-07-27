@@ -51,7 +51,7 @@ module.exports = {
     
     collector.on('collect', async i => {
       if(i.customId === 'ge'){
-        if(!!usersinGiveaway.find(i.user.id)){
+        if(!!usersinGiveaway.find(e => e === i.user.id)){
           return i.reply({ content: `${emojis.xmark} You can't enter more then once!`, ephemeral: true });
         }
         usersinGiveaway.push(i.user.id)
