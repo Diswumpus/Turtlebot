@@ -37,6 +37,7 @@ module.exports = {
       timeLeft.setTime(endTime)
       timeLeft = timeLeft.toTimestamp();
       let uentered = 0;
+      const usersinGiveaway = new Array();
     const gembed = new Discord.MessageEmbed()
     .setTitle(`${title}`)
     .setURL(message.client.site)
@@ -50,6 +51,10 @@ module.exports = {
     
     collector.on('collect', async i => {
       if(i.customId === 'ge'){
+        if(!!usersinGiveaway.find(i.user.id)){
+          return i.reply({ content: `${emojis.xmark} You can't enter more then once!`, ephemeral: true });
+        }
+        usersinGiveaway.push(i.user.id)
         uentered++
         m.edit({ embeds: [gembed.setDescription(`${description || ''}${emojis.timer} Ends ${timeLeft}\n${emojis.useradd} ${uentered} Users in the giveaway\n${emojis.pin} Hosted by: ${message.author}`)], components: [row] });
         i.reply({ content: `${emojis.check1} Successfully entered the Giveaway! ${emojis.tada}`, ephemeral: true })
