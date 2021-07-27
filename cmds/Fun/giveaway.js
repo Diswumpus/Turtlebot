@@ -1,65 +1,84 @@
-const { MessageEmbed } = require("discord.js");
+const { Message, MessageEmbed, GuildMember, MessageActionRow, MessageButton } = require("discord.js");
+const Discord = require('discord.js');
+const dt = require('discord-turtle');
 const ms = require("ms");
+const emojis = require("../../emojis.json");
 module.exports = {
   name: "giveaway",
   category: 'Fun',
   description: "Create a simple giveaway",
-  usage: "<time> <channel> <prize>",
+  usage: "<time> <channel> <prize> [description]",
   category: "fun",
   aliases: ['g'],
-  execute: async (message, Member, args) => {
-    return
-    if (!args[0]) return message.channel.send(`You did not specify your time! ${opps}`);
-    const opps = message.client.emojis.cache.find(em => em.name === "ablobglitch");
-    const think = message.client.emojis.cache.find(em => em.name === "ablobthinkingeyes");
-    if (
-      !args[0].endsWith("d") &&
-      !args[0].endsWith("h") &&
-      !args[0].endsWith("m")
+  /**
+   * 
+   * @param {Message} message 
+   * @param {GuildMember} Member 
+   * @param {Array} args 
+   */
+  async execute(message, Member, args){
+    const length = ms(args[0]);
+    const prize = args[2];
+    const title = prize;
+    const channel = message.mentions.channels.first() || message.guild.channels.cache.get(args[1]);
+    const endTime = Date.now() + length;
+    let description = args[3];
+    if(description) description = description + '\n\n'
+    const row = new MessageActionRow()
+    .addComponents(
+      new MessageButton()
+      .setCustomId('ge')
+      .setEmoji(require('../../emojis.json').tadaid)
+      .setLabel(`Enter`)
+      .setStyle('SECONDARY')
     )
-      return message.channel.send(
-        `You did not use the correct formatting for the time! ${opps}`
-      );
-    if (isNaN(args[0][0])) return message.channel.send(`That is not a number! ${opps}`);
-    let channel = message.mentions.channels.first();
-    if (!channel)
-      return message.channel.send(
-        `I could not find that channel in the guild! ${think}`
-      );
-    let prize = args.slice(2).join(" ");
-    let time = args[0]
-    const gift = message.client.emojis.cache.find(em => em.name === "atada");
-    const party = message.client.emojis.cache.find(em => em.name === "ablobcolorshift");
-    const gifts = message.client.emojis.cache.find(em => em.name === "blobgift1");
-    if (!prize) return message.channel.send(`No prize specified!`);
-    message.channel.send(`Giveaway successfully created in ${channel} for ${prize} made by ${message.author} ${gifts}`);
-    let Embed = new MessageEmbed()
-      .setTitle(`${prize}`)
-      .setDescription(
-        `${message.author} is hosting a giveaway for **${prize}!**`
-      )
-      .setFooter("React to join the giveaway")
-      .setFooter(`Good luck`, gifts.url)
-      .addField("Time left:", `${time}`)
-      .setTimestamp(Date.now() + ms(args[0]))
-      .setColor(message.client.confiig.color);
-    let m = await channel.send(Embed);
-    let react = gift; //"🎉"; //'836423414419161138';
-    m.react(react);
-    setTimeout(() => {
-      if (m.reactions.cache.get(react.id).count <= 1) {
-        message.channel.send(`Reactions: ${m.reactions.cache.get(react).count}`);
-        return message.channel.send(
-          `Not enough people reacted for me to start draw a winner! ${opps}`
-        );
+      let timeLeft = new dt.timestamp()
+      timeLeft.setStyle('R')
+      timeLeft.setTime(endTime)
+      timeLeft = timeLeft.toTimestamp();
+      let uentered = 0;
+    const gembed = new Discord.MessageEmbed()
+    .setTitle(`${title}`)
+    .setURL(message.client.site)
+    .setDescription(`${description || ''}${emojis.timer} Ends ${timeLeft}\n${emojis.useradd} ${uentered} Users in the giveaway\n${emojis.pin} Hosted by: ${message.author}`)
+    .setFooter(`1 Winner`, message.client.emojis.cache.get(emojis.tadaid).url)
+    .setColor(message.client.color)
+    .setTimestamp(Date.now() + ms(length))
+    if(description) description = description.replace('\n\n', '')
+    const m = await channel.send({ embeds: [gembed], components: [row] });
+    const collector = m.createMessageComponentCollector({ message: m, time: length+1 });
+    
+    collector.on('collect', async i => {
+      if(i.customId === 'ge'){
+        uentered++
+        m.edit({ embeds: [gembed.setDescription(`${description || ''}${emojis.timer} Ends ${timeLeft}\n${emojis.useradd} ${uentered} Users in the giveaway\n${emojis.pin} Hosted by: ${message.author}`)], components: [row] });
+        i.reply({ content: `${emojis.check1} Successfully entered the Giveaway! ${emojis.tada}`, ephemeral: true })
+      } else {
+        i.reply({ content: `${emojis.xmark} Error!`, ephemeral: true });
       }
-      let winner = m.reactions.cache
-        .get(react.id)
-        .users.cache.filter((u) => !u.bot)
-        .random();
-      channel.send(
-        `${party} Congratulations ${winner}! You won **${prize}**! ${gifts}`
-      );
-    }, ms(args[0]));
-  },
+    });
+
+    collector.on('end', async collected => {
+      const tendTime = new dt.timestamp()
+      tendTime.setStyle('R')
+      const ended = tendTime.toTimestamp();
+      const endembed = new MessageEmbed()
+      .setTitle(`${title}`)
+      .setURL(message.client.site)
+      .setFooter(`1 Winner`, message.client.emojis.cache.get(emojis.tadaid).url)
+      .setColor(message.client.color)
+      .setTimestamp()
+      if(description) { endembed.setDescription(`${description}\n\n${emojis.pin} Ended ${ended}`) } else {
+        endembed.setDescription(`${emojis.pin} Ended ${ended}`)
+      }
+      row.components[0].setDisabled(true)
+      m.edit({ embeds: [endembed], components: [row] });
+      if(!collector.users || collector.users.size < 1){
+        channel.send({ content: `${emojis.tada} - No one entered!`, components: [await require('../../interactions').link(m.url)] });
+        return
+      }
+      const winner = collector.users.random();
+      channel.send({ content: `${emojis.tada} - ${winner}`, components: [await require('../../interactions').link(m.url)] });
+    })
+  }
 };
