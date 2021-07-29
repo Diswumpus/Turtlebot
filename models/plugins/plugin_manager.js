@@ -54,6 +54,38 @@ module.exports.removeChannel = async (guild, channel) => {
     }
 }
 }
+
+module.exports.createRoles = async (guild) => {
+    
+}
+
+/**
+ * 
+ * @param {Discord.Guild} guild 
+ * @returns A object of the levels
+ */
+module.exports.levelRoles = async (guild) => {
+    const FIND_C = await levels.findOne({
+        GUILD: guild.id
+    });
+    if(FIND_C){
+        const FIND = await levels.findOne({
+            GUILD: guild
+        }, async (err, guildData) => {
+            if (err) console.log(err);
+            guildData.LEVELROLES = true
+            await guildData.save().catch(e => console.log(e));
+        })
+    } else {
+        new levels({
+            GUILD: guild.id,
+            LEVELROLES: true
+        }).save().catch(e => console.log(e));
+    }
+    return {
+        object: levels.findOne({ GUILD: guild.id })
+    }
+}
 /**
  * 
  * @param {String} guild 
