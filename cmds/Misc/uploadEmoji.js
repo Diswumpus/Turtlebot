@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const Discord = require('discord.js');
-const dt = require('../../../discord-turtle/index');
+const dt = require('discord-turtle');
 
 module.exports = {
     name: 'uploademoji',
