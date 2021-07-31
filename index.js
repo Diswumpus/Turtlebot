@@ -51,7 +51,6 @@ client.once('ready', async () => {
 
     let activity = 1;
 
-
     setInterval(() => {
         activities[2] = { name: `${config.prefix}help | ${client.guilds.cache.size} guilds`, type: 'WATCHING' };
         activities[3] = { name: `${config.prefix}help | ${client.users.cache.size} users`, type: 'WATCHING' };
@@ -68,10 +67,34 @@ client.snipes = new Discord.Collection();
 client.config = config;
 client.site = configg.website;
 client.color = configg.color;
+/**
+ * @param {Discord.MessageEmbed} embed 
+ */
+client.addLinks = async (embed) => {
+    embed.addField(`\u200b`, `[Support Server](${configg.invite}) | [Invite Me](${configg.boti})`)
+}
+/**
+ * @param {Discord.Message} message 
+ * @param {Discord.MessageEmbed} embed 
+ */
+client.addAuthor = async (message, embed) => {
+    embed.setAuthor(message.author.tag, message.author.displayAvatarURL())
+}
+/**
+ * @param {Discord.Message} message 
+ */
+client.beta = async (message) => {
+    const bembed = new MessageEmbed()
+    .setColor(configg.color)
+    .setDescription(`${emojijson.lock} ${message.author}, this command is currently in beta!`)
+    .setAuthor(message.author.tag, message.author.displayAvatarURL())
+    client.addLinks(bembed)
+    const m = await message.channel.send({ embeds: [bembed] });
+    return m
+}
 client.cooldowns = new Discord.Collection();
 client.confiig = configg;
 client.version = version;
-//client.disbut = require('discord-buttons')(client);
 const slashFiles = fs.readdirSync('./slash').filter(file => file.endsWith('.js'));
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
@@ -276,7 +299,8 @@ client.on("message", async (message) => {
     }
 });
 
-const emojii = require('./models/emojis')
+const emojii = require('./models/emojis');
+const { MessageEmbed } = require('discord.js');
 // EMOJI STUFF
 client.on('message', async message => {
     const hasEmoteRegex = /<a?:.+:\d+>/gm

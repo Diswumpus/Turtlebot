@@ -14,8 +14,8 @@ module.exports = {
          .addComponents(
              new Discord.MessageButton()
                  .setLabel(`Unlock`)
-                 .setStyle('DANGER')
-                 .setEmoji(require('../../emojis.json').checkid)
+                 .setStyle('SECONDARY')
+                 .setEmoji(require('../../emojis.json').unlockid)
                  .setCustomId('unlock')
          );
          if (!args[0]) {
@@ -23,7 +23,7 @@ module.exports = {
                   SEND_MESSAGES: false
                })
             const lockembed = new Discord.MessageEmbed()
-               .setTitle(`${require('../../emojis.json').check} Locked down ${message.channel.name}`)
+               .setTitle(`${require('../../emojis.json').lock} Locked down ${message.channel.name}`)
                .setColor(message.client.confiig.color)
             const m = await message.channel.send({ embeds: [lockembed], components: [view] })
          }
@@ -32,12 +32,12 @@ module.exports = {
                   SEND_MESSAGES: false
             })
             const lockembed = new Discord.MessageEmbed()
-               .setTitle(`${require('../../emojis.json').check} Locked down ${message.channel.name} for ${time}`)
+               .setTitle(`${require('../../emojis.json').lock} Locked down ${message.channel.name} for ${time}`)
                .setColor(message.client.confiig.color)
             const m = await message.channel.send({ embeds: [lockembed], components: [view] })
             setTimeout(() => {
                const unlock = new Discord.MessageEmbed()
-                  .setTitle(`${require('../../emojis.json').check} Unlocked ${message.channel.name}`)
+                  .setTitle(`${require('../../emojis.json').unlock} Unlocked ${message.channel.name}`)
                   .setColor(message.client.confiig.color)
                m.edit({ embeds: [unlock] })
                   message.channel.permissionOverwrites.edit(message.guild.roles.everyone, {

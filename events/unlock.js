@@ -11,7 +11,7 @@ module.exports = {
                     SEND_MESSAGES: true
                  })
                  const embed = new Discord.MessageEmbed()
-                 .setTitle(`${require('../emojis.json').check} Unlocked ${interaction.channel.name}`)
+                 .setTitle(`${require('../emojis.json').unlock} Unlocked ${interaction.channel.name}`)
                  .setColor(client.confiig.color)
                  await interaction.reply({ embeds: [embed], ephemeral: true });
             }

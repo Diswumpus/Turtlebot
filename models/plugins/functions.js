@@ -85,6 +85,10 @@ module.exports.RANK_REMOVE = async (guild) => {
     */
  const birthdays = require('./birthdays');
 
+
+ module.exports.setChannel = async (channel) => {
+     
+ }
  /**
  * 
  * @param {Discord.GuildMember} member 
@@ -94,8 +98,8 @@ module.exports.RANK_REMOVE = async (guild) => {
     new birthdays({
         GUILD: member.guild.id,
         USER: member.id,
-        DATE: new Date(date),
-        DATE2: new Date(date).getTime()
+        DATE: new Date(date.toString() + new Date().getFullYear().toString()),
+        DATE2: new Date(date.toString() + new Date().getFullYear().toString()).getTime().toString()
     }).save().catch(e => console.log(e));
  }
 /**

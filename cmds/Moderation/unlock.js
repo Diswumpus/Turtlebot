@@ -12,7 +12,7 @@ module.exports = {
                SEND_MESSAGES: true
             })
          const lockembed = new Discord.MessageEmbed()
-         .setTitle(`${require('../../emojis.json').check} Unlocked ${message.channel.name}`)
+         .setTitle(`${require('../../emojis.json').unlock} Unlocked ${message.channel.name}`)
       message.channel.send({ embeds: [lockembed] });
     }
   },

@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const emojis = require('./emojis.json');
 
 /**
  * 

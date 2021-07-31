@@ -12,7 +12,7 @@ module.exports = {
                 v.forEach(async c => {
                     if (c.user === true) {
                         let nembed;
-                        const eventrun = false;
+                        let eventrun = false;
                         const row = new Discord.MessageActionRow()
                         // check if username changed
                         if (newMember.user.username != oldMember.user.username) {
