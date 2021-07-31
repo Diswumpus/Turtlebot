@@ -11,6 +11,7 @@ module.exports = {
      * @param {Array} args 
      */
     async execute(message, Member, args) {
+        message.delete();
         let text = '```json\n{\n';
         for(const emoji of message.guild.emojis.cache.array()){
             text += `"${emoji.name}": "${emoji}",\n`
