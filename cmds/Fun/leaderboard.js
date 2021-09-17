@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 //const canvacord = require("canvacord"); // npm i canvacord
 const Levels = require("discord-xp");
-const Canvas = require('canvas');
+//const Canvas = require('canvas');
 
 module.exports = {
    name: "leaderboard",
