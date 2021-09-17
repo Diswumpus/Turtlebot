@@ -17,10 +17,11 @@ module.exports = {
         .setTitle(`<:info:860201073305583637> Open a ticket!`)
         .setDescription(`By reacting to this ticket, a ticket will be opened for you.`)
         .setColor(color)
+        const ticketEmoji = message.client.emojis.cache.get('860201073305583637');
         const ticket = new Discord.MessageActionRow()
         .addComponents(
             new Discord.MessageButton()
-            .setEmoji('<:info:860201073305583637>')
+            .setEmoji(ticketEmoji)
             .setLabel('Open a ticket')
             .setCustomId('ticket_open')
             .setStyle("SECONDARY")
