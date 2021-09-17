@@ -1,5 +1,5 @@
 const Discord = require("discord.js")
-const canvacord = require("canvacord");
+//const canvacord = require("canvacord"); // npm i canvacord
 const Levels = require("discord-xp");
 const Canvas = require('canvas');
 
