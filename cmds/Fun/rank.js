@@ -1,5 +1,5 @@
 const Discord = require("discord.js")
-const canvacord = require("canvacord");
+//const canvacord = require("canvacord"); // npm i canvacord
 const Levels = require("discord-xp");
 const levelsc = require('../../models/plugins/rank-card');
 const levelfn = require('../../models/plugins/functions');
@@ -9,6 +9,7 @@ module.exports = {
  category: 'Fun',
  description: "Shows your rank",
  execute: async (message, Member, args) => {
+  return
     //const userData = getDataSomehow();
     const target = message.mentions.users.first() || message.author;
     const avatarr = target.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 })
