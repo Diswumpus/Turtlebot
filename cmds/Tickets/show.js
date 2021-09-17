@@ -19,7 +19,11 @@ module.exports = {
         .setColor(color)
         const ticket = new Discord.MessageActionRow()
         .addComponents(
-            await buttons.button('Open a ticket', 1, 'ticket_open', '860201073305583637')
+            new Discord.MessageButton()
+            .setEmoji('860201073305583637')
+            .setLabel('Open a ticket')
+            .setCustomId('ticket_open')
+            .setStyle("SECONDARY")
         );
         const m = await channel.send({ embeds: [embed], components: [ticket] });
         const sendembed = new Discord.MessageEmbed()
