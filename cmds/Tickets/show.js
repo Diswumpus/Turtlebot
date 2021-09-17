@@ -20,7 +20,7 @@ module.exports = {
         const ticket = new Discord.MessageActionRow()
         .addComponents(
             new Discord.MessageButton()
-            .setEmoji('860201073305583637')
+            .setEmoji('<:info:860201073305583637>')
             .setLabel('Open a ticket')
             .setCustomId('ticket_open')
             .setStyle("SECONDARY")
