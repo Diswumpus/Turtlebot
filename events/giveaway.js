@@ -11,8 +11,8 @@ module.exports = {
 	async execute(message, client) {
         if(message.author.bot) return 
         if(message.content.startsWith(client.config.prefix)) return
-        if(!message.guild.id) return
-        if(message.channel.type === 'DM') return
+        if(!message.guild?.id) return
+        if(message.channel?.type === 'DM') return
 
         messages.addMessages(message.member)
 	},

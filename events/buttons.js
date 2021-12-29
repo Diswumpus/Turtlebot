@@ -7,34 +7,34 @@ module.exports = {
 		if (!interaction.isButton()) return;
         let met = '0'
         let bfind = await brs.findOne({
-            guild: interaction.guild.id,
+            guild: interaction.guild?.id,
             button1: interaction.customId
         });
         if(!bfind){
             met = '1'
             bfind = await brs.findOne({
-                guild: interaction.guild.id,
+                guild: interaction.guild?.id,
                 button2: interaction.customId
             });
         }
         if(!bfind){
             met = '2'
             bfind = await brs.findOne({
-                guild: interaction.guild.id,
+                guild: interaction.guild?.id,
                 button3: interaction.customId
             });
         }
         if(!bfind){
             met = '3'
             bfind = await brs.findOne({
-                guild: interaction.guild.id,
+                guild: interaction.guild?.id,
                 button4: interaction.customId
             });
         }
         if(!bfind){
             met = '4'
             bfind = await brs.findOne({
-                guild: interaction.guild.id,
+                guild: interaction.guild?.id,
                 button5: interaction.customId
             });
         }

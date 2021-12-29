@@ -5,8 +5,9 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
 		if (!interaction.isButton()) return;
-        if (!interaction.member.permissions.has('MANAGE_MESSAGES')) return
             if(interaction.customId === 'unlock'){
+                if (!interaction.member.permissions.has('MANAGE_MESSAGES')) return
+                
                 interaction.channel.permissionOverwrites.edit(interaction.guild.roles.everyone, {
                     SEND_MESSAGES: true
                  })

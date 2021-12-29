@@ -36,6 +36,9 @@ const client = new Discord.Client({
 //Your server! ${config.prefix}help | WATCHING
 const roleName = '2 Month Supporter';
 module.exports.client = client
+module.exports.getLiveClient = () => {
+    return client
+}
 
 //client.snipes = new Discord.Collection();
 
@@ -92,6 +95,79 @@ client.beta = async (message) => {
     const m = await message.channel.send({ embeds: [bembed] });
     return m
 }
+const permFlags = "OWNER CREATE_INSTANT_INVITE KICK_MEMBERS BAN_MEMBERS ADMINISTRATOR MANAGE_CHANNELS MANAGE_GUILD ADD_REACTIONS VIEW_AUDIT_LOG PRIORITY_SPEAKER STREAM VIEW_CHANNEL SEND_MESSAGES SEND_TTS_MESSAGES MANAGE_MESSAGES EMBED_LINKS ATTACH_FILES READ_MESSAGE_HISTORY MENTION_EVERYONE USE_EXTERNAL_EMOJIS VIEW_GUILD_INSIGHTS CONNECT SPEAK MUTE_MEMBERS DEAFEN_MEMBERS MOVE_MEMBERS USE_VAD CHANGE_NICKNAME MANAGE_NICKNAMES MANAGE_ROLES MANAGE_WEBHOOKS MANAGE_EMOJIS USE_APPLICATION_COMMA REQUEST_TO_SPEAK MANAGE_THREADS USE_PUBLIC_THREADS USE_PRIVATE_THREADS"
+/**
+ * 
+ * @param {Discord.PermissionString | "OWNER"} perm 
+ * @param {*} message 
+ * @returns 
+ */
+client.noPermError = async (perm, message) => {
+    if(!permFlags.includes(perm)) return null
+    const embe = new MessageEmbed()
+    .setColor(configg.color)
+    .setDescription(`${emojijson.xmark} ${message.author}, You don't have the permission to do that... \n\n\`\`\`You need the ${perm} permission!\`\`\``)
+    client.addLinks(embe)
+    client.addAuthor(message, embe)
+    return (await message.channel.send({ embeds: [embe] }));
+}
+/**
+ * 
+ * @param {Discord.PermissionString|"OWNER"} perm 
+ * @param {Discord.Message} message 
+ */
+client.hasPerm = async (perm, message) => {
+    /**
+     * 
+     * @param {Discord.PermissionString|"OWNER"} perm 
+     */
+    async function hasPerm(permm){
+        if(permm === 'OWNER'){
+            return message.author.id === config.ownerID;
+        } else if(permFlags.includes(permm)){
+            return message.member.permissions.has(permm);
+        } else {
+            return false
+        }
+    }
+    if(perm === 'OWNER'){
+        if(message.author.id === config.ownerID){
+            return {
+                ok: true,
+                isOwner: async function() {
+                    return message.author.id === config.ownerID
+                },
+                hasPerm: async function(){ return (await hasPerm(perm)) }
+            }
+        } else {
+            return {
+                ok: false,
+                isOwner: async function() {
+                    return message.author.id === config.ownerID
+                },
+                hasPerm: async function(){ return (await hasPerm(perm)) }
+            }
+        }
+    } else {
+        if(message.member.permissions.has(perm)){
+            return {
+                ok: true,
+                isOwner: async function() {
+                    return message.author.id === config.ownerID
+                },
+                hasPerm: async function(){ return (await hasPerm(perm)) }
+            }
+        } else {
+            return {
+                ok: false,
+                isOwner: async function() {
+                    return message.author.id === config.ownerID
+                },
+                hasPerm: async function(){ return (await hasPerm(perm)) }
+            }
+        }
+    }
+}
 client.cooldowns = new Discord.Collection();
 client.confiig = configg;
 client.version = version;
@@ -125,7 +201,7 @@ client.on('interaction', async interaction => {
     console.log(`received interaction ${interaction.commandName} by ${interaction.user.tag}`);
     const commandName = interaction.commandName;
 
-    const command = client.slashcmds.get(commandName);
+    const command = client.commands.get(commandName);
     const banres = await banmodel.findOne({
         user: interaction.user.id
     });
@@ -172,7 +248,7 @@ client.on('interaction', async interaction => {
     }
     else {
         try {
-            await command.execute(client, interaction);
+            await command.interactionExecute(client, interaction);
         } catch (error) {
             console.error(error);
             // interaction.reply(`Something went very wrong ${opps}`);
@@ -208,6 +284,7 @@ client.on("message", message => {
         else
             return text;
     }
+    
     if (message.content.startsWith(config.prefix + "eval")) {
         if (message.author.id !== config.ownerID) return;
         try {
@@ -294,6 +371,7 @@ client.on("message", async (message) => {
             channel.send({ content: levelSettings.object.LEVELMESSAGE
                 .replace('{{user}}', message.author)
                 .replace('{{level}}', user.level)
+                .replace('{{userNoPing}}', message.author.username)
             });
         }
     }

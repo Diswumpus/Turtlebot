@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const fs = require('fs');
 
 module.exports = {
     name: 'jsonemojis',
@@ -12,13 +13,16 @@ module.exports = {
      */
     async execute(message, Member, args) {
         message.delete();
-        let text = '```json\n{\n';
-        for(const emoji of message.guild.emojis.cache.array()){
-            text += `"${emoji.name}": "${emoji}",\n`
+        let text = '{\n';
+        const allEmojis = await (await message.guild.emojis.fetch()).array()
+        for(const emoji of allEmojis){
+            text += `"${emoji.name}": "${emoji.toString()}",\n`
             text += `"${emoji.name}id": "${emoji.id}",\n`
         }
         text = text.slice(0, text.lastIndexOf(","));
-        text += '\n}\n```'
-        message.channel.send({ content: text })
+        text += '\n}\n'
+        
+        message.channel.send({ content: text }).catch(( )=>{ })
+        console.log(text)
     },
 };

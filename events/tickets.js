@@ -7,7 +7,7 @@ module.exports = {
     name: 'interactionCreate',
     async execute(interaction, client) {
         if (!interaction.isButton()) return;
-        let category = interaction.guild.channels.cache.find(c => c.name === 'Tickets' && c.type === 'GUILD_CATEGORY')
+        let category = interaction.guild?.channels.cache.find(c => c.name === 'Tickets' && c.type === 'GUILD_CATEGORY')
         if (interaction.customId === 'ticket_open') {
             if(!category){
                 category = await interaction.guild.channels.create(`Tickets`, { type: 'category',
