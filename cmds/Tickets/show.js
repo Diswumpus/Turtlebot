@@ -14,12 +14,17 @@ module.exports = {
         const channel = message.mentions.channels.first() || message.guild.channels.cache.get(args[0]) || message.channel;
         //Create embed
         const embed = new Discord.MessageEmbed()
-        .setTitle(`${emojis.ticket} Open a ticket!`)
+        .setTitle(`<:info:860201073305583637> Open a ticket!`)
         .setDescription(`By reacting to this ticket, a ticket will be opened for you.`)
         .setColor(color)
+        const ticketEmoji = message.client.emojis.cache.get('860201073305583637');
         const ticket = new Discord.MessageActionRow()
         .addComponents(
-            await buttons.button('Open a ticket', 1, 'ticket_open', emojis.ticketid)
+            new Discord.MessageButton()
+            .setEmoji(ticketEmoji)
+            .setLabel('Open a ticket')
+            .setCustomId('ticket_open')
+            .setStyle("SECONDARY")
         );
         const m = await channel.send({ embeds: [embed], components: [ticket] });
         const sendembed = new Discord.MessageEmbed()

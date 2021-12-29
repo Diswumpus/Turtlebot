@@ -60,7 +60,11 @@ module.exports = {
             .setDescription(`${interaction.user} opened a ticket!`)
             const ticketb = new Discord.MessageActionRow()
             .addComponents(
-                await buttons.button('Close Ticket', 3, `ticket_close | ${interaction.user.id}`, emojis.ticketid)
+            new Discord.MessageButton()
+            .setEmoji(emojis.ticketid)
+            .setLabel('Close Ticket')
+            .setCustomId(`ticket_close | ${interaction.user.id}`)
+            .setStyle("DANGER")
             );
             ch.send({ embeds: [embed], components: [ticketb] }).catch(( )=>{ })
         }

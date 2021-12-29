@@ -109,7 +109,7 @@ module.exports = {
                 plugins.editPlugin('LEVELS', message.guild.id, false);
                 genRow();
                 const embed2 = new MessageEmbed().setAuthor(`${message.client.user.username} Plugins`, message.client.user.displayAvatarURL(), message.client.site).setColor(message.client.confiig.color)
-                .setThumbnail(levels)
+                //.setThumbnail(levels)
                 .setDescription(`Plugin info for ${this.name}\n\n${emojis.xmark} **Enabled:** false\n**Message:** ${plFind.object?.LEVELMESSAGE || 'None'}\n${emojis.channeladd} **Channel:** ${message.client.channels.cache.get(plFind.object?.CHANNEL) || 'None'}`)
                 i.update({ embeds: [embed2] });
             } else if(i.customId === 'edit_message'){
